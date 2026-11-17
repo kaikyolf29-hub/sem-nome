@@ -40,6 +40,15 @@ describe('tokens', () => {
 		}
 	});
 
+	it.each(nomes)('fatias da rosca têm contraste ≥ 3 sobre o cartão (%s)', (nome) => {
+		const t = temas[nome];
+		expect(t.fatias).toHaveLength(6);
+		for (const cor of t.fatias) {
+			const r = razaoContraste(cor, t.cartao);
+			expect(r, `${nome}: ${cor} sobre cartao = ${r.toFixed(2)}`).toBeGreaterThanOrEqual(3);
+		}
+	});
+
 	it('vermelho da marca não aparece na paleta dos temas', () => {
 		const vermelhos = [marca.base, marca.degradeDe, marca.degradeAte].map((c) => c.toLowerCase());
 		for (const nome of nomes)

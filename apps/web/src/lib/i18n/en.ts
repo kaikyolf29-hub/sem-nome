@@ -2,7 +2,9 @@ import type { Mensagens } from './tipos.ts';
 
 export const en: Mensagens = {
 	comum: {
-		ola: 'Hi, {nome}'
+		ola: 'Hi, {nome}',
+		emBreve: 'This channel arrives in phase {fase} of Mirante.',
+		emBreveTitulo: 'Under construction'
 	},
 	espacos: {
 		mercado: 'Markets',
@@ -142,6 +144,24 @@ export const en: Mensagens = {
 		tipoCanal: 'Channel',
 		tipoNoticia: 'News',
 		dica: 'Arrows to choose, Enter to open, Esc to close'
+	},
+	carteira: {
+		titulo: 'Sample portfolio',
+		alocacao: 'Allocation by asset class',
+		patrimonio: 'Net worth',
+		hoje: 'Today',
+		rendaMensal: 'Estimated monthly income',
+		dozeMeses: '12-month return',
+		suaCarteira: 'Your portfolio',
+		concentracao: '{ativo} is now {pct}% of the portfolio, above the 20% limit you set.',
+		classes: {
+			acoesBr: 'Brazilian stocks',
+			fiis: 'Real estate funds',
+			eua: 'US stocks',
+			rendaFixa: 'Fixed income',
+			cripto: 'Crypto',
+			caixa: 'Cash'
+		}
 	},
 	variacao: {
 		alta: 'up {valor}',

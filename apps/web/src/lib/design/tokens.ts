@@ -21,6 +21,8 @@ export interface PaletaTema {
 	baixa: string;
 	bafafa: string;
 	foco: string;
+	/** Seis cores calmas para fatias de gráfico (contraste ≥ 3 sobre o cartão). */
+	fatias: readonly string[];
 }
 
 const altaEscuro = '#4cc38a';
@@ -29,6 +31,8 @@ const bafafaEscuro = '#f5a524';
 const altaClaro = '#0f6e44';
 const baixaClaro = '#b8232b';
 const bafafaClaro = '#9a4a06';
+const fatiasEscuro = ['#e6e6e9', '#9a9aa3', '#7fb6a4', '#c9a96e', '#8fa7c9', '#c48f9b'] as const;
+const fatiasClaro = ['#2b2b31', '#6b6b75', '#2f7a66', '#8a6a2c', '#4a6a96', '#9a5462'] as const;
 
 export const temas: Record<NomeTema, PaletaTema> = {
 	escuro: {
@@ -45,7 +49,8 @@ export const temas: Record<NomeTema, PaletaTema> = {
 		alta: altaEscuro,
 		baixa: baixaEscuro,
 		bafafa: bafafaEscuro,
-		foco: '#f2f2f3'
+		foco: '#f2f2f3',
+		fatias: fatiasEscuro
 	},
 	preto: {
 		trilho: '#000000',
@@ -61,7 +66,8 @@ export const temas: Record<NomeTema, PaletaTema> = {
 		alta: altaEscuro,
 		baixa: baixaEscuro,
 		bafafa: bafafaEscuro,
-		foco: '#f2f2f3'
+		foco: '#f2f2f3',
+		fatias: fatiasEscuro
 	},
 	claro: {
 		trilho: '#e8e8eb',
@@ -77,7 +83,8 @@ export const temas: Record<NomeTema, PaletaTema> = {
 		alta: altaClaro,
 		baixa: baixaClaro,
 		bafafa: bafafaClaro,
-		foco: '#1a1a1e'
+		foco: '#1a1a1e',
+		fatias: fatiasClaro
 	},
 	// Matsu OS: guia "versão Matsu dos apps do Kaiky" (14/11/2026), vidro sólido.
 	'matsu-escuro': {
@@ -94,7 +101,8 @@ export const temas: Record<NomeTema, PaletaTema> = {
 		alta: altaEscuro,
 		baixa: baixaEscuro,
 		bafafa: bafafaEscuro,
-		foco: '#ffffff'
+		foco: '#ffffff',
+		fatias: fatiasEscuro
 	},
 	'matsu-claro': {
 		trilho: '#f3f3f5',
@@ -110,7 +118,8 @@ export const temas: Record<NomeTema, PaletaTema> = {
 		alta: altaClaro,
 		baixa: baixaClaro,
 		bafafa: bafafaClaro,
-		foco: '#1a1a1e'
+		foco: '#1a1a1e',
+		fatias: fatiasClaro
 	}
 };
 

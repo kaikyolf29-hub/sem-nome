@@ -1,7 +1,9 @@
 /** Catálogo fonte (pt-BR). Toda chave nova entra aqui e em en.ts; o compilador confere a paridade. */
 export const ptBR = {
 	comum: {
-		ola: 'Olá, {nome}'
+		ola: 'Olá, {nome}',
+		emBreve: 'Este canal chega na fase {fase} do Mirante.',
+		emBreveTitulo: 'Em construção'
 	},
 	espacos: {
 		mercado: 'Mercado',
@@ -141,6 +143,24 @@ export const ptBR = {
 		tipoCanal: 'Canal',
 		tipoNoticia: 'Notícia',
 		dica: 'Setas para escolher, Enter para abrir, Esc para fechar'
+	},
+	carteira: {
+		titulo: 'Carteira de exemplo',
+		alocacao: 'Alocação por classe',
+		patrimonio: 'Patrimônio',
+		hoje: 'Hoje',
+		rendaMensal: 'Renda mensal estimada',
+		dozeMeses: 'Rentabilidade em 12 meses',
+		suaCarteira: 'Sua carteira',
+		concentracao: '{ativo} já é {pct}% da carteira, acima do limite de 20% que você definiu.',
+		classes: {
+			acoesBr: 'Ações Brasil',
+			fiis: 'Fundos imobiliários',
+			eua: 'Ações EUA',
+			rendaFixa: 'Renda fixa',
+			cripto: 'Cripto',
+			caixa: 'Caixa'
+		}
 	},
 	variacao: {
 		alta: 'alta de {valor}',
