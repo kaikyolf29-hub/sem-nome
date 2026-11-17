@@ -1,0 +1,12 @@
+{
+	"name": "@mirante/coleta",
+	"private": true,
+	"type": "module",
+	"scripts": {
+		"test": "bun test"
+	},
+	"dependencies": {
+		"@supabase/supabase-js": "2.118.0",
+		"fast-xml-parser": "5.11.2"
+	}
+}

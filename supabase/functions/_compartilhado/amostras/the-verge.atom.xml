@@ -1,0 +1,423 @@
+<?xml version="1.0" encoding="UTF-8"?><feed
+	xmlns="http://www.w3.org/2005/Atom"
+	xmlns:thr="http://purl.org/syndication/thread/1.0"
+	xml:lang="en-US"
+	>
+	<title type="text">The Verge</title>
+	<subtitle type="text">The Verge is about technology and how it makes us feel. Founded in 2011, we offer our audience everything from breaking news to reviews to award-winning features and investigations, on our site, in video, and in podcasts.</subtitle>
+
+	<updated>2026-11-17T01:02:40+00:00</updated>
+
+	<link rel="alternate" type="text/html" href="https://www.theverge.com" />
+	<id>https://www.theverge.com/rss/index.xml</id>
+	<link rel="self" type="application/atom+xml" href="https://www.theverge.com/rss/index.xml" />
+
+	<icon>https://platform.theverge.com/wp-content/uploads/sites/2/2025/01/verge-rss-large_80b47e.png?w=150&amp;h=150&amp;crop=1</icon>
+		<entry>
+			
+			<author>
+				<name>Jay Peters</name>
+			</author>
+			
+			<title type="html"><![CDATA[Hacker behind 2022 GTA VI leaks pleads guilty]]></title>
+			<link rel="alternate" type="text/html" href="https://www.theverge.com/games/1035087/gta-vi-leaks-2022-hacker-pleads-guilty-arion-kurtaj" />
+			<id>https://www.theverge.com/?p=1035087</id>
+			<updated>2026-11-16T18:35:58-05:00</updated>
+			<published>2026-11-16T18:35:58-05:00</published>
+			<category scheme="https://www.theverge.com" term="Entertainment" /><category scheme="https://www.theverge.com" term="Gaming" /><category scheme="https://www.theverge.com" term="News" />
+							<summary type="html"><![CDATA[Arion Kurtaj, a member of the Lapsus$ cybercrime group who leaked 90 videos of Grand Theft Auto VI in 2022 and hacked other big companies, pleaded guilty on Monday, according to the UK's Crown Prosecution Service (CPS). Kurtaj, who is now 21, hacked BT/EE sometime between August and November 2021, and starting in early November [&#8230;]]]></summary>
+			
+							<content type="html">
+											<![CDATA[
+
+						
+<figure>
+
+<img alt="A screenshot from GTA VI." data-caption="" data-portal-copyright="Image: Rockstar Games" data-has-syndication-rights="1" src="https://platform.theverge.com/wp-content/uploads/sites/2/2026/06/ULTIMATE_EDITION_01_de9b57.jpg?quality=90&#038;strip=all&#038;crop=0,0,100,100" />
+	<figcaption>
+		</figcaption>
+</figure>
+<p class="wp-block-paragraph">Arion Kurtaj, a member of the Lapsus$ cybercrime group who leaked 90 videos of <em>Grand Theft Auto VI</em> in 2022 and hacked other big companies, pleaded guilty on Monday, according to the <a href="https://www.cps.gov.uk/london-south/news/lapsus-hacker-who-leaked-gta-vi-gameplay-videos-convicted">UK's Crown Prosecution Service</a> (CPS).</p>
+<p class="wp-block-paragraph">Kurtaj, who is now 21, hacked BT/EE sometime between August and November 2021, and starting in early November of that year, the company "noted a marked increase in unauthorised SIM swaps of their customers mobile phones." He was charged for those offenses and moved to a hotel for his "own protection" in September 2022, but "breached his bail conditions to carry out further hacks on major companies using a mobile phone, the h …</p>
+<p><a href="https://www.theverge.com/games/1035087/gta-vi-leaks-2022-hacker-pleads-guilty-arion-kurtaj">Read the full story at The Verge.</a></p>
+						]]>
+									</content>
+			
+					</entry>
+			<entry>
+			
+			<author>
+				<name>Emma Roth</name>
+			</author>
+			
+			<title type="html"><![CDATA[Tech leaders are convinced that Jensen Huang’s exit was a plot against him]]></title>
+			<link rel="alternate" type="text/html" href="https://www.theverge.com/tech/1035027/tech-leaders-nvidia-jensen-huang-theories" />
+			<id>https://www.theverge.com/?p=1035027</id>
+			<updated>2026-11-16T18:20:44-05:00</updated>
+			<published>2026-11-16T18:17:34-05:00</published>
+			<category scheme="https://www.theverge.com" term="AI" /><category scheme="https://www.theverge.com" term="News" /><category scheme="https://www.theverge.com" term="Nvidia" /><category scheme="https://www.theverge.com" term="Policy" /><category scheme="https://www.theverge.com" term="Tech" />
+							<summary type="html"><![CDATA[Jensen Huang's stunning resignation from Nvidia after more than 33 years has sent shockwaves throughout the tech industry. Now prominent figures are calling for Huang's reinstatement, and many are also hopping on board with a theory spreading throughout Silicon Valley: that the scandal is the result of a plot against the former CEO. At the [&#8230;]]]></summary>
+			
+							<content type="html">
+											<![CDATA[
+
+						
+<figure>
+
+<img alt="A photo of Jensen Huang" data-caption="" data-portal-copyright="Photo by Joel Saget / AFP via Getty Images" data-has-syndication-rights="1" src="https://platform.theverge.com/wp-content/uploads/sites/2/2026/11/gettyimages-2299645290.jpg?quality=90&#038;strip=all&#038;crop=0,0,100,100" />
+	<figcaption>
+		</figcaption>
+</figure>
+<p class="wp-block-paragraph">Jensen Huang's stunning resignation from Nvidia after more than 33 years has sent shockwaves throughout the tech industry. Now prominent figures are calling for Huang's reinstatement, and many are also hopping on board with a theory spreading throughout Silicon Valley: that the scandal is the result of a plot against the former CEO.</p>
+<p class="wp-block-paragraph">At the center of this theory is the <a href="https://www.nytimes.com/2026/11/10/technology/alice-huang-megaspeed-nvidia-jensen-huang.html">reporting from <em>The</em> <em>New York Times</em></a> that former Megaspeed executive Alice Huang, one of multiple women Huang is accused of having an affair with, is a Chinese spy. <a href="https://www.reuters.com/world/china/us-justice-department-has-not-concluded-alice-huang-was-chinese-spy-blanche-says-2026-11-12/">US agencies haven't confirmed</a> whether this is the case, and <a href="https://www.theverge.com/tech/1030446/trump-jensen-huang-press-conference">President Donald Trump claims he was unaware</a> of any spy …</p>
+<p><a href="https://www.theverge.com/tech/1035027/tech-leaders-nvidia-jensen-huang-theories">Read the full story at The Verge.</a></p>
+						]]>
+									</content>
+			
+					</entry>
+			<entry>
+			
+			<author>
+				<name>Richard Lawler</name>
+			</author>
+			
+			<title type="html"><![CDATA[United Airlines system outage disrupts departures just days after the big ground stop]]></title>
+			<link rel="alternate" type="text/html" href="https://www.theverge.com/transportation/1035025/united-airlines-outage-down-departures" />
+			<id>https://www.theverge.com/?p=1035025</id>
+			<updated>2026-11-16T20:02:40-05:00</updated>
+			<published>2026-11-16T17:54:59-05:00</published>
+			<category scheme="https://www.theverge.com" term="Mass Transit" /><category scheme="https://www.theverge.com" term="News" /><category scheme="https://www.theverge.com" term="Transportation" />
+							<summary type="html"><![CDATA[Less than a week after an issue with air traffic control communications and radar caused the FAA to halt takeoffs nationwide, United Airlines departing flights are being disrupted by an outage. At 6:13PM ET, United said the problem has been fixed: Earlier today we experienced a technology-related issue that impacted some departing flights. The issue [&#8230;]]]></summary>
+			
+							<content type="html">
+											<![CDATA[
+
+						
+<figure>
+
+<img alt="" data-caption="United Airlines passenger planes are seen at gates at Newark Liberty International Airport (EWR) in Newark, New Jersey, on November 15, 2026. | AFP via Getty Images" data-portal-copyright="AFP via Getty Images" data-has-syndication-rights="1" src="https://platform.theverge.com/wp-content/uploads/sites/2/2026/11/gettyimages-2304760092.jpg?quality=90&#038;strip=all&#038;crop=0,0,100,100" />
+	<figcaption>
+	United Airlines passenger planes are seen at gates at Newark Liberty International Airport (EWR) in Newark, New Jersey, on November 15, 2026. | AFP via Getty Images	</figcaption>
+</figure>
+<p class="wp-block-paragraph">Less than a week after an issue with air traffic control communications and radar <a href="https://www.theverge.com/transportation/1034039/faa-aviation-glitch-meltdown-ground-stop">caused the FAA to halt takeoffs nationwide</a>, United Airlines departing flights are being disrupted by an outage. At 6:13PM ET, United <a href="https://x.com/united/status/2122468207202279437" data-type="link" data-id="https://x.com/united/status/2122468207202279437">said</a> the problem has been fixed:</p>
+<blockquote class="wp-block-quote is-layout-flow wp-block-quote-is-layout-flow">
+<p class="wp-block-paragraph">Earlier today we experienced a technology-related issue that impacted some departing flights. The issue has been resolved. Please check the latest status of your flight at united.com or the United app.</p>
+</blockquote>
+<p class="wp-block-paragraph">The outage is also coming after <a href="https://www.theverge.com/tech/1034538/microsoft-365-outlook-outage-hotel-chlorine-poisoning">last week's global Microsoft Outlook shutdown</a>, and the <a href="https://www.theverge.com/news/1034952/chase-bank-outage-down-bank-of-america-wells-fargo-zelle">great-bank-outage-that-wasn't</a> earlier Monday afternoon. According to <a href="https://www.reddit.com/r/unitedairlines/comments/1xy2eqc/comment/19sqq1twwtyrn/">posts</a> on <a href="https://www.reddit.com/r/unitedairlines/comments/1xy2eqc/comment/19sqpzi6qutz8/?share_id=nDmvlGiCyVyr3M_Yhd_C6&amp;utm_medium=android_app&amp;utm_name=androidcss&amp;utm_source=share&amp;utm_term=1">social media</a>, a number of peop …</p>
+<p><a href="https://www.theverge.com/transportation/1035025/united-airlines-outage-down-departures">Read the full story at The Verge.</a></p>
+						]]>
+									</content>
+			
+					</entry>
+			<entry>
+			
+			<author>
+				<name>Charles Pulliam-Moore</name>
+			</author>
+			
+			<title type="html"><![CDATA[In Get Huge, the manosphere is here to make friends — with deadly consequences]]></title>
+			<link rel="alternate" type="text/html" href="https://www.theverge.com/entertainment/1033466/hulu-disney-plus-get-huge-looksmaxxing-to-death" />
+			<id>https://www.theverge.com/?p=1033466</id>
+			<updated>2026-11-16T16:41:57-05:00</updated>
+			<published>2026-11-16T16:41:57-05:00</published>
+			<category scheme="https://www.theverge.com" term="Creators" /><category scheme="https://www.theverge.com" term="Entertainment" /><category scheme="https://www.theverge.com" term="Film" /><category scheme="https://www.theverge.com" term="Health" /><category scheme="https://www.theverge.com" term="Hulu" /><category scheme="https://www.theverge.com" term="Science" /><category scheme="https://www.theverge.com" term="Streaming" /><category scheme="https://www.theverge.com" term="Tech" />
+							<summary type="html"><![CDATA[Before Clavicular and other manosphere streamers were introducing young guys to the concept of breaking their facial bones to become more attractive, there was an older generation of creators building massive followings with content focused on chemical biohacking. Were it not for steroid-obsessed influencers like Anthony "Tony Huge" Hughes launching YouTube channels over a decade [&#8230;]]]></summary>
+			
+							<content type="html">
+											<![CDATA[
+
+						
+<figure>
+
+<img alt="Influencer Tony Huge flexing his biceps while standing in front of a red backdrop." data-caption="" data-portal-copyright="Image: Hulu" data-has-syndication-rights="1" src="https://platform.theverge.com/wp-content/uploads/sites/2/2026/11/184084_bk_press_still_1.579.1.jpg?quality=90&#038;strip=all&#038;crop=10.051873779297,10.653583930772,89.948126220703,89.346416069228" />
+	<figcaption>
+		</figcaption>
+</figure>
+<p class="has-drop-cap wp-block-paragraph">Before <a href="https://www.theverge.com/tech/998721/clavicular-charged-with-rape-and-drugging-in-massachusetts">Clavicular</a> and other manosphere streamers were introducing young guys to the concept of breaking their facial bones to become more attractive, there was an older generation of creators building massive followings with content focused on <a href="https://www.theverge.com/column/939462/enhanced-games-biohacking-fda-health-wellness">chemical biohacking</a>. Were it not for steroid-obsessed influencers like Anthony "Tony Huge" Hughes launching YouTube channels over a decade ago, looksmaxxing might not have become such a prominent part of the digital media landscape in 2026. These creators became internet famous by presenting themselves as peak male specimens. But their larger-than-life online personas often concealed the truth about ho …</p>
+<p><a href="https://www.theverge.com/entertainment/1033466/hulu-disney-plus-get-huge-looksmaxxing-to-death">Read the full story at The Verge.</a></p>
+						]]>
+									</content>
+			
+					</entry>
+			<entry>
+			
+			<author>
+				<name>Emma Roth</name>
+			</author>
+			
+			<title type="html"><![CDATA[California sues OpenAI over rogue AI hacking incidents]]></title>
+			<link rel="alternate" type="text/html" href="https://www.theverge.com/ai-artificial-intelligence/1034815/california-openai-hugging-face-lawsuit" />
+			<id>https://www.theverge.com/?p=1034815</id>
+			<updated>2026-11-16T18:04:02-05:00</updated>
+			<published>2026-11-16T15:46:01-05:00</published>
+			<category scheme="https://www.theverge.com" term="AI" /><category scheme="https://www.theverge.com" term="News" /><category scheme="https://www.theverge.com" term="OpenAI" /><category scheme="https://www.theverge.com" term="Policy" /><category scheme="https://www.theverge.com" term="Politics" />
+							<summary type="html"><![CDATA[California is suing OpenAI after its AI agents broke out of their testing environment and hacked other companies, including Hugging Face. In a lawsuit filed Monday, Attorney General Rob Bonta accuses OpenAI of violating consumer safety law by knowingly developing a "dangerous product without proper oversight," as reported earlier by Reuters. The lawsuit claims the [&#8230;]]]></summary>
+			
+							<content type="html">
+											<![CDATA[
+
+						
+<figure>
+
+<img alt="An illustration of the OpenAI logo." data-caption="" data-portal-copyright="Image: Cath Virginia / The Verge" data-has-syndication-rights="1" src="https://platform.theverge.com/wp-content/uploads/sites/2/2025/10/STK155_OPEN_AI_4_CVirginia_D.png?quality=90&#038;strip=all&#038;crop=0,0,100,100" />
+	<figcaption>
+		</figcaption>
+</figure>
+<p class="wp-block-paragraph">California is suing OpenAI after its AI agents broke out of their testing environment and hacked other companies, including Hugging Face. In <a href="https://www.documentcloud.org/documents/28912394-california-v-openai/">a lawsuit filed Monday</a>, Attorney General <a href="https://oag.ca.gov/news/press-releases/it%E2%80%99s-golden-state-not-wild-west-attorney-general-bonta-sues-openai-over">Rob Bonta accuses</a> OpenAI of violating consumer safety law by knowingly developing a "dangerous product without proper oversight," <a href="https://www.reuters.com/business/california-sues-openai-over-ai-models-cyberattacks-hugging-face-other-companies-2026-11-16/">as reported earlier by <em>Reuters</em></a>.</p>
+<p class="wp-block-paragraph">The lawsuit claims the cyberattack on Hugging Face "was the predictable result of an internal culture at OpenAI that prioritizes growth and rapid model development over safety and accountability." It alleges that OpenAI recently told the attorney general's office that it "lost control" of its AI agents  …</p>
+<p><a href="https://www.theverge.com/ai-artificial-intelligence/1034815/california-openai-hugging-face-lawsuit">Read the full story at The Verge.</a></p>
+						]]>
+									</content>
+			
+					</entry>
+			<entry>
+			
+			<author>
+				<name>Stevie Bonifield</name>
+			</author>
+			
+			<title type="html"><![CDATA[Sam Altman says he wants everyone ‘to have a lot of RAM’]]></title>
+			<link rel="alternate" type="text/html" href="https://www.theverge.com/ai-artificial-intelligence/1034787/sam-altman-ram-shortage-semafor" />
+			<id>https://www.theverge.com/?p=1034787</id>
+			<updated>2026-11-16T17:47:14-05:00</updated>
+			<published>2026-11-16T15:41:28-05:00</published>
+			<category scheme="https://www.theverge.com" term="AI" /><category scheme="https://www.theverge.com" term="News" /><category scheme="https://www.theverge.com" term="OpenAI" /><category scheme="https://www.theverge.com" term="Tech" />
+							<summary type="html"><![CDATA[OpenAI CEO Sam Altman is once again addressing his controversial comments on PC RAM purchases. "I want to be clear, I want people to have a lot of RAM, I think everybody should be able to buy a lot of RAM for their own computer," Altman said today. "I think the home tinkering is great." [&#8230;]]]></summary>
+			
+							<content type="html">
+											<![CDATA[
+
+						
+<figure>
+
+<img alt="Sam Altman on a black background." data-caption="Sam… thank you. | Image: Getty Images" data-portal-copyright="Image: Getty Images" data-has-syndication-rights="1" src="https://platform.theverge.com/wp-content/uploads/sites/2/2026/04/gettyimages-1778705436.jpg?quality=90&#038;strip=all&#038;crop=0,0,100,100" />
+	<figcaption>
+	Sam… thank you. | Image: Getty Images	</figcaption>
+</figure>
+<p class="wp-block-paragraph">OpenAI CEO Sam Altman is once again addressing his controversial comments on PC RAM purchases. "I want to be clear, I want people to have a lot of RAM, I think everybody should be able to buy a lot of RAM for their own computer," Altman said today. "I think the home tinkering is great."</p>
+<p class="wp-block-paragraph">The comments were <a href="https://youtu.be/oi-E6xB4wSU?si=3J7vuvnU3rXPySvE&amp;t=1192">made onstage</a> at Semafor's <a href="https://www.semafor.com/hub/semafor-silicon-valley-and-the-world-2026">Silicon Valley &amp; The World</a> summit on Monday.</p>
+<p class="wp-block-paragraph">Altman's remarks on RAM stirred up controversy last month. In an appearance <a href="https://www.theverge.com/ai-artificial-intelligence/1023820/sam-altman-ram-shortage-cloud-servers">on the <em>Cheeky Pint</em> podcast</a>, Altman said that it's "quite terrible" for everyone to have RAM in personal computers rather than in data centers. He later followed up on those comments in posts on  …</p>
+<p><a href="https://www.theverge.com/ai-artificial-intelligence/1034787/sam-altman-ram-shortage-semafor">Read the full story at The Verge.</a></p>
+						]]>
+									</content>
+			
+					</entry>
+			<entry>
+			
+			<author>
+				<name>Brad Bourque</name>
+			</author>
+			
+			<title type="html"><![CDATA[Some of our favorite PlayStation games are steeply discounted for Black Friday]]></title>
+			<link rel="alternate" type="text/html" href="https://www.theverge.com/gadgets/1034339/sony-black-friday-game-sale-2026-deals" />
+			<id>https://www.theverge.com/?p=1034339</id>
+			<updated>2026-11-16T15:37:24-05:00</updated>
+			<published>2026-11-16T15:36:14-05:00</published>
+			<category scheme="https://www.theverge.com" term="Black Friday" /><category scheme="https://www.theverge.com" term="Cyber Monday" /><category scheme="https://www.theverge.com" term="Deals" /><category scheme="https://www.theverge.com" term="Gadgets" /><category scheme="https://www.theverge.com" term="Gaming" /><category scheme="https://www.theverge.com" term="Verge Shopping" />
+							<summary type="html"><![CDATA[Black Friday is approaching, and some companies are already rolling out the discounts ahead of the big day. If you’re hunting for PlayStation 5 accessories, we’ve already rounded up some of our favorite controllers and headsets from Sony’s ongoing promotion. However, if you’re looking to expand your library, some of the PS5’s biggest titles are [&#8230;]]]></summary>
+			
+							<content type="html">
+											<![CDATA[
+
+						
+<figure>
+
+<img alt="" data-caption="" data-portal-copyright="Image: EA Sports" data-has-syndication-rights="1" src="https://platform.theverge.com/wp-content/uploads/sites/2/2026/11/EA-Sports-FC-27.png?quality=90&#038;strip=all&#038;crop=0,0,100,100" />
+	<figcaption>
+		</figcaption>
+</figure>
+<p class="wp-block-paragraph">Black Friday is approaching, and some companies are already rolling out the discounts ahead of the big day. If you’re hunting for PlayStation 5 accessories, we’ve already <a href="https://www.theverge.com/gadgets/1034178/sony-playstation-5-ps5-accessories-monitor-dualsense-headset-deal-sale">rounded up some of our favorite controllers and headsets</a> from Sony’s ongoing promotion. However, if you’re looking to expand your library, some of the PS5’s biggest titles are also currently on sale, in some cases by 50 percent or more, until November 30th.</p>
+
+
+
+
+
+<p class="wp-block-paragraph">We’ve gathered some of the best games below, but sale standouts include <em><a href="https://store.playstation.com/en-us/product/EP3969-PPSA11386_00-007FIRSTLIGHT000">007 First Light</a></em> for $34.99 ($35), <em><a href="https://store.playstation.com/en-us/product/UP4497-PPSA03972_00-00000000000GOTY7">The Witcher 3: Wild Hunt Remastered</a></em> for $19.99 ($30 off), and <em><a href="https://store.playstation.com/en-us/product/UP1001-PPSA35889_00-NBA2K27000000000">NBA 2K27</a></em> for $31.49 (about $39 off). You can view the <a href="https://store.playstation.com/en-us/category/63542e0f-65e4-4d4d-b070-c81624f87287/1">full list of titles on the PlayStation Store</a>, many of which are also currently available at Amazon and other retailers for the same price (or less). </p>
+
+<div class="product-block"><h3>007 First Light</h3>
+<figure class="product-image"><img width="300" height="169" src="https://platform.theverge.com/wp-content/uploads/sites/2/2026/05/007FirstLight_Screenshots_02.png?w=300" class="attachment-medium size-medium" alt="A screenshot from 007 First Light." /></figure>
+<h3>Where to Buy:</h3><ul><li><a href="https://store.playstation.com/en-us/product/EP3969-PPSA11386_00-007FIRSTLIGHT000"> <strike>$69.99</strike> $34.99 at <strong>PlayStation Store</strong></a></li></ul></div>
+
+<div class="product-block"><h3>EA Sports Madden NFL 27</h3>
+<figure class="product-image"><img width="300" height="200" src="https://platform.theverge.com/wp-content/uploads/sites/2/2026/11/Madden-NFL-27.png?w=300" class="attachment-medium size-medium" alt="" /></figure>
+<h3>Where to Buy:</h3><ul><li><a href="https://www.amazon.com/Sports-Madden-NFL-VideoGame-PlayStation-5/dp/B0H2K3RD7C"> <strike>$69.99</strike> $34.97 at <strong>Amazon</strong></a></li><li><a href="https://store.playstation.com/en-us/product/UP0006-PPSA32904_00-MADDENNFL27GAME0"> <strike>$69.99</strike> $34.99 at <strong>PlayStation Store</strong></a></li></ul></div>
+
+<div class="product-block"><h3>Ghost of Yōtei</h3>
+<figure class="product-image"><img width="300" height="169" src="https://platform.theverge.com/wp-content/uploads/sites/2/2025/09/LaunchTrailer_Full_R6_FD.00_00_32_31.Still014.png?w=300" class="attachment-medium size-medium" alt="A screenshot from the video game Ghost of Yōtei." /></figure>
+<h3>Where to Buy:</h3><ul><li><a href="https://www.amazon.com/Ghost-Y%C5%8Dtei-PS5-PlayStation-5/dp/B0F6F41T4H/"> <strike>$69.99</strike> $34.97 at <strong>Amazon</strong></a></li><li><a href="https://www.bestbuy.com/product/ghost-of-yotei-playstation-5/JXHQ3CX8FC/sku/6632282"> <strike>$69.99</strike> $34.99 at <strong>Best Buy</strong></a></li><li><a href="https://direct.playstation.com/en-us/buy-games/ghost-of-yotei-ps5"> <strike>$69.99</strike> $34.99 at <strong>PlayStation Store</strong></a></li></ul></div>
+
+<div class="product-block"><h3>Astro Bot</h3>
+<figure class="product-image"><img loading="lazy" width="300" height="169" src="https://platform.theverge.com/wp-content/uploads/sites/2/chorus/uploads/chorus_asset/file/25619016/53971042042_e76709bbf9_h.jpg?w=300" class="attachment-medium size-medium" alt="Screenshot from Astro Bot featuring Astro riding a DualSense controller over a gorgeous ocean" /></figure>
+<h3>Where to Buy:</h3><ul><li><a href="https://www.amazon.com/dp/B0D5SM3K4Q/"> <strike>$59.99</strike> $37 at <strong>Amazon</strong></a></li><li><a href="https://store.playstation.com/en-us/product/UP9000-PPSA21564_00-0000000000000000"> <strike>$59.99</strike> $39.59 at <strong>PlayStation Store</strong></a></li><li><a href="https://www.bestbuy.com/product/astro-bot-playstation-5/JXHQ3C2TG8/sku/6586163"> <strike>$59.99</strike> $39.99 at <strong>Best Buy</strong></a></li></ul></div>
+
+<div class="product-block"><h3>Cyberpunk 2077: Ultimate Edition</h3>
+<div class="product-description"> </div>
+<figure class="product-image"><img loading="lazy" width="300" height="169" src="https://platform.theverge.com/wp-content/uploads/sites/2/2026/03/cyberpunk2077screenshot.jpg?w=300" class="attachment-medium size-medium" alt="A Cyberpunk 2077 screenshot" /></figure>
+<h3>Where to Buy:</h3><ul><li><a href="https://www.amazon.com/Cyberpunk-2077-Ultimate-PlayStation-5/dp/B0CP2Q75HM"> <strike>$49.99</strike> $39.99 at <strong>Amazon</strong></a></li><li><a href="https://store.playstation.com/en-us/product/UP4497-PPSA03974_00-EXPANSION1B00000"> <strike>$70.99</strike> $35.49 at <strong>PlayStation Store</strong></a></li><li><a href="https://www.bestbuy.com/product/cyberpunk-2077-ultimate-edition-playstation-5/J3GWGV4FV3"> <strike>$59.99</strike> $39.99 at <strong>Best Buy</strong></a></li></ul></div>
+
+<div class="product-block"><h3>Baldur’s Gate 3: Digital Deluxe Edition</h3>
+<figure class="product-image"><img loading="lazy" width="300" height="169" src="https://platform.theverge.com/wp-content/uploads/sites/2/2025/04/ss_31c13d137706fb4d9a4210513274a3ed9c3c7c96.jpg?w=300" class="attachment-medium size-medium" alt="A screenshot from Baldur’s Gate 3." /></figure>
+<h3>Where to Buy:</h3><ul><li><a href="https://store.playstation.com/en-us/product/UP3526-PPSA14001_00-0681576713225017"> <strike>$79.99</strike> $55.99 at <strong>PlayStation Store</strong></a></li></ul></div>
+
+<div class="product-block"><h3>Control Resonant &#8211; Digital Deluxe Edition</h3>
+<figure class="product-image"><img loading="lazy" width="300" height="169" src="https://platform.theverge.com/wp-content/uploads/sites/2/2026/09/CTRL_R_Launch_4K_Media_02.png?w=300" class="attachment-medium size-medium" alt="A screenshot from the video game Control Resonant." /></figure>
+<h3>Where to Buy:</h3><ul><li><a href="https://www.amazon.com/dp/B0H3WQP7C6/"> <strike>$59.99</strike> $49.99 at <strong>Amazon</strong></a></li><li><a href="https://www.bestbuy.com/product/control-resonant-playstation-5/J3GWGV58YZ/sku/6681030/"> <strike>$59.99</strike> $49.99 at <strong>Best Buy</strong></a></li><li><a href="https://store.playstation.com/en-us/product/EP5291-PPSA34547_00-0210080241603648"> <strike>$69.99</strike> $47.99 at <strong>PlayStation Store</strong></a></li></ul></div>
+
+<div class="product-block"><h3>EA Sports FC 27</h3>
+<figure class="product-image"><img loading="lazy" width="300" height="200" src="https://platform.theverge.com/wp-content/uploads/sites/2/2026/11/EA-Sports-FC-27.png?w=300" class="attachment-medium size-medium" alt="" /></figure>
+<h3>Where to Buy:</h3><ul><li><a href="https://www.amazon.com/Standard-PlayStation5-Physical-VideoGame-PlayStation-5/dp/B0H9SYK5Q7"> <strike>$69.99</strike> $34.97 at <strong>Amazon</strong></a></li><li><a href="https://www.walmart.com/ip/EA-SPORTS-FC-27-PlayStation-5-Game/20632916971"> <strike>$69.99</strike> $34.97 at <strong>Walmart</strong></a></li><li><a href="https://store.playstation.com/en-us/product/UP0006-PPSA34015_00-27STANDARDBUNDLE"> <strike>$69.99</strike> $34.99 at <strong>PlayStation Store</strong></a></li></ul></div>
+
+<div class="product-block"><h3>Assassin’s Creed Black Flag Resynced</h3>
+<figure class="product-image"><img loading="lazy" width="300" height="300" src="https://platform.theverge.com/wp-content/uploads/sites/2/2026/11/Assassins-Creed-Black-Flag-Resynced.jpg?w=300" class="attachment-medium size-medium" alt="" /></figure>
+<h3>Where to Buy:</h3><ul><li><a href="https://www.amazon.com/dp/B0GY5YZC4P/"> <strike>$59.99</strike> $53.5 at <strong>Amazon</strong></a></li><li><a href="https://store.playstation.com/en-us/product/EP0001-PPSA28183_00-GAME000000000000"> <strike>$59.99</strike> $44.99 at <strong>PlayStation Store</strong></a></li><li><a href="https://www.target.com/p/assassin-s-creed-black-flag-resynced-playstation-5/-/A-1012906653?preselect=1011165365#lnk=sametab"> <strike>$59.99</strike> $53.99 at <strong>Target</strong></a></li></ul></div>
+
+<div class="product-block"><h3>Marvel’s Wolverine</h3>
+<figure class="product-image"><img loading="lazy" width="300" height="169" src="https://platform.theverge.com/wp-content/uploads/sites/2/2026/09/MW_ExtGameplay_WolverineHero_4k_2026.png?w=300" class="attachment-medium size-medium" alt="A screenshot from the video game Wolverine." /></figure>
+<h3>Where to Buy:</h3><ul><li><a href="https://www.amazon.com/dp/B0G6157JKW/"> <strike>$69.99</strike> $49.97 at <strong>Amazon</strong></a></li><li><a href="http://walmart.com/ip/Marvel-s-Wolverine-Playstation-5/18896166537"> <strike>$69.99</strike> $49.97 at <strong>Walmart</strong></a></li><li><a href="https://store.playstation.com/en-us/product/UP9000-PPSA03671_00-MARVELSWOLVERINE"> <strike>$69.99</strike> $46.69 at <strong>PlayStation Store</strong></a></li></ul></div>
+
+<div class="product-block"><h3>Halo: Campaign Evolved</h3>
+<figure class="product-image"><img loading="lazy" width="300" height="169" src="https://platform.theverge.com/wp-content/uploads/sites/2/2026/07/assets_2026_06_1780857686_1b.HCE_Standard_Edition_No_Logo_3840x2180.jpg?w=300" class="attachment-medium size-medium" alt="Promotional art from Halo: Campaign Evolved." /></figure>
+<h3>Where to Buy:</h3><ul><li><a href="https://store.playstation.com/en-us/product/UP6312-PPSA28038_00-0375433414453693"> <strike>$49.99</strike> $29.99 at <strong>PlayStation Store</strong></a></li></ul></div>
+
+<div class="product-block"><h3>Star Wars Zero Company</h3>
+<figure class="product-image"><img loading="lazy" width="300" height="169" src="https://platform.theverge.com/wp-content/uploads/sites/2/2025/04/SWZC_AnnGP_Screenshot_2_WM.jpg?w=300" class="attachment-medium size-medium" alt="A screenshot from Star Wars Zero Company." /></figure>
+<h3>Where to Buy:</h3><ul><li><a href="https://www.amazon.com/dp/B0GWGZ4D1B"> <strike>$59.99</strike> $44.99 at <strong>Amazon</strong></a></li><li><a href="https://www.walmart.com/ip/Star-Wars-Zero-Company-PlayStation-5-Game/20294819198"> <strike>$59.99</strike> $44.97 at <strong>Walmart</strong></a></li><li><a href="https://store.playstation.com/en-us/product/UP0006-PPSA18054_00-BRUNOSTANDGAME00"> <strike>$59.99</strike> $47.99 at <strong>PlayStation Store</strong></a></li></ul></div>
+
+<div class="product-block"><h3>Saros</h3>
+<figure class="product-image"><img loading="lazy" width="300" height="169" src="https://platform.theverge.com/wp-content/uploads/sites/2/2026/04/087a25b6fbf9ebbdc0094f4bf352acbcfe8d6d72.webp?w=300" class="attachment-medium size-medium" alt="A screenshot from the video game Saros." /></figure>
+<h3>Where to Buy:</h3><ul><li><a href="https://www.amazon.com/dp/B0G5RRPGFF"> <strike>$69.99</strike> $39.99 at <strong>Amazon </strong></a></li><li><a href="https://www.bestbuy.com/product/saros-standard-edition-playstation-5/JXHQ37TSQX/sku/6667386"> <strike>$69.99</strike> $39.99 at <strong>Best Buy</strong></a></li><li><a href="https://store.playstation.com/en-us/product/UP9000-PPSA07632_00-SAROS00000000000"> <strike>$69.99</strike> $39.89 at <strong>PlayStation Store</strong></a></li></ul></div>
+
+<div class="product-block"><h3>Death Stranding 2: On the Beach</h3>
+<figure class="product-image"><img loading="lazy" width="300" height="169" src="https://platform.theverge.com/wp-content/uploads/sites/2/2025/06/02_Characters.jpg?w=300" class="attachment-medium size-medium" alt="A screenshot from the video game Death Stranding 2: On the Beach." /></figure>
+<h3>Where to Buy:</h3><ul><li><a href="https://www.amazon.com/dp/B0F19GPDW3/"> <strike>$69.99</strike> $37.99 at <strong>Amazon</strong></a></li><li><a href="https://store.playstation.com/en-us/product/JP9000-PPSA02015_00-DS2OTB0000000001"> <strike>$69.99</strike> $39.89 at <strong>PlayStation Store</strong></a></li></ul></div>
+
+<div class="product-block"><h3>The Witcher 3: Wild Hunt Remastered</h3>
+<figure class="product-image"><img loading="lazy" width="300" height="169" src="https://platform.theverge.com/wp-content/uploads/sites/2/2026/08/3-2.jpeg?w=300" class="attachment-medium size-medium" alt="A screenshot from The Witcher 3." /></figure>
+<h3>Where to Buy:</h3><ul><li><a href="https://www.playstation.com/en-us/games/the-witcher-3-wild-hunt/"> <strike>$49.99</strike> $19.99 at <strong>PlayStation Store</strong></a></li></ul></div>
+
+<div class="product-block"><h3>NBA 2K27</h3>
+<figure class="product-image"><img loading="lazy" width="300" height="200" src="https://platform.theverge.com/wp-content/uploads/sites/2/2026/11/NBA-2K27-product.png?w=300" class="attachment-medium size-medium" alt="" /></figure>
+<h3>Where to Buy:</h3><ul><li><a href="https://www.amazon.com/NBA-2K27-PlayStation-5/dp/B0H9Z71PJK"> <strike>$69.99</strike> $29.99 at <strong>Amazon</strong></a></li><li><a href="https://www.bestbuy.com/product/nba-2k27-playstation-5/JXHY5RWXW4/sku/6687150"> <strike>$69.99</strike> $29.99 at <strong>Best Buy</strong></a></li><li><a href="https://www.playstation.com/en-us/games/nba-2k/"> <strike>$69.99</strike> $31.49 at <strong>PlayStation Store</strong></a></li></ul></div>
+						]]>
+									</content>
+			
+					</entry>
+			<entry>
+			
+			<author>
+				<name>Ellen Thomas</name>
+			</author>
+			
+			<title type="html"><![CDATA[Big Nuclear isn’t worried about the Democrats stopping data centers]]></title>
+			<link rel="alternate" type="text/html" href="https://www.theverge.com/science/1034694/nuclear-energy-constellation-earnings-data-centers-democrats" />
+			<id>https://www.theverge.com/?p=1034694</id>
+			<updated>2026-11-16T15:32:51-05:00</updated>
+			<published>2026-11-16T15:29:37-05:00</published>
+			<category scheme="https://www.theverge.com" term="AI" /><category scheme="https://www.theverge.com" term="Energy" /><category scheme="https://www.theverge.com" term="Policy" /><category scheme="https://www.theverge.com" term="Science" />
+							<summary type="html"><![CDATA[Constellation Energy - America's largest operator of nuclear power plants - does not share Wall Street's concerns that the Democrats will slow down data center development. On the company's third-quarter earnings call last week, CEO Joe Dominguez was, for lack of a better word, unbothered as he addressed the blue wave. "I do think we've [&#8230;]]]></summary>
+			
+							<content type="html">
+											<![CDATA[
+
+						
+<figure>
+
+<img alt="" data-caption="Constellation&#039;s Clinton Clean Energy Center’s single nuclear reactor power plant, July 25, 2025 in Clinton, Illinois. Meta signed a 20-year power purchase agreement with Constellation for the output from the plant. | Image: Getty Images" data-portal-copyright="Image: Getty Images" data-has-syndication-rights="1" src="https://platform.theverge.com/wp-content/uploads/sites/2/2026/11/gettyimages-2227026671.jpg?quality=90&#038;strip=all&#038;crop=0,0,100,100" />
+	<figcaption>
+	Constellation's Clinton Clean Energy Center’s single nuclear reactor power plant, July 25, 2025 in Clinton, Illinois. Meta signed a 20-year power purchase agreement with Constellation for the output from the plant. | Image: Getty Images	</figcaption>
+</figure>
+<p class="wp-block-paragraph">Constellation Energy - America's largest operator of nuclear power plants - does not share Wall Street's concerns that the Democrats will slow down data center development. On the company's third-quarter earnings call last week, CEO Joe Dominguez was, for lack of a better word, unbothered as he addressed the blue wave.</p>
+<p class="wp-block-paragraph">"I do think we've seen a bit of an overreaction in the market to the election results based upon fear that Democrats won't let data centers get built," Dominguez said.</p>
+<p class="wp-block-paragraph">Many of the Democrats who seized control of the House and Senate in this month's midterm elections ran on anti-data-center campaigns, which triggered a <a href="https://www.wsj.com/finance/stocks/wall-street-gets-2-5-trillion-ai-reality-check-with-historic-rout-of-tech-stocks-93985d7c?eafs_enabled=false">histor …</a></p>
+<p><a href="https://www.theverge.com/science/1034694/nuclear-energy-constellation-earnings-data-centers-democrats">Read the full story at The Verge.</a></p>
+						]]>
+									</content>
+			
+					</entry>
+			<entry>
+			
+			<author>
+				<name>Justine Calma</name>
+			</author>
+			
+			<title type="html"><![CDATA[US data centers now burn more electricity than a midsized country]]></title>
+			<link rel="alternate" type="text/html" href="https://www.theverge.com/ai-artificial-intelligence/1034668/data-centers-electricity-climate-pollution-study-harvard" />
+			<id>https://www.theverge.com/?p=1034668</id>
+			<updated>2026-11-16T15:27:58-05:00</updated>
+			<published>2026-11-16T15:27:58-05:00</published>
+			<category scheme="https://www.theverge.com" term="AI" /><category scheme="https://www.theverge.com" term="Climate" /><category scheme="https://www.theverge.com" term="Energy" /><category scheme="https://www.theverge.com" term="Environment" /><category scheme="https://www.theverge.com" term="Science" />
+							<summary type="html"><![CDATA[Fossil fuels are still the biggest source of electricity for hyperscale data centers in the US, a new paper published in the journal Nature Sustainability shows. They likely burn through more electricity collectively than many countries do, resulting in a serious amount of greenhouse gas emissions. The study homes in on hyperscale facilities - the [&#8230;]]]></summary>
+			
+							<content type="html">
+											<![CDATA[
+
+						
+<figure>
+
+<img alt="Photo collage of a data center with data visualizations." data-caption="" data-portal-copyright="Image: Cath Virginia / The Verge, Getty Images" data-has-syndication-rights="1" src="https://platform.theverge.com/wp-content/uploads/sites/2/2026/04/STKS528_DATA_CENTERS_B.jpg?quality=90&#038;strip=all&#038;crop=0,0,100,100" />
+	<figcaption>
+		</figcaption>
+</figure>
+<p class="wp-block-paragraph">Fossil fuels are still the biggest source of electricity for hyperscale data centers in the US, a new <a href="https://www.nature.com/articles/s41893-026-01985-7">paper</a> published in the journal <em>Nature Sustainability</em> shows. They likely burn through more electricity collectively than many countries do, resulting in a serious amount of greenhouse gas emissions.</p>
+<p class="wp-block-paragraph">The study homes in on hyperscale facilities - the massive structures spanning millions of square feet that developers are racing to build in large part to support generative AI. Researchers say the findings show that there's a lot of work left to do to cut down pollution stemming from AI's reliance on fossil fuels.</p>
+<p class="wp-block-paragraph">"We tend to discuss AI's envir …</p>
+<p><a href="https://www.theverge.com/ai-artificial-intelligence/1034668/data-centers-electricity-climate-pollution-study-harvard">Read the full story at The Verge.</a></p>
+						]]>
+									</content>
+			
+					</entry>
+			<entry>
+			
+			<author>
+				<name>Sheena Vasani</name>
+			</author>
+			
+			<title type="html"><![CDATA[The Apple Watch Series 12 is cheaper than ever ahead of Black Friday]]></title>
+			<link rel="alternate" type="text/html" href="https://www.theverge.com/gadgets/1034512/apple-watch-series-12-black-friday-deal-sale" />
+			<id>https://www.theverge.com/?p=1034512</id>
+			<updated>2026-11-16T14:50:47-05:00</updated>
+			<published>2026-11-16T14:50:47-05:00</published>
+			<category scheme="https://www.theverge.com" term="Apple" /><category scheme="https://www.theverge.com" term="Black Friday" /><category scheme="https://www.theverge.com" term="Cyber Monday" /><category scheme="https://www.theverge.com" term="Deals" /><category scheme="https://www.theverge.com" term="Gadgets" /><category scheme="https://www.theverge.com" term="Tech" /><category scheme="https://www.theverge.com" term="Verge Shopping" />
+							<summary type="html"><![CDATA[If you’re still sporting an Apple Watch that launched five or so years ago, now is a good time to upgrade. Apple’s latest smartwatch, the 42mm Apple Watch Series 12 with Wi-Fi and GPS connectivity, has dropped to a new all-time low of $329 at Amazon, Best Buy, and Walmart, beating the October Prime Day [&#8230;]]]></summary>
+			
+							<content type="html">
+											<![CDATA[
+
+						
+<figure>
+
+<img alt="Apple Watch Series 12" data-caption="The Apple Watch Series 12 is on sale in multiple configurations. | Photo: Amelia Holowaty Krales / The Verge" data-portal-copyright="Photo: Amelia Holowaty Krales / The Verge" data-has-syndication-rights="1" src="https://platform.theverge.com/wp-content/uploads/sites/2/2026/09/268738_Apple_Watch_Series_12_AKrales_0280.jpg?quality=90&#038;strip=all&#038;crop=0,0,100,100" />
+	<figcaption>
+	The Apple Watch Series 12 is on sale in multiple configurations. | Photo: Amelia Holowaty Krales / The Verge	</figcaption>
+</figure>
+<p class="wp-block-paragraph">If you’re still sporting an Apple Watch that launched five or so years ago, now is a good time to upgrade. Apple’s latest smartwatch, the 42mm <strong>Apple Watch Series 12</strong> with Wi-Fi and GPS connectivity, has dropped to a new all-time low of $329 at <a href="https://www.amazon.com/Apple-Watch-Smartwatch-Black-Aluminum/dp/B0HJ9YNRW7">Amazon</a>, <a href="https://www.bestbuy.com/product/apple-watch-series-12-gps-42mm-aluminum-case-with-black-sport-band-s-m-black-2026/JJGCQP9FPT/sku/6572728">Best Buy</a>, and <a href="https://www.walmart.com/ip/Apple-Watch-Series-12-GPS-42mm-Dark-Bronze-Aluminum-Case-with-Olive-Sport-Band-S-M/20989411427">Walmart</a>, beating the October Prime Day price by $20. If you prefer a larger size, the 46mm model is on sale for $379 ($70 off) at <a href="https://www.amazon.com/Apple-Watch-Smartwatch-Black-Aluminum/dp/B0HJBHHY99">Amazon</a>, <a href="https://www.bestbuy.com/product/apple-watch-series-12-gps-46mm-aluminum-case-with-black-sport-band-m-l-black-2026/JJGCQP9FRY/sku/6572737">Best Buy</a>, and <a href="https://www.walmart.com/ip/Apple-Watch-Series-12-GPS-46mm-Dark-Bronze-Aluminum-Case-with-Olive-Sport-Band-M-L/20988714919">Walmart</a>, which is also $20 lower than the previous best price.</p>
+<div class="product-block"><h3>Apple Watch Series 12</h3>
+<figure class="product-image"><img loading="lazy" width="300" height="200" src="https://platform.theverge.com/wp-content/uploads/sites/2/2026/09/268738_Apple_Watch_Series_12_AKrales_0343.jpg?w=300" class="attachment-medium size-medium" alt="" /></figure>
+<h3>Where to Buy:</h3><ul><li><a href="https://www.amazon.com/Apple-Watch-Smartwatch-Black-Aluminum/dp/B0HJ9YNRW7"> <strike>$399</strike> $329 at <strong>Amazon</strong></a></li><li><a href="https://www.walmart.com/ip/Apple-Watch-Series-12-GPS-42mm-Dark-Bronze-Aluminum-Case-with-Olive-Sport-Band-S-M/20989411427"> <strike>$399</strike> $329 at <strong>Walmart</strong></a></li><li><a href="https://www.bestbuy.com/product/apple-watch-series-12-gps-42mm-aluminum-case-with-sand-sport-band-s-m-light-gold-2026/JJGCQP9FS8/sku/6572730"> <strike>$399</strike> $329 at <strong>Best Buy</strong></a></li></ul></div>
+<p class="wp-block-paragraph">The Series 12 stands out compared to previous models with its new AI-powered Audio Intelligence features, which are made possible by Apple&#8217;s new S11 chip. For example, the watch can alert you when it detects sounds like a doorbell, alarm, or even a baby’s cry, while other upcoming features like Live Rewind and Siri Recap lets you look back at a transcript of the previous 15 seconds of conversation and get a high-level overview of the conversations you had that day. The new chip also makes Siri more responsive, so you can get answers to questions with less waiting around.</p>
+
+
+
+
+
+<p class="wp-block-paragraph">It’s not all about AI, though. The Series 12 also features redesigned health sensors that can now track your heart rate every five seconds even when you’re not exercising, which is particularly help if you have a chronic condition and need to keep a closer eye on your heart rate. It also introduces a new readiness score to help you decide how prepared your body is for the day. Other highlights include easier navigation with simple pinch gestures, and faster charging, which helps to make up for the fact that battery life is rated at up to 24 hours on a single charge, just like the previous-generation model. In our testing, the watch went from 20 to 64 percent charge in just 20 minutes, making it relatively easy to top up while showering or getting ready for the day.</p>
+
+<h5 class="wp-block-heading"><a href="https://www.theverge.com/tech/996715/apple-watch-series-12-review-wearables-smartwatch">Read our Apple Watch Series 12 review.</a></h5>
+
+<div id="hype-desk-root"></div>
+
+  window.HYPE_DESK_CONFIG = {
+    productImageUrl: "https://platform.theverge.com/wp-content/uploads/sites/2/2026/11/SME_26001_0050_069_v2_10_QC-1.jpg",
+    productImageAlt: "SPECS AR Glasses",
+    productTitle: "SPECS AR Glasses",
+    shortDescription: "SPECS are augmented reality glasses designed for real life. Navigate, create, and enjoy immersive experiences while staying present.",
+    longDescription:
+      "Discover SPECS, augmented reality glasses designed for real life. Navigate hands-free, explore immersive experiences, and create with a large private display, all while staying connected to the world around you. Available for preorder in two sizes, starting at $2,195.",
+    purchaseUrl: "https://specsinc.pxf.io/c/482924/3886144/52432?subId1=VergeHypeDeskNov2026&amp;u=https%3A%2F%2Fwww.specs.com%2Fsmart-glasses%2Fspecs-27",
+    purchaseLinkText: "Explore SPECS"
+  };
+						]]>
+									</content>
+			
+					</entry>
+	</feed>

@@ -31,6 +31,9 @@ jobs:
         working-directory: .
       - name: Instalar Chromium
         run: bunx playwright install --with-deps chromium
+      - name: Testes da coleta de notícias
+        run: bun run test:coleta
+        working-directory: .
       - run: bun run lint
       - run: bun run check
       - run: bun run test
