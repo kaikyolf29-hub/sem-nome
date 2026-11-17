@@ -413,6 +413,8 @@ Respondidas em 17/11/2026:
 2. **IA local:** usar o Ignis (seção 7.2). O dono vai otimizá-lo depois.
 3. **Cripto:** entram NFT **e** Nvidia (ações e o BDR, já cobertos em 8 e 9.7).
 4. **Pago:** tudo o que for pago fica para depois. Agora é beta grátis, o mais grátis possível.
+5. **Plano pago (17/11/2026):** assinatura simbólica de cerca de R$ 29,90 por mês, a construir depois das próximas etapas. Dá mais limites (IA) e coisas ao vivo (cotações ao vivo com provedor pago, alertas mais rápidos). Pagamento por Stripe ou por uma plataforma brasileira de assinaturas confiável, escolha do dono. O plano grátis segue completo e sem anúncios de venda insistentes.
+6. **Personalização das notícias (17/11/2026):** lista pronta de temas mais tema digitado, no espaço "Para você". Desenho em `2026-11-17-personalizacao-noticias-design.md`.
 
 ## 19. O que fica para quem implementa
 - A lista exata de fontes (conferida, só oficiais e RSS).

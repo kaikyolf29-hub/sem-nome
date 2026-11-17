@@ -59,6 +59,7 @@ O Taste Skill (MIT) pode servir de referência. Não copie código do transition
 
 ## Produto
 - **Custo:** o mais grátis possível. Só planos grátis, com contadores que não deixam estourar nenhuma cota. Tudo que for pago fica para depois e só entra com aprovação do dono. O beta é grátis.
+- **Plano pago (aprovado pelo dono em 17/11/2026, construir depois):** assinatura simbólica de cerca de **R$ 29,90 por mês**, para quem quer mais: limites maiores de IA e dados ao vivo (por exemplo, B3 ao vivo com provedor pago). A plataforma de pagamento é escolha do dono na hora de construir (Stripe ou uma plataforma brasileira de assinaturas confiável). O plano grátis continua completo para quem não assina.
 - **Licença** fechada (todos os direitos reservados). O repositório pode ficar público durante os testes.
 - **Contas:**
   - Supabase: organização "kaikyolf29-7664's projects";
