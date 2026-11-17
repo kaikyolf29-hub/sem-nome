@@ -6,6 +6,7 @@
 	import { page } from '$app/state';
 	import { t } from '#lib/i18n/index.ts';
 	import { localizar } from '#lib/navegacao/espacos.ts';
+	import { NOME_APP } from '#lib/nome.ts';
 	import BarraInferior from './BarraInferior.svelte';
 	import Canais from './Canais.svelte';
 	import { casca } from './casca.svelte.ts';
@@ -19,7 +20,12 @@
 	}: { children: Snippet; painel?: Snippet; onbuscar?: () => void } = $props();
 
 	const local = $derived(localizar(page.params.espaco ?? '', page.params.canal));
+	const titulo = $derived(local ? `#${t(local.canal.rotulo)} | ${NOME_APP}` : NOME_APP);
 </script>
+
+<svelte:head>
+	<title>{titulo}</title>
+</svelte:head>
 
 <div class="casca" class:com-painel={casca.painelNaGrade && painel} class:celular={casca.celular}>
 	{#if !casca.celular}

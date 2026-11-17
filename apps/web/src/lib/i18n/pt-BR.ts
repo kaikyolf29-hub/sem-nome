@@ -89,6 +89,12 @@ export const ptBR = {
 		entrar: 'Entrar com Google',
 		entrarEmBreve: 'O login chega na próxima etapa'
 	},
+	tempo: {
+		agora: 'agora',
+		minutos: 'há {n} min',
+		horas: 'há {n} h',
+		ontem: 'ontem'
+	},
 	variacao: {
 		alta: 'alta de {valor}',
 		queda: 'queda de {valor}',

@@ -10,6 +10,13 @@ test('endereço errado ou antigo leva para as manchetes', async ({ page }) => {
 	await expect(page).toHaveURL(/\/mercado\/manchetes$/);
 	await page.goto('/mercado/xyz');
 	await expect(page).toHaveURL(/\/mercado\/manchetes$/);
+	await page.goto('/a/b/c');
+	await expect(page).toHaveURL(/\/mercado\/manchetes$/);
+});
+
+test('o título da aba mostra o canal', async ({ page }) => {
+	await page.goto('/cripto/stablecoins');
+	await expect(page).toHaveTitle('#stablecoins | Mirante');
 });
 
 test('canal existente mostra o título do canal', async ({ page }) => {

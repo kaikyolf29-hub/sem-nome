@@ -31,4 +31,10 @@ describe('catálogos', () => {
 		expect(ing.map(([k]) => k).sort()).toEqual(pt.map(([k]) => k).sort());
 		for (const [k, v] of [...pt, ...ing]) expect(String(v).trim(), k).not.toBe('');
 	});
+
+	it('os mesmos {parametros} nos dois idiomas', () => {
+		const params = (v: unknown) => [...String(v).matchAll(/\{(\w+)\}/g)].map((m) => m[1]).sort();
+		const ing = new Map(folhas(en));
+		for (const [k, v] of folhas(ptBR)) expect(params(ing.get(k)), k).toEqual(params(v));
+	});
 });

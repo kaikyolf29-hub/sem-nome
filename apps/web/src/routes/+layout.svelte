@@ -5,19 +5,17 @@
 	import '#lib/design/tokens.gerado.css';
 	import '#lib/design/base.css';
 	import favicon from '#lib/assets/favicon.svg';
-	import { NOME_APP } from '#lib/nome.ts';
 	import { tema } from '#lib/design/tema.svelte.ts';
+	import Casca from '#lib/casca/Casca.svelte';
+	import type { LayoutProps } from './$types';
 
 	// Liga o estado do tema (escuta o sistema e escreve data-tema).
 	void tema.nome;
-	import Casca from '#lib/casca/Casca.svelte';
-	import type { LayoutProps } from './$types';
 
 	let { children }: LayoutProps = $props();
 </script>
 
 <svelte:head>
-	<title>{NOME_APP}</title>
 	<link rel="icon" href={favicon} />
 </svelte:head>
 

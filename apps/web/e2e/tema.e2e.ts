@@ -43,3 +43,20 @@ test('sem localStorage o app abre no tema do sistema', async ({ page }) => {
 	await expect(page.locator('html')).toHaveAttribute('data-tema', 'claro');
 	expect(erros).toEqual([]);
 });
+
+test('preferência "claro" vale antes da primeira pintura mesmo com o sistema escuro', async ({
+	page
+}) => {
+	await page.emulateMedia({ colorScheme: 'dark' });
+	await page.addInitScript(() => {
+		localStorage.setItem('mirante:tema', 'claro');
+		document.addEventListener('DOMContentLoaded', () => {
+			(window as unknown as { temaInicial: string }).temaInicial =
+				document.documentElement.dataset.tema ?? '';
+		});
+	});
+	await page.goto('/');
+	expect(
+		await page.evaluate(() => (window as unknown as { temaInicial: string }).temaInicial)
+	).toBe('claro');
+});

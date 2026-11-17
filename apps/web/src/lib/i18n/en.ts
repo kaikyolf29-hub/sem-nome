@@ -90,6 +90,12 @@ export const en: Mensagens = {
 		entrar: 'Sign in with Google',
 		entrarEmBreve: 'Sign-in arrives in the next stage'
 	},
+	tempo: {
+		agora: 'now',
+		minutos: '{n} min ago',
+		horas: '{n} h ago',
+		ontem: 'yesterday'
+	},
 	variacao: {
 		alta: 'up {valor}',
 		queda: 'down {valor}',

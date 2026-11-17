@@ -4,7 +4,6 @@
 	"private": true,
 	"type": "module",
 	"imports": {
-		"#lib": "./src/lib/index.js",
 		"#lib/*": "./src/lib/*"
 	},
 	"scripts": {
@@ -17,7 +16,7 @@
 		"lint": "prettier --check . && eslint .",
 		"format": "prettier --write .",
 		"test:unit": "vitest",
-		"test": "vitest --run --passWithNoTests",
+		"test": "vitest --run",
 		"test:e2e": "playwright test",
 		"build:prototipo": "PROTOTIPO=1 vite build",
 		"tokens": "bun scripts/gerar-tokens.ts"

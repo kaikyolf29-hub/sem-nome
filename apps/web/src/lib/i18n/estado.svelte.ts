@@ -5,13 +5,21 @@ function criarI18n() {
 	let idioma = $state<Idioma>(
 		idiomaInicial(typeof navigator === 'undefined' ? [] : (navigator.languages ?? []))
 	);
+	if (typeof document !== 'undefined') {
+		// <html lang> sempre igual ao idioma da tela (leitores de tela pronunciam certo).
+		$effect.root(() => {
+			$effect(() => {
+				document.documentElement.lang = idioma;
+			});
+		});
+	}
+
 	return {
 		get idioma() {
 			return idioma;
 		},
 		definir(i: Idioma) {
 			idioma = i;
-			if (typeof document !== 'undefined') document.documentElement.lang = i;
 		}
 	};
 }
