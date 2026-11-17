@@ -59,6 +59,7 @@ export function criarSessao(cliente: ClienteAuth | null, endereco: Endereco) {
 
 	function limparRetornoDaUrl() {
 		if (typeof history === 'undefined' || typeof location === 'undefined') return;
+		// eslint-disable-next-line svelte/prefer-svelte-reactivity -- URL só de leitura e troca, não é estado da tela
 		const url = new URL(location.href);
 		if (!PARAMS_DE_RETORNO.some((p) => url.searchParams.has(p))) return;
 		for (const p of PARAMS_DE_RETORNO) url.searchParams.delete(p);
@@ -79,6 +80,7 @@ export function criarSessao(cliente: ClienteAuth | null, endereco: Endereco) {
 			erro = null;
 		},
 		async iniciar() {
+			// eslint-disable-next-line svelte/prefer-svelte-reactivity -- leitura única dos parâmetros de volta do Google
 			const params = new URLSearchParams(endereco.search);
 			if (params.has('error')) erro = mensagemDeErro({ code: params.get('error') ?? undefined });
 			if (!cliente) return;
