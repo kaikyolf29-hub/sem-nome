@@ -5,6 +5,8 @@ export interface FonteNoticia {
 	nome: string;
 	url: string;
 	primaria: boolean;
+	/** Marca do veículo no protótipo (no app real, a logo do próprio site). */
+	marca?: { cor: string; sigla?: string; icone?: 'radar' | 'cripto' };
 }
 
 export interface AtivoLigado {

@@ -111,6 +111,7 @@ export const ptBR = {
 		afetaCarteira: 'Afeta sua carteira',
 		bafafa: 'Bafafá',
 		manchete: 'Manchete',
+		tambemDestaque: 'Também em destaque',
 		mercadoAgora: 'Mercado agora',
 		vazio: 'Nada por aqui ainda. As notícias deste canal aparecem assim que chegarem.',
 		impacto: {

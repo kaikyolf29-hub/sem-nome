@@ -54,27 +54,29 @@
 				{/each}
 			</div>
 		{/if}
+	</div>
 
-		<div class="rodape">
+	<div class="rodape">
+		<span class="temas">
 			<IndicadorImpacto valor={noticia.impacto} />
 			{#each noticia.temas as tema (tema)}
 				<span class="tema">{tema}</span>
 			{/each}
-			<div class="acoes">
-				<!-- eslint-disable-next-line svelte/no-navigation-without-resolve -- link externo para a fonte -->
-				<a class="acao" href={noticia.url} target="_blank" rel="noopener noreferrer">
-					<ExternalLink size={15} strokeWidth={1.75} aria-hidden="true" />
-					{t('feed.lerNaFonte')}
-				</a>
-				<button class="acao" type="button" aria-pressed={salva} onclick={() => (salva = !salva)}>
-					{#if salva}
-						<BookmarkCheck size={15} strokeWidth={1.75} aria-hidden="true" />
-					{:else}
-						<Bookmark size={15} strokeWidth={1.75} aria-hidden="true" />
-					{/if}
-					{t('feed.salvar')}
-				</button>
-			</div>
+		</span>
+		<div class="acoes">
+			<!-- eslint-disable-next-line svelte/no-navigation-without-resolve -- link externo para a fonte -->
+			<a class="acao" href={noticia.url} target="_blank" rel="noopener noreferrer">
+				<ExternalLink size={15} strokeWidth={1.75} aria-hidden="true" />
+				{t('feed.lerNaFonte')}
+			</a>
+			<button class="acao" type="button" aria-pressed={salva} onclick={() => (salva = !salva)}>
+				{#if salva}
+					<BookmarkCheck size={15} strokeWidth={1.75} aria-hidden="true" />
+				{:else}
+					<Bookmark size={15} strokeWidth={1.75} aria-hidden="true" />
+				{/if}
+				{t('feed.salvar')}
+			</button>
 		</div>
 	</div>
 </article>
@@ -183,11 +185,16 @@
 	}
 
 	.rodape {
+		grid-column: 2;
 		display: flex;
 		flex-wrap: wrap;
 		align-items: center;
 		gap: 6px 10px;
 		margin-top: 2px;
+	}
+
+	.temas {
+		display: contents;
 	}
 
 	.tema {
@@ -221,6 +228,36 @@
 	.acao[aria-pressed='true'] {
 		background: color-mix(in srgb, var(--texto) 6%, transparent);
 		color: var(--texto);
+	}
+
+	/* Lista larga: texto com largura boa de ler e, à direita, impacto, temas e botões (sem vão). */
+	@container lista (min-width: 900px) {
+		.noticia {
+			grid-template-columns: 40px minmax(0, 1fr) 236px;
+			column-gap: var(--espaco-5);
+		}
+
+		.corpo {
+			max-width: 72ch;
+		}
+
+		.rodape {
+			grid-column: 3;
+			grid-row: 1;
+			flex-direction: column;
+			align-items: flex-end;
+			justify-content: space-between;
+			gap: var(--espaco-2);
+			margin-top: 0;
+		}
+
+		.temas {
+			display: flex;
+			flex-wrap: wrap;
+			justify-content: flex-end;
+			align-items: center;
+			gap: 6px 10px;
+		}
 	}
 
 	@media (max-width: 767.98px) {

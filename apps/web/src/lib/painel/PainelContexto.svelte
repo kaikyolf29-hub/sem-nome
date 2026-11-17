@@ -3,6 +3,7 @@
 	import { formatarMoeda } from '#lib/formato.ts';
 	import { i18n, t } from '#lib/i18n/index.ts';
 	import { ativoExemplo, noticiasExemplo } from '#lib/prototipo/exemplos.ts';
+	import LogoAtivo from '#lib/logos/LogoAtivo.svelte';
 	import Variacao from '#lib/ui/Variacao.svelte';
 	import ChatExemplo from './ChatExemplo.svelte';
 	import Sparkline from './Sparkline.svelte';
@@ -18,7 +19,10 @@
 <div class="painel">
 	<section class="ativo" aria-labelledby="ativo-titulo">
 		<p class="rotulo">{t('painel.titulo')}</p>
-		<h2 id="ativo-titulo" class="ticker">{ativoExemplo.ticker}</h2>
+		<div class="identidade">
+			<LogoAtivo ticker={ativoExemplo.ticker} tamanho={36} />
+			<h2 id="ativo-titulo" class="ticker">{ativoExemplo.ticker}</h2>
+		</div>
 		<p class="nome">{ativoExemplo.nome}</p>
 		<p class="preco">
 			<span class="valor numero">{formatarMoeda(ativoExemplo.preco, 'BRL', i18n.idioma)}</span>
@@ -34,7 +38,7 @@
 			{#each relacionadas as noticia (noticia.id)}
 				{@const ativo = noticia.ativos.find((a) => a.ticker === ativoExemplo.ticker)!}
 				<li>
-					<p class="manchete">{noticia.titulo}</p>
+					<p class="titulo-noticia">{noticia.titulo}</p>
 					<ChipCarteira {ativo} />
 				</li>
 			{/each}
@@ -65,6 +69,13 @@
 
 	.rotulo {
 		font-weight: 600;
+	}
+
+	.identidade {
+		display: flex;
+		align-items: center;
+		gap: var(--espaco-3);
+		margin: 4px 0 2px;
 	}
 
 	.ticker {
@@ -108,7 +119,7 @@
 		border-bottom: 1px solid var(--borda);
 	}
 
-	.manchete {
+	.titulo-noticia {
 		font-size: var(--tipo-pequeno);
 		font-weight: 600;
 		line-height: 1.4;

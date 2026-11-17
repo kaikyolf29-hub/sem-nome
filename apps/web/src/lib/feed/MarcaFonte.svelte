@@ -1,34 +1,46 @@
 <script lang="ts">
+	import Coins from '@lucide/svelte/icons/coins';
 	import Landmark from '@lucide/svelte/icons/landmark';
+	import Radar from '@lucide/svelte/icons/radar';
 	import type { FonteNoticia } from './tipos.ts';
 
 	let { fonte, tamanho = 40 }: { fonte: FonteNoticia; tamanho?: number } = $props();
 
-	// Letra de "jornal" (serifada) para veículos; prédio público para fontes oficiais.
+	// Fonte oficial: prédio público. Veículo com marca: a cor e o símbolo dele. Sem marca: a inicial, serifada.
 	const letra = $derived(
 		fonte.nome
 			.replace(/^(o|a|the)\s+/i, '')
 			.charAt(0)
 			.toUpperCase()
 	);
+	const marca = $derived(fonte.marca);
+	const icone = $derived(Math.round(tamanho * 0.5));
 </script>
 
 <span
-	class="marca"
+	class="marca-fonte"
 	class:oficial={fonte.primaria}
+	class:sigla-longa={(marca?.sigla?.length ?? 1) > 1}
 	style:width="{tamanho}px"
 	style:height="{tamanho}px"
+	style:background={!fonte.primaria && marca ? marca.cor : undefined}
+	style:color={!fonte.primaria && marca ? '#ffffff' : undefined}
+	style:font-size="{Math.round(tamanho * ((marca?.sigla?.length ?? 1) > 1 ? 0.36 : 0.55))}px"
 	aria-hidden="true"
 >
 	{#if fonte.primaria}
-		<Landmark size={Math.round(tamanho * 0.48)} strokeWidth={1.75} />
+		<Landmark size={icone} strokeWidth={1.75} />
+	{:else if marca?.icone === 'radar'}
+		<Radar size={icone} strokeWidth={2} />
+	{:else if marca?.icone === 'cripto'}
+		<Coins size={icone} strokeWidth={2} />
 	{:else}
-		{letra}
+		{marca?.sigla ?? letra}
 	{/if}
 </span>
 
 <style>
-	.marca {
+	.marca-fonte {
 		display: grid;
 		place-items: center;
 		flex: none;
@@ -36,9 +48,14 @@
 		background: var(--cartao);
 		color: var(--texto);
 		font-family: var(--fonte-manchete);
-		font-size: 22px;
 		font-weight: 600;
 		line-height: 1;
+	}
+
+	.sigla-longa {
+		font-family: var(--fonte-ui);
+		font-weight: 800;
+		letter-spacing: -0.02em;
 	}
 
 	.oficial {

@@ -31,10 +31,11 @@ test('a pessoa escolhe a moeda principal e vê o que há em cada moeda', async (
 	const porMoeda = page.getByRole('region', { name: 'Por moeda' });
 	await expect(porMoeda.getByText('Dólar americano')).toBeVisible();
 	await expect(porMoeda.getByText('moeda principal')).toBeVisible();
-	await page.getByLabel('Ver em').selectOption('USD');
+	await page.getByRole('button', { name: /Ver em/ }).click();
+	await page.getByRole('option', { name: /Dólar americano/ }).click();
 	await expect(page.locator('.patrimonio')).toContainText('US$');
 	// A escolha fica lembrada ao voltar.
 	await page.reload();
-	await expect(page.getByLabel('Ver em')).toHaveValue('USD');
+	await expect(page.getByRole('button', { name: /Ver em/ })).toContainText('USD');
 	await expect(page.locator('.patrimonio')).toContainText('US$');
 });

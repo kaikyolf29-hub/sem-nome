@@ -9,8 +9,9 @@
 		resumoExemplo
 	} from '#lib/prototipo/carteira-exemplo.ts';
 	import { moeda } from './moeda.svelte.ts';
-	import { MOEDAS, consolidar, converter, type Moeda } from './moedas.ts';
+	import { consolidar, converter } from './moedas.ts';
 	import PorMoeda from './PorMoeda.svelte';
+	import SeletorMoeda from './SeletorMoeda.svelte';
 	import Variacao from '#lib/ui/Variacao.svelte';
 	import Rosca from './Rosca.svelte';
 
@@ -32,7 +33,6 @@
 			i18n.idioma
 		)
 	);
-	const nomes = $derived(new Intl.DisplayNames(i18n.idioma, { type: 'currency' }));
 	const hora = $derived(
 		new Intl.DateTimeFormat(i18n.idioma, { hour: '2-digit', minute: '2-digit' }).format(new Date())
 	);
@@ -43,17 +43,7 @@
 	<header class="cabecalho">
 		<div class="linha-rotulo">
 			<p class="rotulo">{t('carteira.patrimonio')}</p>
-			<label class="ver-em">
-				{t('carteira.verEm')}
-				<select
-					value={moeda.principal}
-					onchange={(e) => moeda.definir(e.currentTarget.value as Moeda)}
-				>
-					{#each MOEDAS as m (m)}
-						<option value={m}>{nomes.of(m)} ({m})</option>
-					{/each}
-				</select>
-			</label>
+			<SeletorMoeda valor={moeda.principal} onescolher={(m) => moeda.definir(m)} />
 		</div>
 		<p class="patrimonio numero">{patrimonio}</p>
 		<p class="dia">{t('carteira.hoje')} <Variacao pct={resumoExemplo.variacaoDia} /></p>
@@ -107,7 +97,8 @@
 	.carteira {
 		display: grid;
 		gap: var(--espaco-8);
-		max-width: 820px;
+		max-width: 860px;
+		margin-inline: auto;
 		padding: var(--espaco-8) var(--espaco-6) var(--espaco-10);
 	}
 
@@ -128,29 +119,6 @@
 		align-items: center;
 		justify-content: space-between;
 		gap: var(--espaco-2) var(--espaco-4);
-	}
-
-	.ver-em {
-		display: inline-flex;
-		align-items: center;
-		gap: var(--espaco-2);
-		color: var(--texto-fraco);
-		font-size: var(--tipo-pequeno);
-	}
-
-	select {
-		min-height: 40px;
-		max-width: 100%;
-		padding: 0 34px 0 var(--espaco-3);
-		border: 1px solid var(--borda);
-		border-radius: 999px;
-		background: var(--cartao)
-			url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23888' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E")
-			no-repeat right 12px center;
-		color: var(--texto);
-		font-weight: 600;
-		appearance: none;
-		cursor: pointer;
 	}
 
 	.cambio {
@@ -248,10 +216,6 @@
 	}
 
 	@media (max-width: 767.98px) {
-		select {
-			min-height: 44px;
-		}
-
 		.carteira {
 			padding: var(--espaco-6) var(--espaco-4) var(--espaco-10);
 		}

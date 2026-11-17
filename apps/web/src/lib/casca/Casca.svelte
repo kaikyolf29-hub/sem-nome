@@ -14,7 +14,7 @@
 	import Gaveta from './Gaveta.svelte';
 	import Trilho from './Trilho.svelte';
 	import PaletaComandos from '#lib/paleta/PaletaComandos.svelte';
-	import BarraTitulo from '#lib/janela/BarraTitulo.svelte';
+	import ControlesJanela from '#lib/janela/ControlesJanela.svelte';
 	import { janela } from '#lib/janela/janela.svelte.ts';
 	import PainelPrototipo from '#lib/prototipo/PainelPrototipo.svelte';
 
@@ -45,8 +45,8 @@
 	class:maximizada={janela.maximizada}
 	class:sem-foco={!janela.focada}
 >
-	{#if janela.modo !== 'navegador'}<BarraTitulo />{/if}
 	<div class="casca" class:com-painel={casca.painelNaGrade && painel} class:celular={casca.celular}>
+		{#if janela.modo !== 'navegador'}<ControlesJanela />{/if}
 		{#if !casca.celular}
 			<div class="col-trilho">
 				<Trilho
@@ -61,7 +61,15 @@
 		{/if}
 
 		<main class="col-conteudo">
-			<header class="topo">
+			<!-- svelte-ignore a11y_no_static_element_interactions (duplo clique na faixa de cima maximiza, como numa janela) -->
+			<header
+				class="topo"
+				data-tauri-drag-region
+				ondblclick={(e) => {
+					if (janela.modo !== 'navegador' && e.target === e.currentTarget)
+						janela.maximizada = !janela.maximizada;
+				}}
+			>
 				{#if casca.celular}
 					<button
 						class="icone"
@@ -224,7 +232,27 @@
 		flex: none;
 	}
 
+	/* Barra de título integrada: o app vai até o topo e reserva o lugar dos botões da janela. */
+	.moldura.matsu .col-trilho :global(.trilho) {
+		padding-top: 52px;
+	}
+
+	.moldura.matsu .celular .topo {
+		padding-left: 84px;
+	}
+
+	.moldura.windows .casca:not(.com-painel) .topo {
+		padding-right: 150px;
+	}
+
+	.moldura.windows .col-painel::before {
+		content: '';
+		display: block;
+		height: 48px;
+	}
+
 	.casca {
+		position: relative;
 		display: grid;
 		grid-template-columns: 72px 240px minmax(0, 1fr);
 		grid-template-rows: minmax(0, 1fr);

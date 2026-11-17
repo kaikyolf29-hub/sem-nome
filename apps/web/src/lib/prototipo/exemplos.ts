@@ -5,10 +5,30 @@ import type { IdEspaco } from '#lib/navegacao/espacos.ts';
 // Notícias de EXEMPLO do protótipo: veículos fictícios, fatos inventados, links que não saem do app.
 // A faixa "Protótipo com notícias e números de exemplo" aparece sempre junto.
 
-const GAZETA = { nome: 'Gazeta do Pregão', url: 'https://example.com/', primaria: false };
-const MERCADO = { nome: 'Mercado Hoje', url: 'https://example.com/', primaria: false };
-const RADAR = { nome: 'Radar Tech', url: 'https://example.com/', primaria: false };
-const CRIPTO = { nome: 'Cripto Diário', url: 'https://example.com/', primaria: false };
+const GAZETA = {
+	nome: 'Gazeta do Pregão',
+	url: 'https://example.com/',
+	primaria: false,
+	marca: { cor: '#2f6b4f', sigla: 'G' }
+};
+const MERCADO = {
+	nome: 'Mercado Hoje',
+	url: 'https://example.com/',
+	primaria: false,
+	marca: { cor: '#2c4a7a', sigla: 'MH' }
+};
+const RADAR = {
+	nome: 'Radar Tech',
+	url: 'https://example.com/',
+	primaria: false,
+	marca: { cor: '#1f6f78', icone: 'radar' as const }
+};
+const CRIPTO = {
+	nome: 'Cripto Diário',
+	url: 'https://example.com/',
+	primaria: false,
+	marca: { cor: '#8a5a1f', icone: 'cripto' as const }
+};
 const OFICIAL = { nome: 'Fonte oficial (exemplo)', url: 'https://example.com/', primaria: true };
 
 const minutosAtras = (m: number) => new Date(Date.now() - m * 60_000).toISOString();

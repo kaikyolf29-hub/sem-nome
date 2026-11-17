@@ -112,6 +112,7 @@ export const en: Mensagens = {
 		afetaCarteira: 'Affects your portfolio',
 		bafafa: 'Big news',
 		manchete: 'Top story',
+		tambemDestaque: 'Also leading',
 		mercadoAgora: 'Markets now',
 		vazio: 'Nothing here yet. News for this channel shows up as soon as it arrives.',
 		impacto: {

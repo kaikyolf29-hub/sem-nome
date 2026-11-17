@@ -21,7 +21,8 @@ test('Por moeda e legenda da rosca sem texto encostado a 768 px, mesmo em ienes'
 	test.skip(desktop({ isMobile: false }) && false);
 	await page.setViewportSize({ width: 768, height: 1000 });
 	await page.goto('/carteira/visao-geral');
-	await page.getByLabel('Ver em').selectOption('JPY');
+	await page.getByRole('button', { name: /Ver em/ }).click();
+	await page.getByRole('option', { name: /Iene japonês/ }).click();
 	expect(await semSobreposicao(page, '.moedas li', '.nome', '.valores')).toBe(true);
 	const quebras = await page
 		.locator('.rosca li .nome')

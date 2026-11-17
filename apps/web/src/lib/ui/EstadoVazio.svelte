@@ -14,7 +14,9 @@
 		display: grid;
 		gap: var(--espaco-2);
 		max-width: 48ch;
+		margin-inline: auto;
 		padding: var(--espaco-10) var(--espaco-6);
+		text-align: center;
 	}
 
 	h2 {

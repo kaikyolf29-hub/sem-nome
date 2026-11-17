@@ -49,7 +49,6 @@
 	.manchete {
 		display: grid;
 		gap: var(--espaco-4);
-		max-width: 760px;
 		padding: var(--espaco-8) var(--espaco-6) var(--espaco-6);
 	}
 
