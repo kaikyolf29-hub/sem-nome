@@ -15,7 +15,7 @@
 	let quemAbriu: HTMLElement | null = null;
 
 	const rota = (espaco: (typeof espacosApp)[number]['id'], canal?: string) =>
-		resolve('/[espaco]/[[canal]]', paramsCanal(espaco, canal));
+		resolve('/(app)/[espaco]/[[canal]]', paramsCanal(espaco, canal));
 
 	const itens = $derived<ItemComando[]>([
 		...espacosApp.map((e) => ({

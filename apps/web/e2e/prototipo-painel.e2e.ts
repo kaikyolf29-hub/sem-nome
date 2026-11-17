@@ -3,7 +3,11 @@ import { expect, test } from '@playwright/test';
 test.describe('painel do protótipo', () => {
 	test.beforeEach(async ({ page }) => {
 		await page.goto('/mercado/manchetes');
-		await page.getByRole('button', { name: 'Ajustes do protótipo' }).last().click();
+		await page
+			.getByRole('button', { name: 'Ajustes', exact: true })
+			.or(page.getByRole('button', { name: 'Ajustes do protótipo' }))
+			.first()
+			.click();
 	});
 
 	test('"Ver como Matsu OS" mostra as bolinhas e usa o tema Matsu', async ({ page }) => {

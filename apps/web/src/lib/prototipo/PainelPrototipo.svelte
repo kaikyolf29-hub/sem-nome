@@ -1,6 +1,6 @@
 <script lang="ts">
-	import SlidersHorizontal from '@lucide/svelte/icons/sliders-horizontal';
 	import X from '@lucide/svelte/icons/x';
+	import { resolve } from '$app/paths';
 	import { casca } from '#lib/casca/casca.svelte.ts';
 	import { tema } from '#lib/design/tema.svelte.ts';
 	import type { PreferenciaTema } from '#lib/design/tema.ts';
@@ -106,16 +106,8 @@
 				</div>
 			</fieldset>
 		{/each}
+		<a class="logos" href={resolve('/marca')}>{t('prototipo.verLogos')}</a>
 	</section>
-{:else}
-	<button
-		class="abrir"
-		type="button"
-		aria-label={t('prototipo.ajustes')}
-		onclick={() => (casca.ajustesAberto = true)}
-	>
-		<SlidersHorizontal size={18} strokeWidth={1.75} />
-	</button>
 {/if}
 
 <style>
@@ -145,31 +137,11 @@
 	}
 
 	.fechar,
-	.abrir {
-		display: grid;
-		place-items: center;
-		border: 0;
-		color: var(--texto);
-	}
-
 	.fechar {
 		width: 32px;
 		height: 32px;
 		border-radius: var(--raio-medio);
 		background: none;
-	}
-
-	.abrir {
-		position: fixed;
-		right: var(--espaco-4);
-		bottom: calc(var(--espaco-4) + env(safe-area-inset-bottom));
-		z-index: 55;
-		width: 44px;
-		height: 44px;
-		border: 1px solid var(--borda);
-		border-radius: 50%;
-		background: var(--canais);
-		box-shadow: 0 6px 20px rgb(0 0 0 / 0.25);
 	}
 
 	fieldset {
@@ -224,9 +196,16 @@
 		pointer-events: none;
 	}
 
+	.logos {
+		justify-self: start;
+		color: var(--texto);
+		font-size: var(--tipo-pequeno);
+		font-weight: 600;
+		text-underline-offset: 3px;
+	}
+
 	@media (max-width: 767.98px) {
-		.painel,
-		.abrir {
+		.painel {
 			bottom: calc(76px + env(safe-area-inset-bottom));
 		}
 	}

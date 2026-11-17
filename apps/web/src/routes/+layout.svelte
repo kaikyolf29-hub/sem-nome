@@ -6,8 +6,6 @@
 	import '#lib/design/base.css';
 	import favicon from '#lib/assets/favicon.svg';
 	import { tema } from '#lib/design/tema.svelte.ts';
-	import Casca from '#lib/casca/Casca.svelte';
-	import PainelContexto from '#lib/painel/PainelContexto.svelte';
 	import type { LayoutProps } from './$types';
 
 	// Liga o estado do tema (escuta o sistema e escreve data-tema).
@@ -20,7 +18,4 @@
 	<link rel="icon" href={favicon} />
 </svelte:head>
 
-<Casca>
-	{#snippet painel()}<PainelContexto />{/snippet}
-	{@render children()}
-</Casca>
+{@render children()}

@@ -6,7 +6,7 @@
 </script>
 
 <p class="carteira">
-	<span class="rotulo">{t('feed.afetaCarteira')}</span>
+	<span class="rotulo">{t('feed.afetaCarteira')}:</span>
 	<strong class="ticker">{ativo.ticker}</strong>
 	<span class="motivo">{ativo.motivo}</span>
 </p>
@@ -25,10 +25,6 @@
 	.rotulo {
 		color: var(--texto);
 		font-weight: 600;
-	}
-
-	.rotulo::after {
-		content: ':';
 	}
 
 	.ticker {

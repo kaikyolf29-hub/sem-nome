@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="256" height="256">
+	<defs>
+		<linearGradient id="degrade" x1="16" y1="16" x2="240" y2="240" gradientUnits="userSpaceOnUse">
+			<stop offset="0" stop-color="#FF3B30" />
+			<stop offset="1" stop-color="#C81D11" />
+		</linearGradient>
+	</defs>
+	<rect x="16" y="16" width="224" height="224" rx="58" fill="url(#degrade)" />
+	<rect x="17.5" y="17.5" width="221" height="221" rx="56.5" fill="none" stroke="#FFFFFF" stroke-opacity="0.35" stroke-width="3" />
+	<g transform="translate(0 4)">
+		<!-- B: sol nascendo no horizonte com duas ondas de sinal (ver de cima) -->
+		<path d="M64 166 H192" fill="none" stroke="#FFFFFF" stroke-width="18" stroke-linecap="round" />
+		<path d="M96 160 A32 32 0 0 1 160 160 Z" fill="#FFFFFF" />
+		<path d="M80.5 133 A55 55 0 0 1 175.5 133" fill="none" stroke="#FFFFFF" stroke-width="15" stroke-linecap="round" />
+		<path d="M72.4 104.4 A78 78 0 0 1 183.6 104.4" fill="none" stroke="#FFFFFF" stroke-width="15" stroke-linecap="round" />
+	</g>
+</svg>

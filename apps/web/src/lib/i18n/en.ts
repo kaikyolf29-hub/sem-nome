@@ -86,7 +86,7 @@ export const en: Mensagens = {
 		buscar: 'Search or ask',
 		painel: 'Panel',
 		navegacaoCelular: 'Main navigation',
-		usoIA: 'Free AI: {pct}% used, resets at {hora}',
+		usoIA: 'Free AI: {pct}% used, resets at\u00a0{hora}',
 		usoIARotulo: 'Free AI usage',
 		visitante: 'Guest',
 		entrar: 'Sign in with Google',
@@ -134,7 +134,8 @@ export const en: Mensagens = {
 		manchete: 'Headline',
 		serifada: 'Serif',
 		semSerifa: 'Inter',
-		idioma: 'Language'
+		idioma: 'Language',
+		verLogos: 'See the three logo options'
 	},
 	painel: {
 		titulo: 'Asset in focus',
@@ -185,6 +186,28 @@ export const en: Mensagens = {
 		sairTelaCheia: 'Exit full screen',
 		maximizar: 'Maximize',
 		restaurar: 'Restore'
+	},
+	marca: {
+		titulo: 'Mirante logo: three options',
+		explicacao: 'All in the Matsu OS icon format, which works on any system. Pick one: A, B or C.',
+		tamanhos: 'Sizes',
+		fundos: 'Light, dark and black backgrounds',
+		doca: 'In the dock',
+		barraTarefas: 'In the taskbar',
+		voltar: 'Back to the app',
+		a: {
+			nome: 'A. Chart M',
+			descricao: "Mirante's M drawn as a rising chart line."
+		},
+		b: {
+			nome: 'B. Horizon',
+			descricao: 'The sun rising over the horizon, with signal waves: seeing it all from above.'
+		},
+		c: {
+			nome: 'C. Binoculars',
+			descricao:
+				'The binoculars of someone at the lookout. Friendly and easy to read at small sizes.'
+		}
 	},
 	variacao: {
 		alta: 'up {valor}',

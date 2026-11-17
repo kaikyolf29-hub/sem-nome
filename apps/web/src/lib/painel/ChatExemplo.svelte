@@ -21,16 +21,8 @@
 
 	<div class="resposta">
 		<SeloIA />
-		<p>
-			{#each chatExemplo.resposta as parte, i (i)}
-				{parte.texto}{#if 'citacao' in parte}<button
-						class="citacao"
-						type="button"
-						aria-label={t('painel.citacao', { n: parte.citacao })}
-						onclick={() => irPara(parte.citacao)}>[{parte.citacao}]</button
-					>{/if}
-			{/each}
-		</p>
+		<!-- prettier-ignore -->
+		<p>{#each chatExemplo.resposta as parte, i (i)}{parte.texto}{#if 'citacao' in parte}<button class="citacao" type="button" aria-label={t('painel.citacao', { n: parte.citacao })} onclick={() => irPara(parte.citacao)}>{parte.citacao}</button>{/if}{/each}</p>
 		<ol class="fontes" aria-label={t('painel.fontes')}>
 			{#each fontes as noticia, i (noticia.id)}
 				<li>
@@ -95,15 +87,20 @@
 	}
 
 	.citacao {
-		margin: 0 2px;
+		display: inline-grid;
+		place-items: center;
+		min-width: 18px;
+		height: 18px;
+		margin-inline-start: 3px;
 		padding: 0 4px;
 		border: 0;
 		border-radius: 4px;
 		background: var(--cartao);
 		color: var(--texto);
-		font-size: var(--tipo-legenda);
+		font-size: 11px;
 		font-weight: 700;
-		vertical-align: 1px;
+		line-height: 1;
+		vertical-align: 2px;
 	}
 
 	.fontes {

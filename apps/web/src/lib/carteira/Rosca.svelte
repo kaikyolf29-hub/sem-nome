@@ -31,10 +31,10 @@
 			/>
 		{/each}
 		{#if centro}
-			<text class="centro numero" x="100" y="98" text-anchor="middle">{centro}</text>
+			<text class="centro numero" x="100" y="96" text-anchor="middle">{centro}</text>
 		{/if}
 		{#if legendaCentro}
-			<text class="legenda-centro" x="100" y="120" text-anchor="middle">{legendaCentro}</text>
+			<text class="legenda-centro" x="100" y="117" text-anchor="middle">{legendaCentro}</text>
 		{/if}
 	</svg>
 	<figcaption>

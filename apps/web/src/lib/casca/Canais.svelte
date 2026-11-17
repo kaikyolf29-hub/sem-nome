@@ -43,7 +43,7 @@
 							<a
 								class="canal"
 								class:ativo={canal.id === canalAtivo}
-								href={resolve('/[espaco]/[[canal]]', paramsCanal(espaco.id, canal.id))}
+								href={resolve('/(app)/[espaco]/[[canal]]', paramsCanal(espaco.id, canal.id))}
 								aria-current={canal.id === canalAtivo ? 'page' : undefined}
 								onclick={onescolher}
 							>

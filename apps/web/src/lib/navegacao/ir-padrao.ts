@@ -4,5 +4,5 @@ import { DESTINO_PADRAO } from './espacos.ts';
 
 /** Vai para /mercado/manchetes substituindo o endereço atual (nunca deixa tela branca). */
 export function irParaPadrao(): Promise<void> {
-	return goto(resolve('/[espaco]/[[canal]]', DESTINO_PADRAO), { replace: true });
+	return goto(resolve('/(app)/[espaco]/[[canal]]', DESTINO_PADRAO), { replace: true });
 }

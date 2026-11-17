@@ -85,7 +85,7 @@ export const ptBR = {
 		buscar: 'Buscar ou perguntar',
 		painel: 'Painel',
 		navegacaoCelular: 'Navegação principal',
-		usoIA: 'IA grátis: {pct}% usado, renova às {hora}',
+		usoIA: 'IA grátis: {pct}% usado, renova às\u00a0{hora}',
 		usoIARotulo: 'Uso da IA grátis',
 		visitante: 'Visitante',
 		entrar: 'Entrar com Google',
@@ -133,7 +133,8 @@ export const ptBR = {
 		manchete: 'Manchete',
 		serifada: 'Serifada',
 		semSerifa: 'Inter',
-		idioma: 'Idioma'
+		idioma: 'Idioma',
+		verLogos: 'Ver as três opções de logo'
 	},
 	painel: {
 		titulo: 'Ativo em foco',
@@ -184,6 +185,28 @@ export const ptBR = {
 		sairTelaCheia: 'Sair da tela cheia',
 		maximizar: 'Maximizar',
 		restaurar: 'Restaurar'
+	},
+	marca: {
+		titulo: 'Logo do Mirante: três opções',
+		explicacao:
+			'Todas no formato de ícone do Matsu OS, que funciona em qualquer sistema. Escolha uma: A, B ou C.',
+		tamanhos: 'Tamanhos',
+		fundos: 'Fundos claro, escuro e preto',
+		doca: 'Na doca',
+		barraTarefas: 'Na barra de tarefas',
+		voltar: 'Voltar ao app',
+		a: {
+			nome: 'A. Gráfico em M',
+			descricao: 'O M do Mirante desenhado como uma linha de gráfico que sobe.'
+		},
+		b: {
+			nome: 'B. Horizonte',
+			descricao: 'O sol nascendo no horizonte, com ondas de sinal: ver tudo de cima.'
+		},
+		c: {
+			nome: 'C. Binóculo',
+			descricao: 'O binóculo de quem olha do mirante. Amigável e fácil de ver em tamanho pequeno.'
+		}
 	},
 	variacao: {
 		alta: 'alta de {valor}',

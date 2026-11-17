@@ -28,7 +28,7 @@
 		<a
 			class="item"
 			class:ativo={ativo === item.espaco}
-			href={resolve('/[espaco]/[[canal]]', item.params)}
+			href={resolve('/(app)/[espaco]/[[canal]]', item.params)}
 			aria-current={ativo === item.espaco ? 'page' : undefined}
 		>
 			<item.Icone size={22} strokeWidth={1.75} />

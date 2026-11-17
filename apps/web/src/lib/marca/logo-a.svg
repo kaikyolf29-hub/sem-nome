@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="256" height="256">
+	<defs>
+		<linearGradient id="degrade" x1="16" y1="16" x2="240" y2="240" gradientUnits="userSpaceOnUse">
+			<stop offset="0" stop-color="#FF3B30" />
+			<stop offset="1" stop-color="#C81D11" />
+		</linearGradient>
+	</defs>
+	<rect x="16" y="16" width="224" height="224" rx="58" fill="url(#degrade)" />
+	<rect x="17.5" y="17.5" width="221" height="221" rx="56.5" fill="none" stroke="#FFFFFF" stroke-opacity="0.35" stroke-width="3" />
+	<g transform="translate(1 6)">
+		<!-- A: um M desenhado como linha de gráfico que sobe e termina num ponto -->
+		<path d="M70 178 V108 L106 144 L142 108 V178 M142 108 L170 80" fill="none" stroke="#FFFFFF" stroke-width="20" stroke-linecap="round" stroke-linejoin="round" />
+		<circle cx="180" cy="70" r="14" fill="#FFFFFF" />
+	</g>
+</svg>

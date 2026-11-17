@@ -56,7 +56,7 @@
 				<a
 					bind:this={itens[i]}
 					class="botao"
-					href={resolve('/[espaco]/[[canal]]', paramsCanal(espaco.id))}
+					href={resolve('/(app)/[espaco]/[[canal]]', paramsCanal(espaco.id))}
 					aria-label={nome}
 					aria-current={espaco.id === ativo ? 'page' : undefined}
 					tabindex={i === focoIndice ? 0 : -1}

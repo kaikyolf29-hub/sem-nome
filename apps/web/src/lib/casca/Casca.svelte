@@ -2,6 +2,7 @@
 	import Menu from '@lucide/svelte/icons/menu';
 	import PanelRight from '@lucide/svelte/icons/panel-right';
 	import Search from '@lucide/svelte/icons/search';
+	import SlidersHorizontal from '@lucide/svelte/icons/sliders-horizontal';
 	import type { Snippet } from 'svelte';
 	import { page } from '$app/state';
 	import { t } from '#lib/i18n/index.ts';
@@ -81,6 +82,17 @@
 						<span class="busca-texto">{t('casca.buscar')}</span>
 						<kbd class="atalho">Ctrl K</kbd>
 					</button>
+					{#if casca.celular}
+						<button
+							class="icone"
+							type="button"
+							aria-label={t('prototipo.ajustes')}
+							aria-pressed={casca.ajustesAberto}
+							onclick={() => (casca.ajustesAberto = !casca.ajustesAberto)}
+						>
+							<SlidersHorizontal size={20} strokeWidth={1.75} />
+						</button>
+					{/if}
 					{#if painel}
 						<button
 							class="icone"
