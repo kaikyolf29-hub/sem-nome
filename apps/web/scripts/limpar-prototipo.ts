@@ -4,6 +4,8 @@ import { existsSync, readdirSync, readFileSync, rmSync } from 'node:fs';
 
 const pasta = new URL('../build-prototipo/', import.meta.url).pathname;
 const html = readFileSync(pasta + 'index.html', 'utf8');
-if (!html.includes('_app/immutable/')) rmSync(pasta + '_app/immutable', { recursive: true, force: true });
+if (!html.includes('_app/immutable/'))
+	rmSync(pasta + '_app/immutable', { recursive: true, force: true });
 rmSync(pasta + '_app/version.json', { force: true });
-if (existsSync(pasta + '_app') && readdirSync(pasta + '_app').length === 0) rmSync(pasta + '_app', { recursive: true });
+if (existsSync(pasta + '_app') && readdirSync(pasta + '_app').length === 0)
+	rmSync(pasta + '_app', { recursive: true });
