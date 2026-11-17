@@ -1,0 +1,122 @@
+/* Gerado por scripts/gerar-tokens.ts a partir de src/lib/design/tokens.ts. Não edite. */
+
+:root {
+	--marca: #E62E2D;
+	--marca-de: #FF3B30;
+	--marca-ate: #C81D11;
+	--raio-pequeno: 6px;
+	--raio-medio: 9px;
+	--raio-grande: 12px;
+	--raio-enorme: 16px;
+	--raio-pilula: 999px;
+	--espaco-0: 0px;
+	--espaco-1: 4px;
+	--espaco-2: 8px;
+	--espaco-3: 12px;
+	--espaco-4: 16px;
+	--espaco-5: 20px;
+	--espaco-6: 24px;
+	--espaco-7: 32px;
+	--espaco-8: 40px;
+	--espaco-9: 48px;
+	--espaco-10: 64px;
+	--tipo-legenda: 12px;
+	--tipo-pequeno: 13px;
+	--tipo-corpo: 14px;
+	--tipo-medio: 16px;
+	--tipo-titulo: 18px;
+	--tipo-grande: 22px;
+	--tipo-manchete: 30px;
+	--tipo-destaque: 36px;
+	--dur-rapido: 140ms;
+	--dur-medio: 200ms;
+	--dur-lento: 250ms;
+	--curva: cubic-bezier(0.22, 1, 0.36, 1);
+	--mola: cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+:root[data-tema='escuro'] {
+	--trilho: #141416;
+	--canais: #1b1b1e;
+	--conteudo: #212124;
+	--cartao: #2a2a2e;
+	--cartao-hover: #313136;
+	--borda: rgba(255,255,255,0.08);
+	--texto: #f2f2f3;
+	--texto-fraco: #a6a6ad;
+	--destaque: #f2f2f3;
+	--texto-sobre-destaque: #141416;
+	--alta: #4cc38a;
+	--baixa: #ff7a7a;
+	--bafafa: #f5a524;
+	--foco: #f2f2f3;
+}
+
+:root[data-tema='preto'] {
+	--trilho: #000000;
+	--canais: #0a0a0b;
+	--conteudo: #000000;
+	--cartao: #141416;
+	--cartao-hover: #1c1c1f;
+	--borda: rgba(255,255,255,0.09);
+	--texto: #f2f2f3;
+	--texto-fraco: #a1a1a8;
+	--destaque: #f2f2f3;
+	--texto-sobre-destaque: #000000;
+	--alta: #4cc38a;
+	--baixa: #ff7a7a;
+	--bafafa: #f5a524;
+	--foco: #f2f2f3;
+}
+
+:root[data-tema='claro'] {
+	--trilho: #e8e8eb;
+	--canais: #f0f0f2;
+	--conteudo: #f7f7f8;
+	--cartao: #ffffff;
+	--cartao-hover: #f2f2f4;
+	--borda: rgba(0,0,0,0.09);
+	--texto: #1a1a1e;
+	--texto-fraco: #5c5c66;
+	--destaque: #1a1a1e;
+	--texto-sobre-destaque: #ffffff;
+	--alta: #0f6e44;
+	--baixa: #b8232b;
+	--bafafa: #9a4a06;
+	--foco: #1a1a1e;
+}
+
+:root[data-tema='matsu-escuro'] {
+	--trilho: #202022;
+	--canais: #202022;
+	--conteudo: #1a1a1b;
+	--cartao: #262628;
+	--cartao-hover: #2c2c2e;
+	--borda: rgba(255,255,255,0.07);
+	--texto: #ffffff;
+	--texto-fraco: #a0a0a8;
+	--destaque: #ffffff;
+	--texto-sobre-destaque: #141416;
+	--alta: #4cc38a;
+	--baixa: #ff7a7a;
+	--bafafa: #f5a524;
+	--foco: #ffffff;
+}
+
+:root[data-tema='matsu-claro'] {
+	--trilho: #f3f3f5;
+	--canais: #f3f3f5;
+	--conteudo: #f8f8f9;
+	--cartao: #fafafb;
+	--cartao-hover: #f1f1f3;
+	--borda: rgba(26,26,30,0.08);
+	--texto: #1a1a1e;
+	--texto-fraco: #6e6e78;
+	--destaque: #1a1a1e;
+	--texto-sobre-destaque: #ffffff;
+	--alta: #0f6e44;
+	--baixa: #b8232b;
+	--bafafa: #9a4a06;
+	--foco: #1a1a1e;
+}
+

@@ -1,4 +1,9 @@
 <script lang="ts">
+	import '@fontsource-variable/inter/wght.css';
+	import '@fontsource-variable/jetbrains-mono/wght.css';
+	import '@fontsource-variable/newsreader/wght.css';
+	import '#lib/design/tokens.gerado.css';
+	import '#lib/design/base.css';
 	import favicon from '#lib/assets/favicon.svg';
 	import { NOME_APP } from '#lib/nome.ts';
 	import type { LayoutProps } from './$types';
