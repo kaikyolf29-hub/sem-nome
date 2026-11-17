@@ -220,6 +220,7 @@ Um conjunto fixo de casos (notícias reais, perguntas, carteiras de teste) roda 
 
 ### 9.2 Carteira
 - Duas carteiras (BRL e USD) com visão consolidada em BRL pelo câmbio do dia, mostrando a hora.
+- **Várias moedas (pedido do dono, 17/11/2026):** a pessoa escolhe uma **moeda principal** entre 10 (real, dólar americano, euro, libra, iene, franco suíço, dólar canadense, dólar australiano, yuan e peso mexicano) e vê o patrimônio todo nela. A seção **Por moeda** mostra quanto há em cada moeda: o valor na moeda original, quanto vale na principal e a fatia da carteira. A conversão usa o dólar como ponte, mostrando a hora do câmbio; a escolha fica lembrada.
 - Ativos: ações, FIIs, ETFs, BDRs, ações dos EUA, renda fixa, cripto e caixa. Cadastro manual e importação por CSV ou XLSX, inclusive os relatórios que a Área do Investidor da B3 exporta (negociações e movimentações).
 - Rosca animada da alocação (por ativo, classe, país, setor, moeda), evolução do patrimônio, rentabilidade, comparação com CDI, Ibovespa e S&P 500.
 - Proventos recebidos, renda mensal estimada e calendário de dividendos.

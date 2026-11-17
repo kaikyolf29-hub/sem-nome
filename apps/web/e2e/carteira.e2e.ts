@@ -25,3 +25,16 @@ test('com movimento reduzido a rosca aparece completa sem animar', async ({ page
 		.evaluate((el) => getComputedStyle(el).strokeDashoffset);
 	expect(offset).toBe('0px');
 });
+
+test('a pessoa escolhe a moeda principal e vê o que há em cada moeda', async ({ page }) => {
+	await page.goto('/carteira/visao-geral');
+	const porMoeda = page.getByRole('region', { name: 'Por moeda' });
+	await expect(porMoeda.getByText('Dólar americano')).toBeVisible();
+	await expect(porMoeda.getByText('moeda principal')).toBeVisible();
+	await page.getByLabel('Ver em').selectOption('USD');
+	await expect(page.locator('.patrimonio')).toContainText('US$');
+	// A escolha fica lembrada ao voltar.
+	await page.reload();
+	await expect(page.getByLabel('Ver em')).toHaveValue('USD');
+	await expect(page.locator('.patrimonio')).toContainText('US$');
+});

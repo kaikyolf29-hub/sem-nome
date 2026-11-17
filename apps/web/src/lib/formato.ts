@@ -3,7 +3,8 @@ import type { Idioma } from '#lib/i18n/tipos.ts';
 
 const MENOS = '−';
 
-export function formatarMoeda(valor: number, moeda: 'BRL' | 'USD', idioma: Idioma): string {
+/** Valor na moeda (código ISO 4217, como BRL, USD, EUR ou JPY). */
+export function formatarMoeda(valor: number, moeda: string, idioma: Idioma): string {
 	return new Intl.NumberFormat(idioma, { style: 'currency', currency: moeda })
 		.format(valor)
 		.replace('-', MENOS);

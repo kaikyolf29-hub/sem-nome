@@ -2,26 +2,59 @@
 	import TriangleAlert from '@lucide/svelte/icons/triangle-exclamation-point';
 	import { formatarMoeda, formatarVariacao } from '#lib/formato.ts';
 	import { i18n, t } from '#lib/i18n/index.ts';
-	import { alocacaoExemplo, resumoExemplo } from '#lib/prototipo/carteira-exemplo.ts';
+	import {
+		alocacaoExemplo,
+		cotacoesExemplo,
+		posicoesPorMoeda,
+		resumoExemplo
+	} from '#lib/prototipo/carteira-exemplo.ts';
+	import { moeda } from './moeda.svelte.ts';
+	import { MOEDAS, consolidar, converter, type Moeda } from './moedas.ts';
+	import PorMoeda from './PorMoeda.svelte';
 	import Variacao from '#lib/ui/Variacao.svelte';
 	import Rosca from './Rosca.svelte';
 
 	const fatias = $derived(alocacaoExemplo.map((f) => ({ rotulo: t(f.rotulo), valor: f.valor })));
-	const patrimonio = $derived(formatarMoeda(resumoExemplo.patrimonio, 'BRL', i18n.idioma));
+	const consolidado = $derived(consolidar(posicoesPorMoeda, moeda.principal, cotacoesExemplo));
+	const patrimonio = $derived(formatarMoeda(consolidado.total, moeda.principal, i18n.idioma));
 	const compacto = $derived(
 		new Intl.NumberFormat(i18n.idioma, {
 			style: 'currency',
-			currency: 'BRL',
+			currency: moeda.principal,
 			notation: 'compact',
 			maximumFractionDigits: 0
-		}).format(resumoExemplo.patrimonio)
+		}).format(consolidado.total)
+	);
+	const renda = $derived(
+		formatarMoeda(
+			converter(resumoExemplo.rendaMensal, 'BRL', moeda.principal, cotacoesExemplo),
+			moeda.principal,
+			i18n.idioma
+		)
+	);
+	const nomes = $derived(new Intl.DisplayNames(i18n.idioma, { type: 'currency' }));
+	const hora = $derived(
+		new Intl.DateTimeFormat(i18n.idioma, { hour: '2-digit', minute: '2-digit' }).format(new Date())
 	);
 	const maiorRetorno = Math.max(...resumoExemplo.dozeMeses.map((d) => d.pct));
 </script>
 
 <div class="carteira">
 	<header class="cabecalho">
-		<p class="rotulo">{t('carteira.patrimonio')}</p>
+		<div class="linha-rotulo">
+			<p class="rotulo">{t('carteira.patrimonio')}</p>
+			<label class="ver-em">
+				{t('carteira.verEm')}
+				<select
+					value={moeda.principal}
+					onchange={(e) => moeda.definir(e.currentTarget.value as Moeda)}
+				>
+					{#each MOEDAS as m (m)}
+						<option value={m}>{nomes.of(m)} ({m})</option>
+					{/each}
+				</select>
+			</label>
+		</div>
 		<p class="patrimonio numero">{patrimonio}</p>
 		<p class="dia">{t('carteira.hoje')} <Variacao pct={resumoExemplo.variacaoDia} /></p>
 	</header>
@@ -30,6 +63,12 @@
 		<TriangleAlert size={16} strokeWidth={2} aria-hidden="true" />
 		{t('carteira.concentracao', resumoExemplo.concentracao)}
 	</p>
+
+	<section aria-labelledby="moedas-titulo" role="region">
+		<h2 id="moedas-titulo" class="titulo">{t('carteira.porMoeda')}</h2>
+		<PorMoeda fatias={consolidado.porMoeda} principal={moeda.principal} />
+		<p class="cambio">{t('carteira.cambio', { hora })}</p>
+	</section>
 
 	<section aria-labelledby="alocacao-titulo">
 		<h2 id="alocacao-titulo" class="titulo">{t('carteira.alocacao')}</h2>
@@ -44,7 +83,7 @@
 	<div class="duas">
 		<section aria-labelledby="renda-titulo">
 			<h2 id="renda-titulo" class="titulo">{t('carteira.rendaMensal')}</h2>
-			<p class="grande numero">{formatarMoeda(resumoExemplo.rendaMensal, 'BRL', i18n.idioma)}</p>
+			<p class="grande numero">{renda}</p>
 		</section>
 
 		<section aria-labelledby="doze-titulo">
@@ -81,6 +120,43 @@
 	.dia {
 		color: var(--texto-fraco);
 		font-size: var(--tipo-pequeno);
+	}
+
+	.linha-rotulo {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		justify-content: space-between;
+		gap: var(--espaco-2) var(--espaco-4);
+	}
+
+	.ver-em {
+		display: inline-flex;
+		align-items: center;
+		gap: var(--espaco-2);
+		color: var(--texto-fraco);
+		font-size: var(--tipo-pequeno);
+	}
+
+	select {
+		min-height: 36px;
+		max-width: 100%;
+		padding: 0 34px 0 var(--espaco-3);
+		border: 1px solid var(--borda);
+		border-radius: 999px;
+		background: var(--cartao)
+			url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23888' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E")
+			no-repeat right 12px center;
+		color: var(--texto);
+		font-weight: 600;
+		appearance: none;
+		cursor: pointer;
+	}
+
+	.cambio {
+		margin-top: var(--espaco-3);
+		color: var(--texto-fraco);
+		font-size: var(--tipo-legenda);
 	}
 
 	.patrimonio {
