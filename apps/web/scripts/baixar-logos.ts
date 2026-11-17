@@ -26,7 +26,10 @@ const SITES: Record<string, string> = {
 	techcrunch: 'https://techcrunch.com'
 };
 
-const NAVEGADOR = { 'User-Agent': 'Mozilla/5.0 (compatible; MiranteBot/0.1; +https://mirante.mirante-mercado.workers.dev)' };
+const NAVEGADOR = {
+	'User-Agent':
+		'Mozilla/5.0 (compatible; MiranteBot/0.1; +https://mirante.mirante-mercado.workers.dev)'
+};
 const destino = join(import.meta.dir, '..', 'static', 'fontes');
 mkdirSync(destino, { recursive: true });
 
@@ -48,13 +51,19 @@ fundo.convert('RGB').save(sys.argv[2], optimize=True)
 
 /** Ícones declarados na página, do maior para o menor; depois os endereços de costume. */
 async function candidatos(site: string): Promise<string[]> {
-	const html = await (await fetch(site, { headers: NAVEGADOR, redirect: 'follow' })).text().catch(() => '');
+	const html = await (
+		await fetch(site, { headers: NAVEGADOR, redirect: 'follow' })
+	)
+		.text()
+		.catch(() => '');
 	const achados: { url: string; tamanho: number }[] = [];
 	for (const tag of html.match(/<link\b[^>]*>/gi) ?? []) {
 		const rel = /rel=["']([^"']+)["']/i.exec(tag)?.[1].toLowerCase() ?? '';
 		const href = /href=["']([^"']+)["']/i.exec(tag)?.[1];
 		if (!href || !/(apple-touch-icon|icon)/.test(rel) || /mask-icon/.test(rel)) continue;
-		const tamanho = Number(/sizes=["'](\d+)x\d+["']/i.exec(tag)?.[1] ?? (rel.includes('apple') ? 180 : 32));
+		const tamanho = Number(
+			/sizes=["'](\d+)x\d+["']/i.exec(tag)?.[1] ?? (rel.includes('apple') ? 180 : 32)
+		);
 		achados.push({ url: new URL(href.replace(/&amp;/g, '&'), site).toString(), tamanho });
 	}
 	achados.sort((a, b) => b.tamanho - a.tamanho);
@@ -75,7 +84,14 @@ for (const [id, site] of Object.entries(SITES)) {
 		if (bytes.length < 100) continue;
 		const bruto = join(destino, `.${id}.original`);
 		writeFileSync(bruto, bytes);
-		const processo = Bun.spawnSync(['python3', '-I', '-c', PILLOW, bruto, join(destino, `${id}.png`)]);
+		const processo = Bun.spawnSync([
+			'python3',
+			'-I',
+			'-c',
+			PILLOW,
+			bruto,
+			join(destino, `${id}.png`)
+		]);
 		Bun.spawnSync(['rm', '-f', bruto]);
 		if (processo.exitCode === 0) {
 			console.log(`${id}: ${url}`);

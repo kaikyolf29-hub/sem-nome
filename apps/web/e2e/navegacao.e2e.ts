@@ -1,4 +1,4 @@
-import { expect, test } from '@playwright/test';
+import { expect, test } from './apoio.ts';
 
 test('a raiz leva para as manchetes do mercado', async ({ page }) => {
 	await page.goto('/');

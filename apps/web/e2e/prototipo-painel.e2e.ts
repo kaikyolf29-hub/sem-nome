@@ -1,4 +1,4 @@
-import { expect, test } from '@playwright/test';
+import { expect, test } from './apoio.ts';
 
 test.describe('painel do protótipo', () => {
 	test.beforeEach(async ({ page }) => {

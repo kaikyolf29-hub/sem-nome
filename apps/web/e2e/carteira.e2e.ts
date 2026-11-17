@@ -1,4 +1,4 @@
-import { expect, test } from '@playwright/test';
+import { expect, test } from './apoio.ts';
 
 test('a carteira de exemplo mostra patrimônio, rosca e alerta de concentração', async ({
 	page

@@ -1,4 +1,4 @@
-import { expect, test } from '@playwright/test';
+import { expect, test } from './apoio.ts';
 
 test.describe('paleta Ctrl+K', () => {
 	test.skip(({ isMobile }) => isMobile, 'atalho de teclado: desktop');

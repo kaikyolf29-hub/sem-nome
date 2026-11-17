@@ -1,5 +1,5 @@
 import AxeBuilder from '@axe-core/playwright';
-import { expect, test } from '@playwright/test';
+import { expect, test } from './apoio.ts';
 
 for (const tema of ['claro', 'escuro'] as const) {
 	for (const rota of ['/mercado/manchetes', '/carteira/visao-geral', '/marca']) {

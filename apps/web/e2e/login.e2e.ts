@@ -1,4 +1,4 @@
-import { expect, test } from '@playwright/test';
+import { expect, test } from './apoio.ts';
 
 test('Entrar com Google leva à tela do Google pelo Supabase', async ({ page, isMobile }) => {
 	await page.route('**/auth/v1/settings', (r) =>

@@ -18,14 +18,17 @@ describe('MarcaFonte', () => {
 		const caixa = img.getBoundingClientRect();
 		expect([Math.round(caixa.width), Math.round(caixa.height)]).toEqual([28, 28]);
 		expect(getComputedStyle(img).objectFit).toBe('cover');
-		expect(parseFloat(getComputedStyle(container.querySelector('.marca-fonte')!).borderRadius)).toBeGreaterThan(0);
+		expect(
+			parseFloat(getComputedStyle(container.querySelector('.marca-fonte')!).borderRadius)
+		).toBeGreaterThan(0);
 	});
 
 	it('se a logo não carrega, volta para a inicial da fonte', async () => {
 		const { container } = render(MarcaFonte, {
 			fonte: { nome: 'Money Times', url: '#', primaria: false, logo: '/nao-existe.png' }
 		});
-		await expect.poll(() => container.querySelector('img')).toBeNull();
+		// O erro da imagem chega quando o servidor responde 404: com a suíte inteira rodando, pode demorar.
+		await expect.poll(() => container.querySelector('img'), { timeout: 8000 }).toBeNull();
 		expect(container.querySelector('.marca-fonte')!.textContent!.trim()).toBe('M');
 	});
 

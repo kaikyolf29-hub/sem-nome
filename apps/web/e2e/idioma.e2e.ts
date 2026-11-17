@@ -1,4 +1,4 @@
-import { expect, test } from '@playwright/test';
+import { expect, test } from './apoio.ts';
 
 test.describe('navegador em inglês', () => {
 	test.use({ locale: 'en-US' });

@@ -1,4 +1,4 @@
-import { expect, test, type Page } from '@playwright/test';
+import { expect, test, type Page } from './apoio.ts';
 
 async function nadaVazaDoCartao(page: Page) {
 	return page

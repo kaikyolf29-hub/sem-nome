@@ -119,12 +119,19 @@ export const ptBR = {
 		manchete: 'Manchete',
 		tambemDestaque: 'Também em destaque',
 		mercadoAgora: 'Mercado agora',
+		carregando: 'Carregando as notícias',
+		erroRede: 'Sem conexão com as notícias agora.',
+		erroServidor: 'As notícias não carregaram.',
+		tentarDeNovo: 'Tentar de novo',
 		vazio: 'Nada por aqui ainda. As notícias deste canal aparecem assim que chegarem.',
 		impacto: {
 			baixo: 'Impacto baixo',
 			medio: 'Impacto médio',
 			alto: 'Impacto alto'
 		}
+	},
+	aviso: {
+		dadosReais: 'Notícias reais das fontes. Cotações, carteira e análises ainda são de exemplo.'
 	},
 	prototipo: {
 		faixa: 'Protótipo com notícias e números de exemplo. Nada aqui é real.',

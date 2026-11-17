@@ -1,4 +1,4 @@
-import { expect, test } from '@playwright/test';
+import { expect, test } from './apoio.ts';
 
 test('a página da marca mostra as três opções sem a casca do app', async ({ page }) => {
 	await page.goto('/marca');

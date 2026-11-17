@@ -1,21 +1,45 @@
 <script lang="ts">
 	import { t } from '#lib/i18n/index.ts';
 	import type { IdEspaco } from '#lib/navegacao/espacos.ts';
+	import { criarFeed } from '#lib/noticias/feed.svelte.ts';
 	import { mercadoExemplo, noticiasDoCanal } from '#lib/prototipo/exemplos.ts';
 	import CartaoNoticia from './CartaoNoticia.svelte';
+	import EsqueletoFeed from './EsqueletoFeed.svelte';
 	import FaixaMercado from './FaixaMercado.svelte';
 	import Manchete from './Manchete.svelte';
 	import TambemDestaque from './TambemDestaque.svelte';
 
 	let { espaco, canal }: { espaco: IdEspaco; canal: string } = $props();
 
-	const noticias = $derived(noticiasDoCanal(espaco, canal));
+	// Protótipo: notícias de exemplo, sem rede. Site e app: as notícias de verdade.
+	const real = __PROTOTIPO__ ? null : criarFeed();
+	const CINCO_MINUTOS = 5 * 60_000;
+
+	$effect(() => {
+		void real?.carregar(espaco, canal);
+	});
+
+	$effect(() => {
+		if (!real) return;
+		const voltar = () => {
+			if (document.visibilityState === 'visible') void real.atualizarSeVelho(CINCO_MINUTOS);
+		};
+		document.addEventListener('visibilitychange', voltar);
+		return () => document.removeEventListener('visibilitychange', voltar);
+	});
+
+	const estado = $derived(real ? real.estado : 'pronto');
+	const noticias = $derived(real ? real.noticias : noticiasDoCanal(espaco, canal));
 	const geral = $derived(canal === 'manchetes' || canal === 'visao-geral');
 	const destaque = $derived(geral ? noticias[0] : undefined);
 	// Na capa (canal geral): a manchete, as 3 seguintes em "Também em destaque" e o resto na lista.
 	const tambem = $derived(destaque ? noticias.slice(1, 4) : []);
 	const resto = $derived(destaque ? noticias.slice(1 + tambem.length) : noticias);
-	const agora = new Date();
+	// "Agora" de referência dos horários ("há 5 min"): renova quando a lista muda.
+	const agora = $derived.by(() => {
+		void noticias;
+		return new Date();
+	});
 </script>
 
 {#if espaco === 'mercado' && geral}
@@ -24,21 +48,32 @@
 
 <!-- Coluna de leitura no centro da área: sem vão de um lado só quando o painel fecha. -->
 <div class="coluna">
-	{#if destaque}
-		<div class="capa" class:com-tambem={tambem.length > 0}>
-			<Manchete noticia={destaque} />
-			{#if tambem.length > 0}<TambemDestaque noticias={tambem} {agora} />{/if}
+	{#if estado === 'carregando'}
+		<EsqueletoFeed comManchete={geral} />
+	{:else if estado === 'erro'}
+		<div class="falha" role="alert">
+			<p>{t(real?.erro === 'rede' ? 'feed.erroRede' : 'feed.erroServidor')}</p>
+			<button type="button" onclick={() => real?.carregar(espaco, canal)}
+				>{t('feed.tentarDeNovo')}</button
+			>
 		</div>
-	{/if}
+	{:else}
+		{#if destaque}
+			<div class="capa" class:com-tambem={tambem.length > 0}>
+				<Manchete noticia={destaque} />
+				{#if tambem.length > 0}<TambemDestaque noticias={tambem} {agora} />{/if}
+			</div>
+		{/if}
 
-	{#if resto.length > 0}
-		<div class="lista">
-			{#each resto as noticia (noticia.id)}
-				<CartaoNoticia {noticia} {agora} />
-			{/each}
-		</div>
-	{:else if !destaque}
-		<p class="vazio">{t('feed.vazio')}</p>
+		{#if resto.length > 0}
+			<div class="lista">
+				{#each resto as noticia (noticia.id)}
+					<CartaoNoticia {noticia} {agora} />
+				{/each}
+			</div>
+		{:else if !destaque}
+			<p class="vazio">{t('feed.vazio')}</p>
+		{/if}
 	{/if}
 </div>
 
@@ -98,6 +133,37 @@
 		.lista {
 			padding-inline: var(--espaco-1);
 		}
+	}
+
+	.falha {
+		display: grid;
+		justify-items: center;
+		gap: var(--espaco-4);
+		max-width: 48ch;
+		margin-inline: auto;
+		padding: var(--espaco-10) var(--espaco-6);
+		text-align: center;
+	}
+
+	.falha p {
+		color: var(--texto);
+		font-size: var(--tipo-medio);
+	}
+
+	.falha button {
+		min-height: 44px;
+		padding: 0 var(--espaco-5);
+		border: 1px solid var(--borda);
+		border-radius: 999px;
+		background: var(--cartao);
+		color: var(--texto);
+		font: inherit;
+		font-weight: 600;
+		cursor: pointer;
+	}
+
+	.falha button:hover {
+		background: color-mix(in srgb, var(--texto) 6%, var(--cartao));
 	}
 
 	.vazio {

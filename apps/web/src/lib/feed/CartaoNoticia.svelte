@@ -43,7 +43,7 @@
 				<SeloIA />
 				<p>{noticia.resumoIA}</p>
 			</div>
-		{:else}
+		{:else if noticia.trecho}
 			<p class="trecho">{noticia.trecho}</p>
 		{/if}
 
@@ -58,7 +58,8 @@
 
 	<div class="rodape">
 		<span class="temas">
-			<IndicadorImpacto valor={noticia.impacto} />
+			<!-- Impacto 0 = ainda não calculado (a IA da fase 2 calcula): não mostra. -->
+			{#if noticia.impacto > 0}<IndicadorImpacto valor={noticia.impacto} />{/if}
 			{#each noticia.temas as tema (tema)}
 				<span class="tema">{tema}</span>
 			{/each}

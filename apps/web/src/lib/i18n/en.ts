@@ -119,12 +119,19 @@ export const en: Mensagens = {
 		manchete: 'Top story',
 		tambemDestaque: 'Also leading',
 		mercadoAgora: 'Markets now',
+		carregando: 'Loading the news',
+		erroRede: 'No connection to the news right now.',
+		erroServidor: "The news didn't load.",
+		tentarDeNovo: 'Try again',
 		vazio: 'Nothing here yet. News for this channel shows up as soon as it arrives.',
 		impacto: {
 			baixo: 'Low impact',
 			medio: 'Medium impact',
 			alto: 'High impact'
 		}
+	},
+	aviso: {
+		dadosReais: 'Real news from the sources. Quotes, portfolio and analysis are still examples.'
 	},
 	prototipo: {
 		faixa: 'Prototype with sample news and numbers. Nothing here is real.',

@@ -3,12 +3,14 @@
 	import { tempoRelativo } from '#lib/formato.ts';
 	import { i18n, t } from '#lib/i18n/index.ts';
 	import ChipCarteira from './ChipCarteira.svelte';
+	import MarcaFonte from './MarcaFonte.svelte';
 	import SeloIA from './SeloIA.svelte';
 	import type { Noticia } from './tipos.ts';
 
 	let { noticia }: { noticia: Noticia } = $props();
 
 	const data = $derived(new Date(noticia.publicadoEm));
+	const principal = $derived(noticia.fontes.find((f) => f.primaria) ?? noticia.fontes[0]);
 	const fontes = $derived(
 		new Intl.ListFormat(i18n.idioma, { type: 'conjunction' }).format(
 			noticia.fontes.map((f) => f.nome)
@@ -18,6 +20,10 @@
 
 <article class="manchete" aria-labelledby="manchete-{noticia.id}">
 	<p class="meta">
+		{#if principal}
+			<MarcaFonte fonte={principal} tamanho={24} />
+			<span class="fonte">{principal.nome}</span>
+		{/if}
 		{#if noticia.bafafa}<span class="marca-bafafa">{t('feed.bafafa')}</span>{/if}
 		<time datetime={noticia.publicadoEm}>{tempoRelativo(data, new Date(), i18n.idioma)}</time>
 	</p>
@@ -29,9 +35,13 @@
 			<SeloIA />
 			<p>{noticia.resumoIA}</p>
 		</div>
+	{:else if noticia.trecho}
+		<p class="trecho">{noticia.trecho}</p>
 	{/if}
 
-	<p class="fontes">{t('feed.comInformacoes', { fontes })}</p>
+	{#if noticia.fontes.length > 1}
+		<p class="fontes">{t('feed.comInformacoes', { fontes })}</p>
+	{/if}
 
 	<div class="rodape">
 		{#each noticia.ativos as ativo (ativo.ticker)}
@@ -54,9 +64,38 @@
 
 	.meta {
 		display: flex;
+		align-items: center;
 		gap: var(--espaco-3);
+		min-width: 0;
 		color: var(--texto-fraco);
 		font-size: var(--tipo-pequeno);
+	}
+
+	.meta :global(.marca-fonte) {
+		border-radius: 7px;
+	}
+
+	/* Nome da fonte colado na logo (8 px), o resto da linha no espaço normal. */
+	.fonte {
+		min-width: 0;
+		margin-left: calc(8px - var(--espaco-3));
+		overflow: hidden;
+		color: var(--texto);
+		font-weight: 600;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+	}
+
+	.meta time {
+		flex: none;
+		white-space: nowrap;
+	}
+
+	.trecho {
+		max-width: 62ch;
+		color: var(--texto-fraco);
+		font-size: var(--tipo-medio);
+		line-height: 1.55;
 	}
 
 	.marca-bafafa {

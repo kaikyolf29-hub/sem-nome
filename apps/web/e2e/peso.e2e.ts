@@ -1,4 +1,4 @@
-import { expect, test } from '@playwright/test';
+import { expect, test } from './apoio.ts';
 import { gzipSync } from 'node:zlib';
 
 // A primeira tela precisa abrir rápido num celular médio (spec, seção 15): no máximo 120 KB de JS+CSS comprimido.

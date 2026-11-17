@@ -3,7 +3,7 @@
 </script>
 
 <p class="faixa" role="note">
-	{t('prototipo.faixa')}
+	{t(__PROTOTIPO__ ? 'prototipo.faixa' : 'aviso.dadosReais')}
 </p>
 
 <style>

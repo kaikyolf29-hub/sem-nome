@@ -1,4 +1,4 @@
-import { expect, test } from '@playwright/test';
+import { expect, test } from './apoio.ts';
 
 // Com o painel "Ativo em foco" fechado, a coluna de leitura fica no centro: sem vão gigante de um lado só.
 for (const [rota, seletor] of [
@@ -27,6 +27,8 @@ for (const largura of [320, 390, 768, 1024, 1280, 1440, 1600]) {
 		test.skip(isMobile, 'as larguras já cobrem o celular');
 		await page.setViewportSize({ width: largura, height: 900 });
 		await page.goto('/mercado/manchetes');
+		// As notícias chegam depois da tela: mede só com os cartões na tela.
+		await expect(page.locator('.lista .noticia').first()).toBeVisible();
 		const caixa = async (seletor: string) => (await page.locator(seletor).first().boundingBox())!;
 		const manchete = await caixa('.manchete .titulo');
 		const tambem = await caixa('.tambem .titulo-secao');
@@ -44,6 +46,7 @@ for (const largura of [320, 390, 768]) {
 		test.skip(isMobile, 'as larguras já cobrem o celular');
 		await page.setViewportSize({ width: largura, height: 900 });
 		await page.goto('/mercado/manchetes');
+		await expect(page.locator('.tambem li').last()).toBeVisible();
 		const bloco = (await page.locator('.tambem').boundingBox())!;
 		const titulo = (await page.locator('.tambem .titulo-secao').boundingBox())!;
 		const ultimo = (await page

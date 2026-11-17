@@ -1,4 +1,4 @@
-import { expect, test } from '@playwright/test';
+import { expect, test } from './apoio.ts';
 
 test.describe('capa do portal em tela larga', () => {
 	test.skip(({ isMobile }) => isMobile, 'tela larga');

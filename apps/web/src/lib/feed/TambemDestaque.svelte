@@ -26,10 +26,12 @@
 						<!-- eslint-disable-next-line svelte/no-navigation-without-resolve -- link externo para a fonte -->
 						<a href={n.url} target="_blank" rel="noopener noreferrer">{n.titulo}</a>
 					</h3>
-					<p class="rodape">
-						<IndicadorImpacto valor={n.impacto} />
-						{#if n.bafafa}<span class="marca-bafafa">{t('feed.bafafa')}</span>{/if}
-					</p>
+					{#if n.impacto > 0 || n.bafafa}
+						<p class="rodape">
+							{#if n.impacto > 0}<IndicadorImpacto valor={n.impacto} />{/if}
+							{#if n.bafafa}<span class="marca-bafafa">{t('feed.bafafa')}</span>{/if}
+						</p>
+					{/if}
 				</article>
 			</li>
 		{/each}

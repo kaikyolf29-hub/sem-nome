@@ -1,4 +1,4 @@
-import { expect, test } from '@playwright/test';
+import { expect, test } from './apoio.ts';
 import { fileURLToPath } from 'node:url';
 
 const arquivo = fileURLToPath(new URL('../build-prototipo/index.html', import.meta.url));

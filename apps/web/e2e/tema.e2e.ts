@@ -1,4 +1,4 @@
-import { expect, test } from '@playwright/test';
+import { expect, test } from './apoio.ts';
 
 test('preferência salva vale antes da primeira pintura', async ({ page }) => {
 	await page.addInitScript(() => {
