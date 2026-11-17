@@ -10,7 +10,8 @@
 	let { noticia }: { noticia: Noticia } = $props();
 
 	const data = $derived(new Date(noticia.publicadoEm));
-	const principal = $derived(noticia.fontes.find((f) => f.primaria) ?? noticia.fontes[0]);
+	// A primeira fonte é a do título e do link mostrados (o banco põe ela na frente).
+	const principal = $derived(noticia.fontes[0]);
 	const fontes = $derived(
 		new Intl.ListFormat(i18n.idioma, { type: 'conjunction' }).format(
 			noticia.fontes.map((f) => f.nome)

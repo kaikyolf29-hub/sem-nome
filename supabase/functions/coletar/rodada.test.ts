@@ -38,15 +38,17 @@ function bancoFalso(fontes: FonteComEstado[], existentes: string[] = []) {
 	const estados = new Map<string, Partial<EstadoFonte>>();
 	const inseridas: NovaNoticia[] = [];
 	const grupos: ItemPronto[] = [];
+	const pedidosRecentes: string[] = [];
+	const limites: Date[] = [];
 	const db: BancoColeta = {
-		fontesVencidas: async () => fontes,
-		recentes: async (): Promise<Recente[]> => [],
+		fontesVencidas: async (ate) => (limites.push(ate), fontes),
+		recentes: async (_desde, espaco): Promise<Recente[]> => (pedidosRecentes.push(espaco), []),
 		urlsExistentes: async (urls) => new Set(urls.filter((u) => existentes.includes(u))),
 		criarGrupo: async (item) => grupos.push(item),
 		inserir: async (itens) => void inseridas.push(...itens),
 		salvarEstado: async (id, e) => void estados.set(id, e)
 	};
-	return { db, estados, inseridas, grupos };
+	return { db, estados, inseridas, grupos, pedidosRecentes, limites };
 }
 
 const resposta = (corpo: string, status = 200, cabecalhos: Record<string, string> = {}) =>
@@ -134,6 +136,33 @@ describe('rodada de coleta', () => {
 		const cem = Array.from({ length: 100 }, (_, i): [string, string] => [`Notícia ${i} do mercado brasileiro`, `https://a.invalid/${i}`]);
 		await rodada(db, (async () => resposta(rss(...cem))) as typeof fetch, () => agora);
 		expect(lotes).toEqual([25, 25, 25, 25]);
+	});
+
+	test('fonte que vence daqui a pouco já entra (o cron roda a cada 5 min e a busca atrasa segundos)', async () => {
+		const { db, limites } = bancoFalso([]);
+		await rodada(db, (async () => resposta(rss())) as typeof fetch, () => agora);
+		expect(limites[0].toISOString()).toBe('2026-11-17T12:02:00.000Z');
+	});
+
+	test('sem fonte vencida ou sem notícia nova, não baixa as notícias recentes do banco', async () => {
+		const vazio = bancoFalso([]);
+		await rodada(vazio.db, (async () => resposta(rss())) as typeof fetch, () => agora);
+		expect(vazio.pedidosRecentes).toHaveLength(0);
+		const semNovidade = bancoFalso([fonte('a', { etag: '"v1"' })]);
+		await rodada(semNovidade.db, (async () => resposta('', 304)) as typeof fetch, () => agora);
+		expect(semNovidade.pedidosRecentes).toHaveLength(0);
+	});
+
+	test('agrupa só dentro do mesmo espaço e pede as recentes uma vez por espaço', async () => {
+		const tec: FonteComEstado = { ...fonte('tec'), espaco: 'tecnologia', canais: [] };
+		const { db, grupos, pedidosRecentes } = bancoFalso([fonte('a'), fonte('b'), tec]);
+		const titulo = 'Nvidia anuncia novo chip de inteligência artificial para data centers';
+		const buscar = (async (url: string) =>
+			resposta(rss([titulo, url.replace('/feed', '/1')]))) as typeof fetch;
+		await rodada(db, buscar, () => agora);
+		expect(pedidosRecentes).toEqual(['mercado', 'tecnologia']);
+		// a e b (mercado) juntam; a de tecnologia vira outro grupo.
+		expect(grupos).toHaveLength(2);
 	});
 
 	test('no máximo 30 notícias novas por fonte numa rodada', async () => {

@@ -3,7 +3,7 @@
 import { escolherGrupo, type Recente } from '../_compartilhado/agrupar.ts';
 import { lerFeed } from '../_compartilhado/ler.ts';
 import { prepararItem } from '../_compartilhado/normalizar.ts';
-import type { Fonte, ItemPronto } from '../_compartilhado/tipos.ts';
+import type { Espaco, Fonte, ItemPronto } from '../_compartilhado/tipos.ts';
 
 export const IDENTIFICACAO = 'MiranteBot/0.1 (+https://mirante.mirante-mercado.workers.dev)';
 const TEMPO_PEDIDO_MS = 10_000;
@@ -11,6 +11,8 @@ const MAX_NOVOS_POR_FONTE = 30;
 const LOTE_URLS = 25;
 const ESPERA_MAXIMA_MIN = 24 * 60;
 const JANELA_RECENTES_MS = 72 * 60 * 60 * 1000;
+/** O cron roda a cada 5 min e a busca sai segundos depois: sem folga, cada fonte pularia uma rodada. */
+const FOLGA_MS = 2 * 60_000;
 
 export interface EstadoFonte {
 	etag: string | null;
@@ -32,10 +34,10 @@ export interface NovaNoticia extends ItemPronto {
 }
 
 export interface BancoColeta {
-	/** Fontes ativas com a próxima coleta vencida, da mais atrasada para a menos. */
-	fontesVencidas(agora: Date): Promise<FonteComEstado[]>;
-	/** Notícias publicadas desde a data, para agrupar as novas com as parecidas. */
-	recentes(desde: Date): Promise<Recente[]>;
+	/** Fontes ativas com a próxima coleta até `ate`, da mais atrasada para a menos. */
+	fontesVencidas(ate: Date): Promise<FonteComEstado[]>;
+	/** Notícias do espaço publicadas desde a data, para agrupar as novas com as parecidas. */
+	recentes(desde: Date, espaco: Espaco): Promise<Recente[]>;
 	urlsExistentes(urls: string[]): Promise<Set<string>>;
 	/** Cria o grupo de um fato novo e devolve o id. */
 	criarGrupo(item: ItemPronto): Promise<number>;
@@ -61,7 +63,7 @@ async function coletarFonte(
 	fonte: FonteComEstado,
 	buscar: typeof fetch,
 	agora: Date,
-	recentes: Recente[]
+	recentesDe: (espaco: Espaco) => Promise<Recente[]>
 ): Promise<{ status: number; novos: number; estado: Partial<EstadoFonte> }> {
 	const cabecalhos: Record<string, string> = {
 		'User-Agent': IDENTIFICACAO,
@@ -93,6 +95,8 @@ async function coletarFonte(
 
 	const gravar: NovaNoticia[] = [];
 	for (const item of novos) {
+		// Só agrupa com notícias do mesmo espaço: uma de mercado não some dentro de um grupo de tecnologia.
+		const recentes = await recentesDe(item.espaco);
 		const grupo_id = escolherGrupo(item, recentes) ?? (await db.criarGrupo(item));
 		recentes.push({ grupo_id, assinatura: item.assinatura, publicado_em: item.publicadoEm });
 		gravar.push({ ...item, grupo_id, fonte_id: fonte.id });
@@ -118,15 +122,25 @@ export async function rodada(
 	limiteMs = 25_000
 ): Promise<Resumo> {
 	const inicio = agora();
-	const fontes = await db.fontesVencidas(inicio);
-	const recentes = await db.recentes(new Date(inicio.getTime() - JANELA_RECENTES_MS));
+	const fontes = await db.fontesVencidas(new Date(inicio.getTime() + FOLGA_MS));
 	const resumo: Resumo = { fontes: [], ms: 0 };
+
+	// As notícias recentes só descem do banco quando há notícia nova, uma vez por espaço (economiza a cota).
+	const recentesPorEspaco = new Map<Espaco, Recente[]>();
+	const recentesDe = async (espaco: Espaco) => {
+		let lista = recentesPorEspaco.get(espaco);
+		if (!lista) {
+			lista = await db.recentes(new Date(inicio.getTime() - JANELA_RECENTES_MS), espaco);
+			recentesPorEspaco.set(espaco, lista);
+		}
+		return lista;
+	};
 
 	for (const fonte of fontes) {
 		if (agora().getTime() - inicio.getTime() > limiteMs) break;
 		const momento = agora();
 		try {
-			const r = await coletarFonte(db, fonte, buscar, momento, recentes);
+			const r = await coletarFonte(db, fonte, buscar, momento, recentesDe);
 			await db.salvarEstado(fonte.id, {
 				...r.estado,
 				ultima_coleta: momento.toISOString(),

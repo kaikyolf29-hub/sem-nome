@@ -12,7 +12,7 @@
 	<h2 id="tambem-titulo" class="titulo-secao">{t('feed.tambemDestaque')}</h2>
 	<ul role="list">
 		{#each noticias as n (n.id)}
-			{@const fonte = n.fontes.find((f) => f.primaria) ?? n.fontes[0]}
+			{@const fonte = n.fontes[0]}
 			<li>
 				<article aria-labelledby="tambem-{n.id}">
 					<p class="meta">

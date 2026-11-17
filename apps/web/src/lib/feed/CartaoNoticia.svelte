@@ -14,7 +14,8 @@
 	let { noticia, agora = new Date() }: { noticia: Noticia; agora?: Date } = $props();
 
 	let salva = $state(false);
-	const principal = $derived(noticia.fontes.find((f) => f.primaria) ?? noticia.fontes[0]);
+	// A primeira fonte é a do título e do link mostrados (o banco põe ela na frente).
+	const principal = $derived(noticia.fontes[0]);
 	const outras = $derived(noticia.fontes.length - 1);
 	const data = $derived(new Date(noticia.publicadoEm));
 </script>

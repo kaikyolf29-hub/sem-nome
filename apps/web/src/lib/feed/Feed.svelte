@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { tick } from 'svelte';
 	import { t } from '#lib/i18n/index.ts';
 	import type { IdEspaco } from '#lib/navegacao/espacos.ts';
 	import { criarFeed } from '#lib/noticias/feed.svelte.ts';
@@ -29,6 +30,16 @@
 	});
 
 	const estado = $derived(real ? real.estado : 'pronto');
+
+	// Depois de "Tentar de novo" o botão some: o foco vai para as notícias (ou volta ao botão, se falhar de novo).
+	let coluna = $state<HTMLElement>();
+	let botaoDeNovo = $state<HTMLButtonElement>();
+	async function tentarDeNovo() {
+		await real?.carregar(espaco, canal);
+		await tick();
+		if (real?.estado === 'erro') botaoDeNovo?.focus();
+		else coluna?.focus();
+	}
 	const noticias = $derived(real ? real.noticias : noticiasDoCanal(espaco, canal));
 	const geral = $derived(canal === 'manchetes' || canal === 'visao-geral');
 	const destaque = $derived(geral ? noticias[0] : undefined);
@@ -47,15 +58,15 @@
 {/if}
 
 <!-- Coluna de leitura no centro da área: sem vão de um lado só quando o painel fecha. -->
-<div class="coluna">
+<div class="coluna" bind:this={coluna} tabindex="-1">
 	{#if estado === 'carregando'}
 		<EsqueletoFeed comManchete={geral} />
 	{:else if estado === 'erro'}
 		<div class="falha" role="alert">
 			<p>{t(real?.erro === 'rede' ? 'feed.erroRede' : 'feed.erroServidor')}</p>
-			<button type="button" onclick={() => real?.carregar(espaco, canal)}
-				>{t('feed.tentarDeNovo')}</button
-			>
+			<button type="button" bind:this={botaoDeNovo} onclick={tentarDeNovo}>
+				{t('feed.tentarDeNovo')}
+			</button>
 		</div>
 	{:else}
 		{#if destaque}
@@ -82,6 +93,11 @@
 		container-type: inline-size;
 		max-width: 1180px;
 		margin-inline: auto;
+	}
+
+	/* Foco posto pelo app (tabindex -1, fora do Tab): sem contorno em volta da coluna inteira. */
+	.coluna:focus {
+		outline: none;
 	}
 
 	.capa.com-tambem :global(.tambem) {

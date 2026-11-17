@@ -12,12 +12,14 @@ const json = (corpo: unknown, status = 200) =>
 
 Deno.serve(async (pedido) => {
 	if (pedido.method !== 'POST') return json({ erro: 'use POST' }, 405);
+	// Sem a chave no formato certo, recusa antes de ir ao banco.
+	const chave = pedido.headers.get('x-mirante-chave') ?? '';
+	if (!/^[0-9a-f]{64}$/.test(chave)) return json({ erro: 'não autorizado' }, 401);
 
 	const db = createClient(Deno.env.get('SUPABASE_URL')!, Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!, {
 		auth: { persistSession: false, autoRefreshToken: false }
 	});
 
-	const chave = pedido.headers.get('x-mirante-chave') ?? '';
 	const { data: autorizado } = await db.rpc('conferir_chave_coleta', { p_chave: chave });
 	if (autorizado !== true) return json({ erro: 'não autorizado' }, 401);
 

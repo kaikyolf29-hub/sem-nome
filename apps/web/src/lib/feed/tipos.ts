@@ -20,6 +20,7 @@ export interface Noticia {
 	id: string;
 	titulo: string;
 	url: string;
+	/** A primeira é a fonte do título e do link; as outras também cobriram o fato. */
 	fontes: FonteNoticia[];
 	/** ISO 8601. */
 	publicadoEm: string;

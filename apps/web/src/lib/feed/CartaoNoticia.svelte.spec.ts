@@ -34,6 +34,22 @@ describe('CartaoNoticia', () => {
 		await expect.element(page.getByText('Resumo por IA')).toBeInTheDocument();
 	});
 
+	it('mostra a primeira fonte da lista (a do título), mesmo que outra seja oficial', async () => {
+		render(CartaoNoticia, {
+			noticia: {
+				...base,
+				fontes: [
+					{ nome: 'Agência Brasil', url: '#', primaria: false },
+					{ nome: 'Federal Reserve', url: '#', primaria: true }
+				]
+			}
+		});
+		await expect.element(page.getByText('Agência Brasil', { exact: true })).toBeInTheDocument();
+		await expect
+			.element(page.getByText('Federal Reserve', { exact: true }))
+			.not.toBeInTheDocument();
+	});
+
 	it('com 4 fontes mostra "+3"', async () => {
 		render(CartaoNoticia, { noticia: base });
 		await expect.element(page.getByText('+3')).toBeInTheDocument();

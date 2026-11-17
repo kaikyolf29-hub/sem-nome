@@ -10,7 +10,7 @@ function ou<T>(resposta: { data: T | null; error: { message: string } | null }):
 
 export function bancoSupabase(db: SupabaseClient): BancoColeta {
 	return {
-		async fontesVencidas(agora) {
+		async fontesVencidas(ate) {
 			const linhas = ou(
 				await db
 					.from('fontes')
@@ -19,15 +19,16 @@ export function bancoSupabase(db: SupabaseClient): BancoColeta {
 			) as unknown as (Omit<FonteComEstado, 'estado'> & { estado: EstadoFonte | EstadoFonte[] | null })[];
 			return linhas
 				.map((f) => ({ ...f, estado: (Array.isArray(f.estado) ? f.estado[0] : f.estado) as EstadoFonte }))
-				.filter((f) => f.estado && Date.parse(f.estado.proxima_coleta) <= agora.getTime())
+				.filter((f) => f.estado && Date.parse(f.estado.proxima_coleta) <= ate.getTime())
 				.sort((a, b) => Date.parse(a.estado.proxima_coleta) - Date.parse(b.estado.proxima_coleta));
 		},
 
-		async recentes(desde) {
+		async recentes(desde, espaco) {
 			return ou(
 				await db
 					.from('noticias')
 					.select('grupo_id, assinatura, publicado_em')
+					.eq('espaco', espaco)
 					.gte('publicado_em', desde.toISOString())
 					.order('publicado_em', { ascending: false })
 					.limit(3000)

@@ -11,6 +11,15 @@
 
 	// Fase do Mirante em que cada espaço sem conteúdo chega (spec, seção 16).
 	const fases: Record<string, number> = { carteira: 3, daytrade: 5, agenda: 6, salvos: 1 };
+	// Canais de notícias que ainda não têm fonte: no site, dizem a fase em vez de esperar para sempre.
+	const canaisSemFonte: Record<string, number> = {
+		'mercado/resumo-do-dia': 6,
+		'tecnologia/github-radar': 1,
+		'tecnologia/artigos': 1
+	};
+	const faseDoCanal = $derived(
+		__PROTOTIPO__ || !local ? undefined : canaisSemFonte[`${local.espaco.id}/${local.canal.id}`]
+	);
 
 	$effect(() => {
 		if (!local) irParaPadrao();
@@ -20,7 +29,9 @@
 <FaixaPrototipo />
 
 {#if local}
-	{#if ['mercado', 'cripto', 'tecnologia'].includes(local.espaco.id)}
+	{#if faseDoCanal}
+		<EstadoVazio fase={faseDoCanal} />
+	{:else if ['mercado', 'cripto', 'tecnologia'].includes(local.espaco.id)}
 		<Feed espaco={local.espaco.id} canal={local.canal.id} />
 	{:else if local.espaco.id === 'carteira' && local.canal.id === 'visao-geral'}
 		<ResumoCarteira />

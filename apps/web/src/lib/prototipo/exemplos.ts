@@ -320,6 +320,8 @@ const lista: Exemplo[] = [
 
 export const noticiasExemplo: readonly Noticia[] = lista.map(({ minutos, ...n }) => ({
 	...n,
+	// A primeira fonte é a mostrada no cartão: no protótipo, a oficial vai na frente.
+	fontes: [...n.fontes].sort((a, b) => Number(b.primaria) - Number(a.primaria)),
 	url: `https://example.com/mirante/${n.id}`,
 	publicadoEm: minutosAtras(minutos)
 }));

@@ -122,3 +122,39 @@ test('a faixa do topo diz o que é real e o que ainda é exemplo', async ({ page
 		'Notícias reais das fontes. Cotações, carteira e análises ainda são de exemplo.'
 	);
 });
+
+test('canal ainda sem fonte diz em que fase chega, sem pedir notícias ao banco', async ({
+	page
+}) => {
+	const pedidos: string[] = [];
+	page.on('request', (r) => {
+		if (r.url().includes('/rest/v1/rpc/feed')) pedidos.push(r.url());
+	});
+	for (const [rota, fase] of [
+		['/tecnologia/github-radar', 1],
+		['/tecnologia/artigos', 1],
+		['/mercado/resumo-do-dia', 6]
+	] as const) {
+		await page.goto(rota);
+		await expect(page.getByText(`Este canal chega na fase ${fase} do Mirante.`)).toBeVisible();
+	}
+	expect(pedidos).toEqual([]);
+});
+
+test('"Tentar de novo": o foco não se perde (vai para as notícias que chegaram)', async ({
+	page
+}) => {
+	let falhar = true;
+	await page.route('**/rest/v1/rpc/feed**', (rota) =>
+		falhar ? rota.abort('internetdisconnected') : rota.fulfill({ json: grupos })
+	);
+	await page.goto('/mercado/macro');
+	const botao = page.getByRole('button', { name: 'Tentar de novo' });
+	await botao.focus();
+	falhar = false;
+	await page.keyboard.press('Enter');
+	await expect(page.getByRole('heading', { name: grupos[0].titulo })).toBeVisible();
+	await expect
+		.poll(() => page.evaluate(() => document.activeElement?.closest('.coluna') !== null))
+		.toBe(true);
+});
