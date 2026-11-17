@@ -19,3 +19,38 @@ for (const [rota, seletor] of [
 		expect(Math.abs(esquerda - direita), `${esquerda} x ${direita}`).toBeLessThanOrEqual(16);
 	});
 }
+
+// Na capa, a manchete, o "Também em destaque" (quando fica embaixo dela) e a logo da fonte na
+// lista começam na mesma linha da esquerda, em todas as larguras.
+for (const largura of [320, 390, 768, 1024, 1280, 1440, 1600]) {
+	test(`capa alinhada à esquerda em ${largura}px`, async ({ page, isMobile }) => {
+		test.skip(isMobile, 'as larguras já cobrem o celular');
+		await page.setViewportSize({ width: largura, height: 900 });
+		await page.goto('/mercado/manchetes');
+		const caixa = async (seletor: string) => (await page.locator(seletor).first().boundingBox())!;
+		const manchete = await caixa('.manchete .titulo');
+		const tambem = await caixa('.tambem .titulo-secao');
+		const logoLista = await caixa('.lista .noticia .avatar');
+		if (tambem.y > manchete.y + manchete.height) {
+			expect(Math.round(tambem.x), 'também em destaque').toBe(Math.round(manchete.x));
+		}
+		expect(Math.round(logoLista.x), 'logo da fonte na lista').toBe(Math.round(manchete.x));
+	});
+}
+
+// "Também em destaque" embaixo da manchete: o mesmo respiro em cima e embaixo, sem vão sobrando.
+for (const largura of [320, 390, 768]) {
+	test(`também em destaque com respiro igual em ${largura}px`, async ({ page, isMobile }) => {
+		test.skip(isMobile, 'as larguras já cobrem o celular');
+		await page.setViewportSize({ width: largura, height: 900 });
+		await page.goto('/mercado/manchetes');
+		const bloco = (await page.locator('.tambem').boundingBox())!;
+		const titulo = (await page.locator('.tambem .titulo-secao').boundingBox())!;
+		const ultimo = (await page
+			.locator('.tambem li:last-child article > :last-child')
+			.boundingBox())!;
+		const cima = titulo.y - bloco.y;
+		const baixo = bloco.y + bloco.height - (ultimo.y + ultimo.height);
+		expect(Math.abs(cima - baixo), `${cima} x ${baixo}`).toBeLessThanOrEqual(2);
+	});
+}

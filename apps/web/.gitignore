@@ -25,3 +25,4 @@ vite.config.ts.timestamp-*
 test-results
 build-prototipo
 .wrangler
+.capturas-site

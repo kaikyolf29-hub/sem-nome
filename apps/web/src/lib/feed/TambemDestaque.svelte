@@ -72,6 +72,10 @@
 		padding-top: 0;
 	}
 
+	li:last-child article {
+		padding-bottom: 0;
+	}
+
 	.meta {
 		display: flex;
 		align-items: center;
@@ -127,5 +131,12 @@
 		color: var(--bafafa);
 		font-size: var(--tipo-legenda);
 		font-weight: 700;
+	}
+
+	/* Celular: a mesma margem da manchete, para tudo começar na mesma linha. */
+	@media (max-width: 767.98px) {
+		.tambem {
+			padding-inline: var(--espaco-4);
+		}
 	}
 </style>

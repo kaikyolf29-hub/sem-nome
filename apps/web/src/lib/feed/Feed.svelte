@@ -93,6 +93,13 @@
 		border-top: 1px solid var(--borda);
 	}
 
+	/* Celular: 4 px + o respiro do cartão (12 px) = 16 px, a mesma margem da manchete. */
+	@media (max-width: 767.98px) {
+		.lista {
+			padding-inline: var(--espaco-1);
+		}
+	}
+
 	.vazio {
 		max-width: 48ch;
 		padding: var(--espaco-10) var(--espaco-6);

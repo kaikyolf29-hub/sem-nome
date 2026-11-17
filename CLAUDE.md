@@ -62,7 +62,7 @@ O Taste Skill (MIT) pode servir de referência. Não copie código do transition
 - **Licença** fechada (todos os direitos reservados). O repositório pode ficar público durante os testes.
 - **Contas:**
   - Supabase: organização "kaikyolf29-7664's projects";
-  - Cloudflare: a conta conectada.
+  - Cloudflare: a conta conectada (kael.olf18@gmail.com). Site: Worker `mirante`, em `https://mirante.mirante-mercado.workers.dev`.
 
   Antes de usar uma conta, **diga qual é**.
 - **Projeto Supabase do Mirante:** `mirante` (ref `dzrdbeulimgzdcinukch`, São Paulo, plano grátis), endereço `https://dzrdbeulimgzdcinukch.supabase.co`. O outro projeto da conta (`matsu-loja`) não é deste app: não mexa nele. O plano grátis permite 2 projetos ativos, e os dois já estão em uso.

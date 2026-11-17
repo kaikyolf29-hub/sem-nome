@@ -92,10 +92,10 @@
 
 ### Task 4: publicação na Cloudflare
 **Arquivos:** `apps/web/wrangler.jsonc`, `README.md` (seção "Publicar"), `.github/workflows/ci.yml` (sem publicar automaticamente por enquanto).
-- [ ] **1.** Crie `wrangler.jsonc` com nome `mirante`, `compatibility_date` e `assets: { directory: "./build", not_found_handling: "single-page-application" }`.
-- [ ] **2.** Peça a chave de API da Cloudflare com `request_credential` (host `api.cloudflare.com`, permissão "Workers Scripts: Edit"), informando antes ao dono qual conta será usada.
-- [ ] **3.** Rode `bun run build` e depois `bunx wrangler@4 deploy`. Esperado: endereço `https://mirante.<subdomínio>.workers.dev`.
-- [ ] **4.** Abra o endereço com o Playwright e confira o feed, a rota `/cripto/nft` (fallback da SPA) e o tema. Tire prints.
-- [ ] **5.** Documente no README como publicar.
-- [ ] **6.** Diga ao dono quais endereços cadastrar no Supabase em Authentication → URL Configuration: Site URL e Redirect URLs (`https://mirante…workers.dev/**`, `http://localhost:5173/**`).
-- [ ] **7. Commit e push.**
+- [x] **1.** Crie `wrangler.jsonc` com nome `mirante`, `compatibility_date` e `assets: { directory: "./build", not_found_handling: "single-page-application" }`.
+- [x] **2.** ~~Peça a chave de API~~ Publicado pela conta da Cloudflare conectada (kael.olf18@gmail.com), sem chave no repositório: `scripts/publicacao.ts` faz a lista e o envio, a conta conectada cria a sessão e grava o Worker.
+- [x] **3.** Build e publicação. Endereço: `https://mirante.mirante-mercado.workers.dev` (subdomínio da conta criado agora: `mirante-mercado`).
+- [x] **4.** Abra o endereço com o Playwright e confira o feed, a rota `/cripto/nft` (fallback da SPA) e o tema. Tire prints.
+- [x] **5.** Documente no README como publicar.
+- [x] **6.** Diga ao dono quais endereços cadastrar no Supabase em Authentication → URL Configuration: Site URL e Redirect URLs (`https://mirante…workers.dev/**`, `http://localhost:5173/**`).
+- [x] **7. Commit e push.**

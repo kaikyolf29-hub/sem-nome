@@ -23,14 +23,18 @@ Testes: `bun run test` (unidade e componentes) e `bun run test:e2e` (navegador).
 
 ## Publicar
 
-O site vai para a Cloudflare (plano grátis, Workers com arquivos estáticos). Com a conta da Cloudflare ligada:
+O site fica em **https://mirante.mirante-mercado.workers.dev**, na Cloudflare (plano grátis, Worker `mirante` só com arquivos estáticos, sem custo por acesso). Configuração em `apps/web/wrangler.jsonc`; cabeçalhos (cache longo e proteções) em `apps/web/static/_headers`.
+
+**Com uma chave de API da Cloudflare** (permissão "Workers Scripts: Edit"):
 
 ```bash
 cd apps/web
 bun run publicar
 ```
 
-Configuração em `apps/web/wrangler.jsonc`.
+**Sem chave, pela conta da Cloudflare conectada ao Claude:** o script `apps/web/scripts/publicacao.ts` faz a parte local (lista de arquivos e envio) e a conta conectada faz o resto. Os passos estão no começo do script.
+
+Depois de publicar num endereço novo, cadastre-o no Supabase em Authentication → URL Configuration (Site URL e Redirect URLs).
 
 ## Licença
 
