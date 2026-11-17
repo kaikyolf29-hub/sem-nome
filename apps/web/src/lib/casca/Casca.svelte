@@ -77,7 +77,13 @@
 					</h1>
 				{/if}
 				<div class="acoes">
-					<button class="busca" type="button" onclick={() => (paletaAberta = true)}>
+					<button
+						class="busca"
+						type="button"
+						aria-label={t('casca.buscar')}
+						aria-keyshortcuts="Control+K Meta+K"
+						onclick={() => (paletaAberta = true)}
+					>
 						<Search size={16} strokeWidth={1.75} />
 						<span class="busca-texto">{t('casca.buscar')}</span>
 						<kbd class="atalho">Ctrl K</kbd>

@@ -20,7 +20,10 @@
 	>
 		<span class="cheio" style:width="{pct}%"></span>
 	</div>
-	<p class="texto numero">{t('casca.usoIA', { pct, hora })}</p>
+	<p class="texto numero">
+		<span>{t('casca.usoIA', { pct })}</span>
+		<span>{t('casca.renovaAs', { hora })}</span>
+	</p>
 </div>
 
 <style>
@@ -44,6 +47,7 @@
 	}
 
 	.texto {
+		display: grid;
 		color: var(--texto-fraco);
 		font-size: var(--tipo-legenda);
 		line-height: 1.35;

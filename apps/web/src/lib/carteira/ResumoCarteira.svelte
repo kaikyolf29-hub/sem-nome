@@ -64,7 +64,7 @@
 		{t('carteira.concentracao', resumoExemplo.concentracao)}
 	</p>
 
-	<section aria-labelledby="moedas-titulo" role="region">
+	<section aria-labelledby="moedas-titulo">
 		<h2 id="moedas-titulo" class="titulo">{t('carteira.porMoeda')}</h2>
 		<PorMoeda fatias={consolidado.porMoeda} principal={moeda.principal} />
 		<p class="cambio">{t('carteira.cambio', { hora })}</p>

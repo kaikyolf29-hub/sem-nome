@@ -16,7 +16,7 @@
 		display: flex;
 		flex-wrap: wrap;
 		align-items: baseline;
-		gap: 0 6px;
+		gap: 0 4px;
 		max-width: 100%;
 		color: var(--texto-fraco);
 		font-size: var(--tipo-pequeno);

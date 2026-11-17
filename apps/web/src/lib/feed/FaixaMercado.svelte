@@ -6,7 +6,8 @@
 </script>
 
 <section class="faixa-mercado" aria-label={t('feed.mercadoAgora')}>
-	<div class="rolo">
+	<!-- svelte-ignore a11y_no_noninteractive_tabindex (área que rola de lado precisa ser alcançável pelo teclado) -->
+	<div class="rolo" tabindex="0">
 		<ul role="list">
 			{#each itens as item (item.nome)}
 				<li>
@@ -24,6 +25,10 @@
 		position: relative;
 		container-type: inline-size;
 		border-bottom: 1px solid var(--borda);
+	}
+
+	.rolo:focus-visible {
+		outline-offset: -2px;
 	}
 
 	.rolo {
