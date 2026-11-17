@@ -269,6 +269,7 @@ A pessoa anota por que comprou (a tese). A IA lê as notícias novas e avisa qua
 
 ### 10.1 Identidade
 - **Logo:** quadrado bem arredondado (squircle) vermelho vivo (degradê suave de `#FF3B30` para `#C81D11`, base `#E62E2D`) com um símbolo **branco, geométrico e amigável**, de traço grosso, no espírito do Discord, mas com **desenho próprio**. Ideia: um mirante (horizonte com ondas de sinal, ou um "M" formado por uma linha de gráfico que sobe). Não copia o controle do Discord.
+- **Logo escolhida (17/11/2026): opção A, "Gráfico em M"**: o M do Mirante desenhado como uma linha de gráfico que sobe, terminando num ponto (arquivo `apps/web/src/lib/marca/logo-a.svg`).
 - **Formato do ícone:** o padrão Matsu, que funciona em todo sistema: SVG num quadro de 256 × 256, quadrado de 224 px com cantos de 58 px, degradê suave, desenho branco no meio e uma linha clara de 3 px na borda.
 - **O vermelho é da marca, não da interface.** Aparece na logo, na tela de abertura e em poucos momentos de marca. Botões e seleção usam o destaque neutro do tema.
 
