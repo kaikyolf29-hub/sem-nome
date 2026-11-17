@@ -10,6 +10,10 @@
 </script>
 
 <div class="medidor">
+	<p class="linha">
+		<span class="rotulo">{t('casca.usoIA')}</span>
+		<span class="valor numero">{t('casca.usado', { pct })}</span>
+	</p>
 	<div
 		class="barra"
 		role="meter"
@@ -20,16 +24,31 @@
 	>
 		<span class="cheio" style:width="{pct}%"></span>
 	</div>
-	<p class="texto numero">
-		<span>{t('casca.usoIA', { pct })}</span>
-		<span>{t('casca.renovaAs', { hora })}</span>
-	</p>
+	<p class="renova numero">{t('casca.renovaAs', { hora })}</p>
 </div>
 
 <style>
 	.medidor {
 		display: grid;
 		gap: 6px;
+	}
+
+	.linha {
+		display: flex;
+		align-items: baseline;
+		justify-content: space-between;
+		gap: var(--espaco-2);
+		font-size: var(--tipo-legenda);
+	}
+
+	.rotulo {
+		font-weight: 600;
+	}
+
+	.valor,
+	.renova {
+		color: var(--texto-fraco);
+		font-size: var(--tipo-legenda);
 	}
 
 	.barra {
@@ -43,13 +62,6 @@
 		display: block;
 		height: 100%;
 		border-radius: inherit;
-		background: var(--texto-fraco);
-	}
-
-	.texto {
-		display: grid;
-		color: var(--texto-fraco);
-		font-size: var(--tipo-legenda);
-		line-height: 1.35;
+		background: var(--texto);
 	}
 </style>

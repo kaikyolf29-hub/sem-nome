@@ -7,6 +7,8 @@ Regras do dono que valem para o **projeto inteiro, até depois de pronto**. Leia
 
 ## Conversa com o dono
 - Português do Brasil, simples e direto, sem jargão técnico.
+- Mostre o andamento com **prints** (capturas de tela), não com arquivos HTML do protótipo.
+- Olhe sempre como usuário, peça por peça e de perto (inclusive cartões do canto, painéis que abrem e estados depois de clicar), antes de dizer que está pronto.
 - O dono costuma falar por áudio, então nomes podem chegar trocados (Ignis vira "Ingress", NFT vira "NVIDIA", Cloudflare vira "Claude Frari"). Na dúvida, confirme.
 
 ## Regra principal: detalhes

@@ -49,11 +49,7 @@
 		{#if janela.modo !== 'navegador'}<ControlesJanela />{/if}
 		{#if !casca.celular}
 			<div class="col-trilho">
-				<Trilho
-					ativo={local?.espaco.id ?? null}
-					ajustesAberto={casca.ajustesAberto}
-					onajustes={() => (casca.ajustesAberto = !casca.ajustesAberto)}
-				/>
+				<Trilho ativo={local?.espaco.id ?? null} />
 			</div>
 			<div class="col-canais">
 				{#if local}<Canais espaco={local.espaco} canalAtivo={local.canal.id} />{/if}
@@ -147,11 +143,7 @@
 				onfechar={() => casca.fechar()}
 			>
 				<div class="gaveta-espacos">
-					<Trilho
-						ativo={local.espaco.id}
-						ajustesAberto={casca.ajustesAberto}
-						onajustes={() => (casca.ajustesAberto = !casca.ajustesAberto)}
-					/>
+					<Trilho ativo={local.espaco.id} />
 					<Canais
 						espaco={local.espaco}
 						canalAtivo={local.canal.id}

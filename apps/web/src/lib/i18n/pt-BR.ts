@@ -86,10 +86,17 @@ export const ptBR = {
 		buscar: 'Buscar ou perguntar',
 		painel: 'Painel',
 		navegacaoCelular: 'Navegação principal',
-		usoIA: 'IA grátis: {pct}% usado',
+		usoIA: 'IA grátis',
+		usado: '{pct}% usado',
 		renovaAs: 'Renova às {hora}',
 		usoIARotulo: 'Uso da IA grátis',
 		visitante: 'Visitante',
+		semConta: 'Sem conta',
+		suaConta: 'Sua conta',
+		entrarGoogle: 'Entrar com Google',
+		loginEmBreve: 'O login com Google chega na próxima etapa.',
+		contaTexto:
+			'Entre para guardar sua carteira, seus alertas e o que você salvou em todos os seus aparelhos.',
 		entrar: 'Entrar com Google',
 		entrarEmBreve: 'Login com Google em breve'
 	},

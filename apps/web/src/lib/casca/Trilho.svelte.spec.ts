@@ -7,7 +7,7 @@ import Trilho from './Trilho.svelte';
 describe('Trilho', () => {
 	beforeEach(() => i18n.definir('pt-BR'));
 
-	it('mostra os 7 espaços e Ajustes', async () => {
+	it('mostra os 7 espaços', async () => {
 		render(Trilho, { ativo: 'mercado' });
 		const nav = page.getByRole('navigation', { name: 'Espaços' });
 		await expect.element(nav).toBeInTheDocument();
@@ -21,7 +21,7 @@ describe('Trilho', () => {
 			'Salvos'
 		])
 			await expect.element(page.getByRole('link', { name: nome })).toBeInTheDocument();
-		await expect.element(page.getByRole('button', { name: 'Ajustes' })).toBeInTheDocument();
+		expect(nav.element().querySelectorAll('a.botao')).toHaveLength(7);
 	});
 
 	it('o espaço ativo tem aria-current="page"', async () => {

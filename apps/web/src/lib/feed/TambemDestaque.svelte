@@ -85,8 +85,17 @@
 	}
 
 	.fonte {
+		min-width: 0;
+		overflow: hidden;
 		color: var(--texto);
 		font-weight: 600;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+	}
+
+	.meta time {
+		flex: none;
+		white-space: nowrap;
 	}
 
 	h3 {

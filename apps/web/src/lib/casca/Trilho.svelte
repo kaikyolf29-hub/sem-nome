@@ -1,16 +1,11 @@
 <script lang="ts">
-	import Settings from '@lucide/svelte/icons/settings';
 	import { resolve } from '$app/paths';
 	import favicon from '#lib/assets/favicon.svg';
 	import { t } from '#lib/i18n/index.ts';
 	import { espacosApp, paramsCanal, type IdEspaco } from '#lib/navegacao/espacos.ts';
 	import { iconesEspaco } from './icones.ts';
 
-	let {
-		ativo,
-		ajustesAberto = false,
-		onajustes = () => {}
-	}: { ativo: IdEspaco | null; ajustesAberto?: boolean; onajustes?: () => void } = $props();
+	let { ativo }: { ativo: IdEspaco | null } = $props();
 
 	// Tabindex rotativo: só um item entra no Tab; as setas andam entre eles.
 	let focoIndice = $state(0);
@@ -18,7 +13,7 @@
 	// Índice do item com a dica visível; a dica fica ao lado do próprio ícone.
 	let dica = $state<number | null>(null);
 
-	const total = espacosApp.length + 1;
+	const total = espacosApp.length;
 
 	function aoTeclar(e: KeyboardEvent) {
 		const mapa: Record<string, number> = {
@@ -59,9 +54,10 @@
 					aria-label={nome}
 					aria-current={espaco.id === ativo ? 'page' : undefined}
 					tabindex={i === focoIndice ? 0 : -1}
-					onfocus={() => {
+					onfocus={(e) => {
 						focoIndice = i;
-						dica = i;
+						// Dica pelo teclado; com o mouse ela vem do passar por cima.
+						if (e.currentTarget.matches(':focus-visible')) dica = i;
 					}}
 					onblur={() => (dica = null)}
 					onpointerenter={() => (dica = i)}
@@ -73,31 +69,6 @@
 			</li>
 		{/each}
 	</ul>
-
-	<div class="pe">
-		<button
-			bind:this={itens[espacosApp.length]}
-			class="botao"
-			type="button"
-			aria-label={t('casca.ajustes')}
-			aria-expanded={ajustesAberto}
-			tabindex={focoIndice === espacosApp.length ? 0 : -1}
-			onkeydown={aoTeclar}
-			onclick={onajustes}
-			onfocus={() => {
-				focoIndice = espacosApp.length;
-				dica = espacosApp.length;
-			}}
-			onblur={() => (dica = null)}
-			onpointerenter={() => (dica = espacosApp.length)}
-			onpointerleave={() => (dica = null)}
-		>
-			<Settings size={20} strokeWidth={1.75} />
-		</button>
-		{#if dica === espacosApp.length}
-			<span class="dica" aria-hidden="true">{t('casca.ajustes')}</span>
-		{/if}
-	</div>
 </nav>
 
 <style>
@@ -195,14 +166,6 @@
 		border-radius: 16px;
 		background: var(--destaque);
 		color: var(--texto-sobre-destaque);
-	}
-
-	.pe {
-		position: relative;
-		display: flex;
-		justify-content: center;
-		width: 72px;
-		margin-top: auto;
 	}
 
 	.dica {
