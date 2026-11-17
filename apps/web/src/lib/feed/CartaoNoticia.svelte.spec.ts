@@ -31,7 +31,7 @@ describe('CartaoNoticia', () => {
 
 	it('com resumo mostra o selo "Gerado por IA"', async () => {
 		render(CartaoNoticia, { noticia: base });
-		await expect.element(page.getByText('Gerado por IA')).toBeInTheDocument();
+		await expect.element(page.getByText('Resumo por IA')).toBeInTheDocument();
 	});
 
 	it('com 4 fontes mostra "+3"', async () => {
@@ -50,7 +50,7 @@ describe('CartaoNoticia', () => {
 	it('sem resumo não há selo de IA', async () => {
 		render(CartaoNoticia, { noticia: { ...base, resumoIA: undefined } });
 		await expect.element(page.getByText('Título de teste')).toBeInTheDocument();
-		await expect.element(page.getByText('Gerado por IA')).not.toBeInTheDocument();
+		await expect.element(page.getByText('Resumo por IA')).not.toBeInTheDocument();
 	});
 
 	it('mostra o chip "Afeta sua carteira" com o ticker', async () => {

@@ -5,29 +5,36 @@
 	let { ativo }: { ativo: AtivoLigado } = $props();
 </script>
 
-<span class="chip-carteira">
+<p class="carteira">
 	<span class="rotulo">{t('feed.afetaCarteira')}</span>
 	<strong class="ticker">{ativo.ticker}</strong>
 	<span class="motivo">{ativo.motivo}</span>
-</span>
+</p>
 
 <style>
-	.chip-carteira {
-		display: inline-flex;
+	.carteira {
+		display: flex;
 		flex-wrap: wrap;
 		align-items: baseline;
 		gap: 0 6px;
 		max-width: 100%;
-		padding: 4px 10px;
-		border: 1px solid var(--borda);
-		border-radius: var(--raio-grande);
-		font-size: var(--tipo-legenda);
 		color: var(--texto-fraco);
+		font-size: var(--tipo-pequeno);
+	}
+
+	.rotulo {
+		color: var(--texto);
+		font-weight: 600;
+	}
+
+	.rotulo::after {
+		content: ':';
 	}
 
 	.ticker {
 		color: var(--texto);
 		font-weight: 700;
+		font-variant-numeric: tabular-nums;
 	}
 
 	.motivo {

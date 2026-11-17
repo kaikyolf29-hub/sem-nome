@@ -99,7 +99,9 @@ export const en: Mensagens = {
 	feed: {
 		lerNaFonte: 'Read at source',
 		salvar: 'Save',
-		geradoPorIA: 'AI-generated',
+		geradoPorIA: 'AI summary',
+		comInformacoes: 'Reporting from {fontes}',
+		fonteOficial: 'Official source',
 		fontePrimaria: 'Primary source',
 		maisFontes: '+{n}',
 		outrasFontes: 'and {n} more sources',

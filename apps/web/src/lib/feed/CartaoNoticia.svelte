@@ -5,8 +5,8 @@
 	import { tempoRelativo } from '#lib/formato.ts';
 	import { i18n, t } from '#lib/i18n/index.ts';
 	import ChipCarteira from './ChipCarteira.svelte';
-	import { iniciais } from './fontes.ts';
 	import IndicadorImpacto from './IndicadorImpacto.svelte';
+	import MarcaFonte from './MarcaFonte.svelte';
 	import SeloFonte from './SeloFonte.svelte';
 	import SeloIA from './SeloIA.svelte';
 	import type { Noticia } from './tipos.ts';
@@ -20,9 +20,7 @@
 </script>
 
 <article class="noticia" class:bafafa={noticia.bafafa} aria-labelledby="titulo-{noticia.id}">
-	<span class="avatar" class:primaria={principal.primaria} aria-hidden="true">
-		{iniciais(principal.nome)}
-	</span>
+	<span class="avatar"><MarcaFonte fonte={principal} /></span>
 
 	<div class="corpo">
 		<p class="meta">
@@ -107,20 +105,7 @@
 	}
 
 	.avatar {
-		display: grid;
-		place-items: center;
-		width: 40px;
-		height: 40px;
-		border-radius: 50%;
-		background: var(--cartao);
-		color: var(--texto-fraco);
-		font-size: var(--tipo-pequeno);
-		font-weight: 700;
-	}
-
-	.avatar.primaria {
-		background: var(--destaque);
-		color: var(--texto-sobre-destaque);
+		display: flex;
 	}
 
 	.corpo {
@@ -171,9 +156,8 @@
 	.resumo {
 		display: grid;
 		gap: 2px;
-		padding: var(--espaco-2) var(--espaco-3);
-		border-radius: var(--raio-medio);
-		background: var(--cartao);
+		padding-left: var(--espaco-3);
+		border-left: 2px solid var(--borda);
 	}
 
 	.resumo p,
@@ -237,14 +221,8 @@
 
 	@media (max-width: 767.98px) {
 		.noticia {
-			grid-template-columns: 32px minmax(0, 1fr);
+			grid-template-columns: 40px minmax(0, 1fr);
 			padding: var(--espaco-3);
-		}
-
-		.avatar {
-			width: 32px;
-			height: 32px;
-			font-size: 11px;
 		}
 
 		.acao {

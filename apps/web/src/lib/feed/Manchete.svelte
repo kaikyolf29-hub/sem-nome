@@ -3,13 +3,17 @@
 	import { tempoRelativo } from '#lib/formato.ts';
 	import { i18n, t } from '#lib/i18n/index.ts';
 	import ChipCarteira from './ChipCarteira.svelte';
-	import SeloFonte from './SeloFonte.svelte';
 	import SeloIA from './SeloIA.svelte';
 	import type { Noticia } from './tipos.ts';
 
 	let { noticia }: { noticia: Noticia } = $props();
 
 	const data = $derived(new Date(noticia.publicadoEm));
+	const fontes = $derived(
+		new Intl.ListFormat(i18n.idioma, { type: 'conjunction' }).format(
+			noticia.fontes.map((f) => f.nome)
+		)
+	);
 </script>
 
 <article class="manchete" aria-labelledby="manchete-{noticia.id}">
@@ -27,13 +31,7 @@
 		</div>
 	{/if}
 
-	<ul class="fontes" role="list">
-		{#each noticia.fontes as fonte (fonte.nome)}
-			<li class:primaria={fonte.primaria}>
-				{fonte.nome}{#if fonte.primaria}<SeloFonte />{/if}
-			</li>
-		{/each}
-	</ul>
+	<p class="fontes">{t('feed.comInformacoes', { fontes })}</p>
 
 	<div class="rodape">
 		{#each noticia.ativos as ativo (ativo.ticker)}
@@ -89,28 +87,8 @@
 	}
 
 	.fontes {
-		display: flex;
-		flex-wrap: wrap;
-		gap: 6px;
-		margin: 0;
-		padding: 0;
-		list-style: none;
-	}
-
-	.fontes li {
-		display: inline-flex;
-		align-items: center;
-		gap: 4px;
-		padding: 3px 10px;
-		border-radius: 999px;
-		background: var(--cartao);
 		color: var(--texto-fraco);
-		font-size: var(--tipo-legenda);
-		font-weight: 600;
-	}
-
-	.fontes li.primaria {
-		color: var(--texto);
+		font-size: var(--tipo-pequeno);
 	}
 
 	.rodape {

@@ -98,7 +98,9 @@ export const ptBR = {
 	feed: {
 		lerNaFonte: 'Ler na fonte',
 		salvar: 'Salvar',
-		geradoPorIA: 'Gerado por IA',
+		geradoPorIA: 'Resumo por IA',
+		comInformacoes: 'Com informações de {fontes}',
+		fonteOficial: 'Fonte oficial',
 		fontePrimaria: 'Fonte primária',
 		maisFontes: '+{n}',
 		outrasFontes: 'e mais {n} fontes',
