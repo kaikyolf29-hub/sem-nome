@@ -87,4 +87,7 @@ bun run build && bun run orcamento && bun run build:prototipo
 CHROMIUM_PATH=/opt/pw-browsers/chromium bun run test:e2e
 ```
 
-- Limite de 120 KB de JS+CSS comprimido (`bun run orcamento`).
+- **Peso:**
+  - a primeira tela baixa no máximo 120 KB de JS+CSS comprimido (teste `e2e/peso.e2e.ts`);
+  - o app inteiro, no máximo 160 KB (`bun run orcamento`).
+  - O que não aparece na primeira tela (como o login) carrega só quando for usado.

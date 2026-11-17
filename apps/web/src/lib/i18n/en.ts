@@ -95,7 +95,6 @@ export const en: Mensagens = {
 		semConta: 'No account',
 		suaConta: 'Your account',
 		entrarGoogle: 'Sign in with Google',
-		loginEmBreve: 'Google sign-in arrives in the next stage.',
 		contaTexto: 'Sign in to keep your portfolio, alerts and saved items on all your devices.',
 		entrar: 'Sign in with Google',
 		entrarEmBreve: 'Google sign-in coming soon'

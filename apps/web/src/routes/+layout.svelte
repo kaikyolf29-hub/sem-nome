@@ -6,10 +6,16 @@
 	import '#lib/design/base.css';
 	import faviconSvg from '#lib/assets/favicon.svg?raw';
 	import { tema } from '#lib/design/tema.svelte.ts';
+	import { sessao } from '#lib/conta/estado.svelte.ts';
 	import type { LayoutProps } from './$types';
 
 	// Liga o estado do tema (escuta o sistema e escreve data-tema).
 	void tema.nome;
+
+	// Lê a sessão salva (ou a volta do Google) uma vez, ao abrir o app.
+	$effect(() => {
+		sessao.iniciar();
+	});
 
 	let { children }: LayoutProps = $props();
 </script>

@@ -39,9 +39,12 @@ test.describe('cartão da conta', () => {
 	});
 
 	test('Entrar com Google responde ao clique', async ({ page }) => {
+		await page.route('**/auth/v1/settings', (r) =>
+			r.fulfill({ json: { external: { google: false } } })
+		);
 		await page.goto('/mercado/manchetes');
 		await page.getByRole('button', { name: 'Entrar com Google' }).click();
-		await expect(page.getByText('O login com Google chega na próxima etapa.')).toBeVisible();
+		await expect(page.getByRole('status')).toContainText('O login com Google ainda não foi ligado');
 	});
 
 	test('a dica de Ajustes não fica na tela depois de usar o mouse', async ({ page }) => {

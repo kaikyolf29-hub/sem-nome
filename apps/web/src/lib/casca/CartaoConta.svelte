@@ -2,14 +2,34 @@
 	import Settings from '@lucide/svelte/icons/settings';
 	import User from '@lucide/svelte/icons/user';
 	import { siGoogle } from 'simple-icons';
+	import { sessao as sessaoGlobal } from '#lib/conta/estado.svelte.ts';
+	import type { Sessao } from '#lib/conta/sessao.svelte.ts';
 	import { t } from '#lib/i18n/index.ts';
 	import { casca } from './casca.svelte.ts';
 	import MedidorIA from './MedidorIA.svelte';
 
+	let { sessao = sessaoGlobal }: { sessao?: Sessao } = $props();
+
 	const renovaEm = new Date(Date.now() + 2 * 3_600_000);
 
 	let perfilAberto = $state(false);
-	let aviso = $state(false);
+	let entrando = $state(false);
+
+	const usuario = $derived(sessao.usuario);
+	const nome = $derived(usuario?.nome || t('casca.visitante'));
+	const status = $derived(usuario ? usuario.email : t('casca.semConta'));
+
+	async function entrar() {
+		entrando = true;
+		await sessao.entrarComGoogle();
+		// Se ficou na página (erro ou aviso), o botão volta ao normal.
+		entrando = false;
+	}
+
+	async function sair() {
+		await sessao.sair();
+		fecharPerfil();
+	}
 	let botaoConta: HTMLButtonElement | undefined = $state();
 	let perfil: HTMLElement | undefined = $state();
 	let caixa: HTMLElement | undefined = $state();
@@ -30,14 +50,26 @@
 	});
 </script>
 
+{#snippet avatar(grande: boolean)}
+	<span class="avatar" class:grande aria-hidden="true">
+		{#if usuario?.avatarUrl}
+			<img src={usuario.avatarUrl} alt="" referrerpolicy="no-referrer" />
+		{:else}
+			<User size={grande ? 24 : 18} strokeWidth={1.75} />
+		{/if}
+	</span>
+{/snippet}
+
 {#snippet botaoGoogle()}
-	<button class="google" type="button" onclick={() => (aviso = true)}>
-		<svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"
-			><path d={siGoogle.path} /></svg
-		>
-		{t('casca.entrarGoogle')}
-	</button>
-	{#if aviso}<p class="aviso" role="status">{t('casca.loginEmBreve')}</p>{/if}
+	{#if !usuario}
+		<button class="google" type="button" disabled={entrando} onclick={entrar}>
+			<svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"
+				><path d={siGoogle.path} /></svg
+			>
+			{entrando ? t('conta.entrando') : t('casca.entrarGoogle')}
+		</button>
+	{/if}
+	{#if sessao.erro}<p class="aviso" role="status">{t(sessao.erro)}</p>{/if}
 {/snippet}
 
 <section class="conta" bind:this={caixa}>
@@ -50,10 +82,10 @@
 			aria-expanded={perfilAberto}
 			onclick={() => (perfilAberto ? fecharPerfil() : (perfilAberto = true))}
 		>
-			<span class="avatar" aria-hidden="true"><User size={18} strokeWidth={1.75} /></span>
+			{@render avatar(false)}
 			<span class="nomes">
-				<span class="nome">{t('casca.visitante')}</span>
-				<span class="status">{t('casca.semConta')}</span>
+				<span class="nome">{nome}</span>
+				<span class="status">{status}</span>
 			</span>
 		</button>
 		<button
@@ -86,14 +118,17 @@
 		>
 			<div class="corpo-perfil">
 				<div class="cabeca">
-					<span class="avatar grande" aria-hidden="true"><User size={24} strokeWidth={1.75} /></span
-					>
+					{@render avatar(true)}
 					<span class="nomes">
-						<span class="nome-grande">{t('casca.visitante')}</span>
-						<span class="status">{t('casca.semConta')}</span>
+						<span class="nome-grande">{nome}</span>
+						<span class="status">{status}</span>
 					</span>
 				</div>
-				<p class="texto">{t('casca.contaTexto')}</p>
+				{#if usuario}
+					<button class="google" type="button" onclick={sair}>{t('conta.sair')}</button>
+				{:else}
+					<p class="texto">{t('casca.contaTexto')}</p>
+				{/if}
 				{@render botaoGoogle()}
 				<div class="separador" aria-hidden="true"></div>
 				<MedidorIA usoPct={40} {renovaEm} />
@@ -149,6 +184,18 @@
 		box-shadow: inset 0 0 0 1px var(--borda);
 	}
 
+	.avatar img {
+		width: 100%;
+		height: 100%;
+		border-radius: 50%;
+		object-fit: cover;
+	}
+
+	.google:disabled {
+		cursor: progress;
+		opacity: 0.7;
+	}
+
 	.nomes {
 		display: grid;
 		min-width: 0;
@@ -164,8 +211,17 @@
 	}
 
 	.status {
+		overflow: hidden;
 		color: var(--texto-fraco);
 		font-size: var(--tipo-legenda);
+		text-overflow: ellipsis;
+		white-space: nowrap;
+	}
+
+	.nome-grande {
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
 	}
 
 	.ajustes {

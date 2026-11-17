@@ -1,8 +1,9 @@
-// Soma o JS e o CSS do app (comprimidos com gzip, sem as fontes) e falha acima do limite.
+// Soma TODO o JS e o CSS do app (comprimidos com gzip, sem as fontes) e falha acima do limite.
+// É uma guarda contra inchaço; a primeira tela tem limite próprio de 120 KB (e2e/peso.e2e.ts).
 import { readFileSync, readdirSync, statSync } from 'node:fs';
 import { join } from 'node:path';
 
-const LIMITE_KB = 120;
+const LIMITE_KB = 160;
 const raiz = new URL('../build/_app/immutable', import.meta.url).pathname;
 
 function arquivos(dir: string): string[] {
