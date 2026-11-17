@@ -4,11 +4,11 @@
 tecnologia e IA dentro, num site com conta Google e num app instalável para
 Windows e Linux (com a versão Matsu OS).
 
-> **Beta.** Em construção: hoje o repositório tem a base técnica e um protótipo
-> visual com dados de exemplo.
+> **Beta.** Em construção. As notícias já são reais (19 fontes conferidas, coletadas a
+> cada 5 minutos); cotações, carteira e análises ainda são de exemplo.
 
 - Design: [`docs/superpowers/specs/2026-11-17-mirante-design.md`](docs/superpowers/specs/2026-11-17-mirante-design.md)
-- Plano atual: [`docs/superpowers/plans/2026-11-17-fase-0a-base-e-prototipo.md`](docs/superpowers/plans/2026-11-17-fase-0a-base-e-prototipo.md)
+- Planos: [`docs/superpowers/plans/`](docs/superpowers/plans/) (o atual é a fase 1A, notícias de verdade)
 
 ## Rodar
 
@@ -19,7 +19,14 @@ bun install
 bun run dev
 ```
 
-Testes: `bun run test` (unidade e componentes) e `bun run test:e2e` (navegador).
+Testes: `bun run test` (unidade e componentes), `bun run test:coleta` (coleta de notícias) e `bun run test:e2e` (navegador).
+
+## Notícias
+
+- **Fontes:** 19, só RSS, Atom ou API oficial, conferidas (endereço e `robots.txt`) antes de entrar. A lista fica na tabela `fontes` do Supabase e no plano da fase 1A. De cada notícia guardamos só título, trecho e link.
+- **Coleta:** a Edge Function `coletar` (`supabase/functions/coletar/`) roda a cada 5 minutos pelo `pg_cron`, com cache (ETag), espera crescente quando uma fonte falha e teto mensal abaixo do limite grátis. A lógica fica em `supabase/functions/_compartilhado/`, testada com respostas gravadas.
+- **Duplicatas e grupos:** o mesmo link nunca entra duas vezes; a mesma história em fontes diferentes vira um cartão só, com todas as fontes.
+- **Site:** lê a função `feed()` do banco, que já entrega um cartão por fato, com variedade de fontes na capa. Logos das fontes em `apps/web/static/fontes/` (veja `apps/web/scripts/logos-das-fontes.md`).
 
 ## Publicar
 

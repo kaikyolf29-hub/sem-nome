@@ -49,6 +49,15 @@
 
 Intervalo: 10 min para todas. Ficam para a 1B: CVM (o RSS só lista pastas), SEC (exige contato no cabeçalho), Hacker News, GitHub, arXiv.
 
+## Como ficou (17/11/2026)
+- Coleta no ar desde 17/11: 19 fontes, sem links repetidos, nenhuma com erro na conferência.
+- Mudanças em relação ao plano, todas com teste:
+  - canais pelo **título** (o trecho arrastava notícias para canais de passagem);
+  - consulta de links existentes em lotes de 25 (o g1 manda 100 itens e o endereço do pedido estourava);
+  - logos em 128 px com Pillow (o ImageMagick daqui não lê `.ico`); 3 recortadas do logotipo oficial;
+  - `feed()` com variedade de fontes (migração `20261117000004_feed_variado.sql`);
+  - impacto só aparece quando a IA calcular (fase 2).
+
 ## Pontos de atenção (o que mais pode quebrar para quem usa)
 1. **Feed com HTML, entidades, CDATA, trecho vazio ou sem data:** o cartão sai limpo (sem `&amp;`, sem tags) e, sem data, usa a hora da coleta. Teste na Task 2.
 2. **Fonte fora do ar, lenta ou respondendo 429:** as outras continuam, a fonte espera mais na próxima vez e o site não percebe. Teste na Task 3.
@@ -79,10 +88,10 @@ Intervalo: 10 min para todas. Ficam para a 1B: CVM (o RSS só lista pastas), SEC
 - Extensões `pg_cron` e `pg_net`. Segredo `chave_coleta` criado no Vault pelo próprio SQL (`encode(gen_random_bytes(32), 'hex')`), sem passar pela conversa.
 - Limpeza diária (`pg_cron`, 03:17): apaga notícias com mais de 90 dias e grupos vazios.
 
-- [ ] **1. Teste de RLS e da função `feed` que falha** (`supabase/testes/rls_noticias.sql`, transação com `rollback`, via `execute_sql`): como `anon`, lê fontes (19), não insere em `noticias`, não lê `estado_fontes` nem `contadores_cota`, não executa `somar_cota` nem `conferir_chave_coleta`; inserindo (como dono) duas notícias de fontes diferentes no mesmo grupo, `grupos.n_fontes = 2` e `feed('mercado')` devolve 1 item com 2 fontes, a primária primeiro; uma notícia de 100 dias some do `feed`. Esperado: tudo `ok`.
-- [ ] **2.** Aplique a migração com `apply_migration` e rode o teste até tudo dar `ok`.
-- [ ] **3.** `get_advisors` (segurança e desempenho) sem alerta novo.
-- [ ] **4. Commit.**
+- [x] **1. Teste de RLS e da função `feed` que falha** (`supabase/testes/rls_noticias.sql`, transação com `rollback`, via `execute_sql`): como `anon`, lê fontes (19), não insere em `noticias`, não lê `estado_fontes` nem `contadores_cota`, não executa `somar_cota` nem `conferir_chave_coleta`; inserindo (como dono) duas notícias de fontes diferentes no mesmo grupo, `grupos.n_fontes = 2` e `feed('mercado')` devolve 1 item com 2 fontes, a primária primeiro; uma notícia de 100 dias some do `feed`. Esperado: tudo `ok`.
+- [x] **2.** Aplique a migração com `apply_migration` e rode o teste até tudo dar `ok`.
+- [x] **3.** `get_advisors` (segurança e desempenho) sem alerta novo.
+- [x] **4. Commit.**
 
 ### Task 2: lógica da coleta (pura, testada)
 
@@ -97,7 +106,7 @@ Intervalo: 10 min para todas. Ficam para a 1B: CVM (o RSS só lista pastas), SEC
 - `agrupar.ts`: `assinatura(titulo: string): string[]` (minúsculas, sem acento, sem palavras vazias pt e en, palavras ≥ 3 letras e números, únicas, ordenadas); `parecidas(a: string[], b: string[]): boolean` (≥ 4 em comum e Jaccard ≥ 0,5); `escolherGrupo(item: ItemPronto, recentes: { grupo_id: number; assinatura: string[]; publicado_em: string }[]): number | null` (só candidatas a até 36 h do item; a mais parecida).
 - `canais.ts`: `classificar(fonte: Fonte, titulo: string, trecho: string): { espaco; canais: string[] }`. Palavras de cripto (bitcoin, ethereum, cripto, criptomoeda, stablecoin, nft, blockchain, solana, binance…) levam ao espaço `cripto` (com `stablecoins` e `nft` quando couber). No `mercado`: `acoes`, `fiis`, `etfs`, `renda-fixa`, `cambio`, `commodities`, `macro`, `eua` e `mundo` por palavras. Na `tecnologia`: `ia`, `chips` (Nvidia, AMD, Intel, TSMC, semicondutor, chip), `big-techs` (Apple, Google, Microsoft, Meta, Amazon). Sempre inclui os canais base da fonte. As listas de palavras ficam em constantes exportadas.
 
-- [ ] **1. Testes que falham** (`bun test`):
+- [x] **1. Testes que falham** (`bun test`):
   - `lerFeed` das 6 amostras: cada uma com ≥ 10 itens, todos com título e URL `https://`; Atom do `bcb` com data; IBGE com data em UTC certa (`16/11/2026 04:29:43` → `2026-11-16T07:29:43.000Z`).
   - `limparTexto('Petróleo &amp; gás <b>sobem</b>&nbsp; 3%')` → `'Petróleo & gás sobem 3%'`; `trecho` de 600 caracteres termina em "…" e tem ≤ 281; trecho igual ao título → `''`.
   - `urlCanonica('http://site.com/a/?utm_source=x&id=2&fbclid=y#topo')` → `'https://site.com/a/?id=2'`.
@@ -105,8 +114,8 @@ Intervalo: 10 min para todas. Ficam para a 1B: CVM (o RSS só lista pastas), SEC
   - `parecidas` verdadeiro para "Copom mantém Selic em 15% e sinaliza cautela" × "Copom mantém a Selic em 15% ao ano e sinaliza cautela com inflação"; falso para "Ibovespa fecha em alta com bancos" × "Ibovespa fecha em alta com Vale".
   - `escolherGrupo` ignora uma candidata igual de 40 h antes (ponto 3).
   - `classificar`: notícia de "Bitcoin" na InfoMoney → `cripto`; "Nvidia lança chip" no Tecnoblog → `tecnologia` com `chips`; "Dólar fecha em queda" → `mercado` com `cambio`; "Fed mantém juros" na Agência Brasil Internacional → `mercado` com `mundo`, `eua` e `macro`.
-- [ ] **2.** Implemente e rode até passar.
-- [ ] **3. Commit.**
+- [x] **2.** Implemente e rode até passar.
+- [x] **3. Commit.**
 
 ### Task 3: Edge Function `coletar` e agendamento
 
@@ -118,12 +127,12 @@ Intervalo: 10 min para todas. Ficam para a 1B: CVM (o RSS só lista pastas), SEC
 - Produz: `rodada(db: BancoColeta, buscar: typeof fetch, agora: () => Date, limiteMs = 25_000): Promise<Resumo>` onde `BancoColeta` é a interface mínima (`fontesVencidas()`, `recentes(desde: Date)`, `urlsExistentes(urls: string[])`, `criarGrupo(item: ItemPronto): Promise<number>`, `inserir(itens: (ItemPronto & { grupo_id: number; fonte_id: string })[])`, `salvarEstado(fonte_id: string, estado: Partial<EstadoFonte>)`) e `Resumo { fontes: { id: string; status: number | 'erro'; novos: number }[]; ms: number }`.
 - Regras: tempo limite de 10 s por pedido; 304 só reagenda; 2xx atualiza ETag e Last-Modified e reagenda em `intervalo_min`; erro ou status ≥ 400 soma `erros_seguidos` e reagenda em `min(intervalo_min × 2^erros, 24 h)`; no máximo 30 itens novos por fonte; para quando passa de `limiteMs`. O `index.ts` confere a chave do cabeçalho `x-mirante-chave` com `conferir_chave_coleta` (401 se não bate), chama `somar_cota('edge-coletar', 'AAAA-MM', 400000)` (se `false`, responde 200 com `{ pausado: true }`) e monta o `BancoColeta` com supabase-js e `SUPABASE_SERVICE_ROLE_KEY`.
 
-- [ ] **1. Testes que falham** (`rodada.test.ts`, banco e `fetch` falsos): fonte com 304 não insere e reagenda; fonte com 500 soma erro e reagenda em 20 min (intervalo 10 × 2¹), e a fonte seguinte continua (ponto 2); URL já existente não entra de novo; dois itens parecidos de fontes diferentes caem no mesmo grupo; `limiteMs` estourado para antes da próxima fonte.
-- [ ] **2.** Implemente até passar.
-- [ ] **3. Publique** com `deploy_edge_function` (`verify_jwt: false`, a função confere a própria chave). Chamada sem a chave → 401.
-- [ ] **4. Migração de agendamento:** `cron.schedule('coletar-noticias', '*/5 * * * *', …)` com `net.http_post` para `https://dzrdbeulimgzdcinukch.supabase.co/functions/v1/coletar`, cabeçalho `x-mirante-chave` lido do Vault dentro do próprio job e `timeout_milliseconds` 60000.
-- [ ] **5. Confira em produção:** dispare uma vez; em até 10 min `noticias` tem itens das 19 fontes (ou o erro de cada uma em `estado_fontes`); nenhuma URL repetida; `contadores_cota` somando.
-- [ ] **6. Commit.**
+- [x] **1. Testes que falham** (`rodada.test.ts`, banco e `fetch` falsos): fonte com 304 não insere e reagenda; fonte com 500 soma erro e reagenda em 20 min (intervalo 10 × 2¹), e a fonte seguinte continua (ponto 2); URL já existente não entra de novo; dois itens parecidos de fontes diferentes caem no mesmo grupo; `limiteMs` estourado para antes da próxima fonte.
+- [x] **2.** Implemente até passar.
+- [x] **3. Publique** com `deploy_edge_function` (`verify_jwt: false`, a função confere a própria chave). Chamada sem a chave → 401.
+- [x] **4. Migração de agendamento:** `cron.schedule('coletar-noticias', '*/5 * * * *', …)` com `net.http_post` para `https://dzrdbeulimgzdcinukch.supabase.co/functions/v1/coletar`, cabeçalho `x-mirante-chave` lido do Vault dentro do próprio job e `timeout_milliseconds` 60000.
+- [x] **5. Confira em produção:** dispare uma vez; em até 10 min `noticias` tem itens das 19 fontes (ou o erro de cada uma em `estado_fontes`); nenhuma URL repetida; `contadores_cota` somando.
+- [x] **6. Commit.**
 
 ### Task 4: logos das fontes
 
@@ -131,9 +140,9 @@ Intervalo: 10 min para todas. Ficam para a 1B: CVM (o RSS só lista pastas), SEC
 - Criar: `apps/web/static/fontes/<id>.png` (64×64, a logo do próprio site: `apple-touch-icon` ou o maior ícone declarado), `apps/web/scripts/baixar-logos.ts`.
 - Alterar: `apps/web/src/lib/feed/tipos.ts` (`FonteNoticia.logo?: string`), `MarcaFonte.svelte`, `MarcaFonte.svelte.spec.ts` (criar).
 
-- [ ] **1. Teste de componente que falha:** com `logo`, `MarcaFonte` mostra `img` com `alt=""`, do tamanho pedido, cantos arredondados, sem distorcer (`object-fit: cover`); se a imagem falha ao carregar, volta para a sigla.
-- [ ] **2.** Implemente, baixe as 19 logos com o script e confira cada uma num print de perto (nítida, centralizada, sem fundo transparente feio no tema escuro: logo com fundo transparente ganha fundo branco).
-- [ ] **3. Commit.**
+- [x] **1. Teste de componente que falha:** com `logo`, `MarcaFonte` mostra `img` com `alt=""`, do tamanho pedido, cantos arredondados, sem distorcer (`object-fit: cover`); se a imagem falha ao carregar, volta para a sigla.
+- [x] **2.** Implemente, baixe as 19 logos com o script e confira cada uma num print de perto (nítida, centralizada, sem fundo transparente feio no tema escuro: logo com fundo transparente ganha fundo branco).
+- [x] **3. Commit.**
 
 ### Task 5: feed real na interface
 
@@ -147,13 +156,13 @@ Intervalo: 10 min para todas. Ficam para a 1B: CVM (o RSS só lista pastas), SEC
 - `e2e/apoio.ts`: exporta `test` e `expect`; o `test` intercepta `**/rest/v1/rpc/feed**` e responde com as notícias de exemplo no formato da função `feed`, para os testes antigos seguirem iguais.
 - Textos novos: `feed.carregando`, `feed.erroRede` ("Sem conexão com as notícias agora."), `feed.erroServidor` ("As notícias não carregaram."), `feed.tentarDeNovo` ("Tentar de novo"), `aviso.dadosReais` ("Notícias reais das fontes. Cotações, carteira e análises ainda são de exemplo.").
 
-- [ ] **1. Testes que falham:**
+- [x] **1. Testes que falham:**
   - `dados.spec.ts`: monta a URL certa; mapeia 2 fontes com a primária primeiro; 500 → `ErroFeed('servidor')`; `fetch` rejeitado → `ErroFeed('rede')`.
   - `feed.svelte.spec.ts`: resposta atrasada do canal A não substitui o canal B.
   - `feed-real.e2e.ts`: com a rota respondendo 2 grupos, os cartões mostram título, trecho, a logo de cada fonte e "+1"; "Ler na fonte" abre a URL da fonte em nova aba; com a rota falhando, aparece `feed.erroRede` e "Tentar de novo" recarrega (ponto 4); enquanto carrega, há um esqueleto com `aria-busy="true"` sem pular o layout; título de 200 caracteres em 320 px não cria rolagem lateral (ponto 5).
-- [ ] **2.** Implemente: no build normal o `Feed` usa `criarFeed(buscarFeed)`; no protótipo (`__PROTOTIPO__`), as notícias de exemplo. A manchete continua sendo o primeiro item do canal geral. Recarrega ao voltar para a aba se passaram mais de 5 min.
-- [ ] **3.** Rode todas as verificações do `CLAUDE.md`.
-- [ ] **4. Commit.**
+- [x] **2.** Implemente: no build normal o `Feed` usa `criarFeed(buscarFeed)`; no protótipo (`__PROTOTIPO__`), as notícias de exemplo. A manchete continua sendo o primeiro item do canal geral. Recarrega ao voltar para a aba se passaram mais de 5 min.
+- [x] **3.** Rode todas as verificações do `CLAUDE.md`.
+- [x] **4. Commit.**
 
 ### Task 6: publicar, conferir e revisar
 
