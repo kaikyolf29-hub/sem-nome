@@ -1,8 +1,9 @@
 <script lang="ts">
 	import Settings from '@lucide/svelte/icons/settings';
+	import { resolve } from '$app/paths';
 	import favicon from '#lib/assets/favicon.svg';
 	import { t } from '#lib/i18n/index.ts';
-	import { espacosApp, rotaCanal, type IdEspaco } from '#lib/navegacao/espacos.ts';
+	import { espacosApp, paramsCanal, type IdEspaco } from '#lib/navegacao/espacos.ts';
 	import { iconesEspaco } from './icones.ts';
 
 	let { ativo, onajustes = () => {} }: { ativo: IdEspaco | null; onajustes?: () => void } =
@@ -40,7 +41,7 @@
 </script>
 
 <nav class="trilho" aria-label={t('casca.espacos')}>
-	<a class="logo" href="/" aria-label={t('casca.irInicio')}>
+	<a class="logo" href={resolve('/')} aria-label={t('casca.irInicio')}>
 		<img src={favicon} alt="" width="48" height="48" />
 	</a>
 	<span class="separador" aria-hidden="true"></span>
@@ -55,7 +56,7 @@
 				<a
 					bind:this={itens[i]}
 					class="botao"
-					href={rotaCanal(espaco.id)}
+					href={resolve('/[espaco]/[[canal]]', paramsCanal(espaco.id))}
 					aria-label={nome}
 					aria-current={espaco.id === ativo ? 'page' : undefined}
 					tabindex={i === focoIndice ? 0 : -1}

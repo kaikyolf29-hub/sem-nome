@@ -21,5 +21,5 @@
 	}}
 >
 	<button>primeiro</button>
-	<button>último</button>
+	<button>final</button>
 </Gaveta>

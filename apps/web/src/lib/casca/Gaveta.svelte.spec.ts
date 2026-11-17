@@ -15,7 +15,7 @@ describe('Gaveta', () => {
 	it('Tab no último volta ao primeiro (foco preso)', async () => {
 		render(GavetaTeste, { abertaInicial: true });
 		const primeiro = page.getByRole('button', { name: 'primeiro' });
-		const ultimo = page.getByRole('button', { name: 'último' });
+		const ultimo = page.getByRole('button', { name: 'final' });
 		(ultimo.element() as HTMLElement).focus();
 		await userEvent.keyboard('{Tab}');
 		await expect.element(primeiro).toHaveFocus();

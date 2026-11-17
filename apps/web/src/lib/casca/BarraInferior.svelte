@@ -1,24 +1,25 @@
 <script lang="ts">
+	import { resolve } from '$app/paths';
 	import Bell from '@lucide/svelte/icons/bell';
 	import Bitcoin from '@lucide/svelte/icons/bitcoin';
 	import ChartPie from '@lucide/svelte/icons/chart-pie';
 	import House from '@lucide/svelte/icons/house';
 	import User from '@lucide/svelte/icons/user';
 	import { t } from '#lib/i18n/index.ts';
-	import { rotaCanal, type IdEspaco } from '#lib/navegacao/espacos.ts';
+	import { paramsCanal, type IdEspaco } from '#lib/navegacao/espacos.ts';
 
 	let { ativo, onvoce }: { ativo: IdEspaco | null; onvoce: () => void } = $props();
 
 	const itens = [
-		{ rotulo: 'casca.inicio', href: rotaCanal('mercado'), espaco: 'mercado', Icone: House },
-		{ rotulo: 'casca.alertas', href: rotaCanal('agenda'), espaco: 'agenda', Icone: Bell },
+		{ rotulo: 'casca.inicio', params: paramsCanal('mercado'), espaco: 'mercado', Icone: House },
+		{ rotulo: 'casca.alertas', params: paramsCanal('agenda'), espaco: 'agenda', Icone: Bell },
 		{
 			rotulo: 'espacos.carteira',
-			href: rotaCanal('carteira'),
+			params: paramsCanal('carteira'),
 			espaco: 'carteira',
 			Icone: ChartPie
 		},
-		{ rotulo: 'espacos.cripto', href: rotaCanal('cripto'), espaco: 'cripto', Icone: Bitcoin }
+		{ rotulo: 'espacos.cripto', params: paramsCanal('cripto'), espaco: 'cripto', Icone: Bitcoin }
 	] as const;
 </script>
 
@@ -27,7 +28,7 @@
 		<a
 			class="item"
 			class:ativo={ativo === item.espaco}
-			href={item.href}
+			href={resolve('/[espaco]/[[canal]]', item.params)}
 			aria-current={ativo === item.espaco ? 'page' : undefined}
 		>
 			<item.Icone size={22} strokeWidth={1.75} />

@@ -1,6 +1,7 @@
 <script lang="ts">
+	import { resolve } from '$app/paths';
 	import { t } from '#lib/i18n/index.ts';
-	import { rotaCanal, type Canal, type Espaco } from '#lib/navegacao/espacos.ts';
+	import { paramsCanal, type Canal, type Espaco } from '#lib/navegacao/espacos.ts';
 	import CartaoConta from './CartaoConta.svelte';
 
 	let {
@@ -42,7 +43,7 @@
 							<a
 								class="canal"
 								class:ativo={canal.id === canalAtivo}
-								href={rotaCanal(espaco.id, canal.id)}
+								href={resolve('/[espaco]/[[canal]]', paramsCanal(espaco.id, canal.id))}
 								aria-current={canal.id === canalAtivo ? 'page' : undefined}
 								onclick={onescolher}
 							>

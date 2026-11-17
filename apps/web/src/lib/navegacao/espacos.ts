@@ -110,8 +110,8 @@ export function localizar(espaco: string, canal?: string): { espaco: Espaco; can
 	return c ? { espaco: e, canal: c } : null;
 }
 
-/** Endereço do primeiro canal (ou do canal dado) de um espaço. */
-export function rotaCanal(espaco: IdEspaco, canal?: string): string {
+/** Parâmetros da rota /[espaco]/[[canal]]: o canal dado ou o primeiro do espaço. Use com resolve(). */
+export function paramsCanal(espaco: IdEspaco, canal?: string): { espaco: string; canal: string } {
 	const e = espacosApp.find((x) => x.id === espaco)!;
-	return `/${e.id}/${canal ?? e.canais[0].id}`;
+	return { espaco: e.id, canal: canal ?? e.canais[0].id };
 }
