@@ -10,6 +10,7 @@
 
 	// Liga o estado do tema (escuta o sistema e escreve data-tema).
 	void tema.nome;
+	import Casca from '#lib/casca/Casca.svelte';
 	import type { LayoutProps } from './$types';
 
 	let { children }: LayoutProps = $props();
@@ -20,4 +21,6 @@
 	<link rel="icon" href={favicon} />
 </svelte:head>
 
-{@render children()}
+<Casca>
+	{@render children()}
+</Casca>

@@ -70,6 +70,26 @@ export const en: Mensagens = {
 			tudo: 'all'
 		}
 	},
+	casca: {
+		espacos: 'Spaces',
+		ajustes: 'Settings',
+		inicio: 'Home',
+		alertas: 'Alerts',
+		voce: 'You',
+		irInicio: 'Mirante, go home',
+		abrirCanais: 'Open channels',
+		abrirPainel: 'Open panel',
+		fecharPainel: 'Close panel',
+		canais: 'Channels',
+		buscar: 'Search or ask',
+		painel: 'Panel',
+		navegacaoCelular: 'Main navigation',
+		usoIA: 'Free AI: {pct}% used, resets at {hora}',
+		usoIARotulo: 'Free AI usage',
+		visitante: 'Guest',
+		entrar: 'Sign in with Google',
+		entrarEmBreve: 'Sign-in arrives in the next stage'
+	},
 	variacao: {
 		alta: 'up {valor}',
 		queda: 'down {valor}',

@@ -42,7 +42,7 @@ export const espacosApp: readonly Espaco[] = [
 	{
 		id: 'carteira',
 		rotulo: 'espacos.carteira',
-		icone: 'pie-chart',
+		icone: 'chart-pie',
 		canais: [
 			{ id: 'visao-geral', rotulo: 'canais.carteira.visaoGeral' },
 			{ id: 'proventos', rotulo: 'canais.carteira.proventos' },
@@ -64,7 +64,7 @@ export const espacosApp: readonly Espaco[] = [
 	{
 		id: 'daytrade',
 		rotulo: 'espacos.daytrade',
-		icone: 'candlestick-chart',
+		icone: 'chart-candlestick',
 		canais: [
 			{ id: 'grafico', rotulo: 'canais.daytrade.grafico' },
 			{ id: 'treino', rotulo: 'canais.daytrade.treino' },
@@ -108,4 +108,10 @@ export function localizar(espaco: string, canal?: string): { espaco: Espaco; can
 	if (!e) return null;
 	const c = canal ? e.canais.find((x) => x.id === canal) : e.canais[0];
 	return c ? { espaco: e, canal: c } : null;
+}
+
+/** Endereço do primeiro canal (ou do canal dado) de um espaço. */
+export function rotaCanal(espaco: IdEspaco, canal?: string): string {
+	const e = espacosApp.find((x) => x.id === espaco)!;
+	return `/${e.id}/${canal ?? e.canais[0].id}`;
 }

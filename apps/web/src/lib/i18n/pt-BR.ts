@@ -69,6 +69,26 @@ export const ptBR = {
 			tudo: 'tudo'
 		}
 	},
+	casca: {
+		espacos: 'Espaços',
+		ajustes: 'Ajustes',
+		inicio: 'Início',
+		alertas: 'Alertas',
+		voce: 'Você',
+		irInicio: 'Mirante, ir para o início',
+		abrirCanais: 'Abrir canais',
+		abrirPainel: 'Abrir painel',
+		fecharPainel: 'Fechar painel',
+		canais: 'Canais',
+		buscar: 'Buscar ou perguntar',
+		painel: 'Painel',
+		navegacaoCelular: 'Navegação principal',
+		usoIA: 'IA grátis: {pct}% usado, renova às {hora}',
+		usoIARotulo: 'Uso da IA grátis',
+		visitante: 'Visitante',
+		entrar: 'Entrar com Google',
+		entrarEmBreve: 'O login chega na próxima etapa'
+	},
 	variacao: {
 		alta: 'alta de {valor}',
 		queda: 'queda de {valor}',
