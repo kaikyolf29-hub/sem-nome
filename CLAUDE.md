@@ -63,6 +63,7 @@ O Taste Skill (MIT) pode servir de referência. Não copie código do transition
   - Cloudflare: a conta conectada.
 
   Antes de usar uma conta, **diga qual é**.
+- **Projeto Supabase do Mirante:** `mirante` (ref `dzrdbeulimgzdcinukch`, São Paulo, plano grátis), endereço `https://dzrdbeulimgzdcinukch.supabase.co`. O outro projeto da conta (`matsu-loja`) não é deste app: não mexa nele. O plano grátis permite 2 projetos ativos, e os dois já estão em uso.
 - **IA local:** pelo Ignis do dono (`kaikydev1-jpg/Ignis`). Chaves da OpenAI e do Claude ficam só no aparelho da pessoa.
 - **Supervisão:** o Fable 5.2 revisa em pontos-chave (fim de etapa e revisão final), respeitando o limite de gasto.
 
