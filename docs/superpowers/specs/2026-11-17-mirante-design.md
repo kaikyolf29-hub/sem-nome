@@ -4,7 +4,9 @@
 > Portal de notícias e investimentos com IA, com a parte de tecnologia e IA dentro, num site com conta Google e num app instalável para Windows e Linux, no estilo do Discord.
 
 - **Data:** 17/11/2026
-- **Situação:** aguardando aprovação do dono
+- **Situação:** aprovado pelo dono em 17/11/2026
+- **Licença:** fechada (todos os direitos reservados). O repositório pode ficar público durante os testes; o dono decide depois se fica público ou privado.
+- **Fase de produto:** beta grátis para todos
 - **Repositório:** `kaikyolf29-hub/sem-nome` (o nome do repositório pode mudar depois para `mirante`)
 - **De onde vem:** fusão de dois documentos do dono (o *Briefing: portal de notícias e investimentos com IA*, que é o principal, e o *PROJECT SPEC: AI & Tech Intelligence App*), mais o arquivo de identidade visual estilo Discord, o *GUIA: versão Matsu dos apps do Kaiky* (14/11/2026), o *Padrão dos meus aplicativos* (repositório do Ignis) e a conversa de 17/11/2026.
 
@@ -32,13 +34,14 @@ A qualidade é o critério principal: cada função e cada tela devem ter a melh
 5. IA em **três níveis**: grátis no servidor, local no aparelho e chave própria opcional (seção 7). Cada conta tem limite de uso no estilo do Claude Code e do Codex.
 6. **Cripto, stablecoins, NFTs e day trade**, com análise.
 7. Alertas no celular e no computador e resumo diário, em português do Brasil.
-8. **Custo zero para o dono no começo:** só planos grátis, com um guardião que não deixa estourar nenhuma cota.
+8. **Custo zero para o dono no começo:** só planos grátis, com um guardião que não deixa estourar nenhuma cota. Tudo o que for pago fica para depois.
+9. **Beta grátis:** todo mundo usa a versão de testes (selo "Beta"). O código já nasce preparado para planos pagos, com fontes trocáveis por interface e limites por plano, mas sem cobrança agora.
 
 ### Fora do escopo (v1)
 - App Android nativo: vem depois. Na v1 o celular usa o site instalado (PWA), que já recebe notificações.
 - App para macOS e iOS nativos. O site funciona neles.
 - Cotação da B3 em tempo real e dados do mercado futuro (mini índice e mini dólar) em tempo real: exigem licença paga (seção 9.6).
-- Assinatura paga, anúncios e pagamentos.
+- Assinatura paga, anúncios e pagamentos. Ficam para depois, quando o dono fizer as contas e escolher o que vale pagar: B3 ao vivo, mercado futuro, índices pagos, mais IA no servidor e domínio próprio.
 - Rede social (comentários, servidores criados por usuários).
 
 ### Anti-metas (falharia mesmo funcionando)
@@ -151,7 +154,9 @@ O Supabase grátis pausa projetos parados há 7 dias. A coleta agendada mantém 
 - **Também atende pedidos pessoais** (chat, análise da carteira) quando a pessoa não tem os níveis 2 ou 3, dentro do limite da conta (7.5).
 
 ### 7.2 Nível 2: local no aparelho (grátis e privado)
-- **App instalável:** IA embutida que funciona como o Ignis. Detecta a placa, escolhe Vulkan, CUDA, ROCm ou o processador, baixa só o motor certo (o `llama-server` oficial do llama.cpp) e um modelo pequeno quantizado escolhido pela memória da placa. Carrega quando precisa, descarrega depois de 5 minutos parado e pausa com jogo em tela cheia ou na bateria. **Não depende do Ignis instalado.** O código do `ignis-core` é do dono e tem licença MIT, então pode ser reaproveitado. *(Confirmar com o dono: ver 18.2.)*
+- **App instalável:** IA embutida que funciona como o Ignis. Detecta a placa, escolhe Vulkan, CUDA, ROCm ou o processador, baixa só o motor certo (o `llama-server` oficial do llama.cpp) e um modelo pequeno quantizado escolhido pela memória da placa. Carrega quando precisa, descarrega depois de 5 minutos parado e pausa com jogo em tela cheia ou na bateria.
+  - **Usa o Ignis** (decisão do dono): o app depende do `ignis-core` direto do repositório do Ignis, numa versão fixada. Assim as otimizações que o dono fizer no Ignis entram ao atualizar a dependência, e o app funciona sem o Ignis instalado.
+  - Se o app do Ignis estiver aberto (`127.0.0.1:11470`), o Mirante usa o Ignis em vez de subir um segundo motor, para não carregar dois modelos na placa.
 - **Site:** IA no próprio navegador por WebGPU (WebLLM ou equivalente), com um modelo de 0,6 a 1,7 bilhão de parâmetros, baixado uma vez (~0,5 a 1,1 GB) e só com o "sim" da pessoa. Funciona bem no Chrome e no Edge de computador; no celular o suporte é instável, então lá o padrão é o nível 1 ou o 3.
 
 ### 7.3 Nível 3: chave própria (opcional, mais potente)
@@ -400,10 +405,12 @@ Cada fase termina com algo que o dono pode abrir e testar.
 9. **Tipografia:** serifada editorial só nas manchetes, a confirmar no protótipo.
 10. **Limites:** alerta de concentração padrão de 20%; limite da IA em janela de 5 horas mais teto semanal.
 
-## 18. Perguntas para o dono
-1. **Licença:** o código vai ser aberto? Se sim, com qual licença (MIT como o Ignis, AGPL como o Azúria)? Isso também decide se o repositório pode ser público, o que dá minutos grátis ilimitados no GitHub Actions.
-2. **IA local:** "pode ser do Ignis, mas não utilizando o meu" quer dizer "embutir sem depender do Ignis instalado, podendo aproveitar o código dele" (como está neste documento) ou "nem o código"?
-3. **"Criptomoedas, stablecoins, o NVIDIA também":** o áudio pode ter trocado **NFT** por NVIDIA. Este documento assume NFT. Se era Nvidia mesmo, ela já entra nas ações de tecnologia.
+## 18. Respostas do dono
+Respondidas em 17/11/2026:
+1. **Licença:** fechada, todos os direitos reservados. O repositório fica público por enquanto, porque é um teste; depois o dono decide se fica público ou privado. Nunca entra segredo (chave ou senha) no repositório.
+2. **IA local:** usar o Ignis (seção 7.2). O dono vai otimizá-lo depois.
+3. **Cripto:** entram NFT **e** Nvidia (ações e o BDR, já cobertos em 8 e 9.7).
+4. **Pago:** tudo o que for pago fica para depois. Agora é beta grátis, o mais grátis possível.
 
 ## 19. O que fica para quem implementa
 - A lista exata de fontes (conferida, só oficiais e RSS).
