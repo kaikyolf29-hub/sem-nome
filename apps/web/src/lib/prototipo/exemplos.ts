@@ -322,3 +322,36 @@ export const mercadoExemplo = [
 	{ nome: 'Bitcoin', valor: 'US$ 97.240', pct: 2.15 },
 	{ nome: 'Petróleo', valor: 'US$ 78,30', pct: 3.12 }
 ] as const;
+
+/** Ativo de exemplo do painel de contexto. */
+export const ativoExemplo = {
+	ticker: 'PETR4',
+	nome: 'Petrobras PN',
+	preco: 38.42,
+	pct: 1.8,
+	serie: [
+		35.1, 35.4, 35.2, 35.8, 36.1, 35.9, 36.4, 36.2, 36.8, 37.1, 36.7, 36.9, 37.4, 37.2, 37.6, 37.3,
+		37.0, 37.5, 37.9, 37.6, 37.8, 38.1, 37.7, 37.9, 38.3, 38.0, 37.8, 38.1, 37.7, 38.42
+	]
+} as const;
+
+/** Conversa de exemplo do analista (texto com citações [1] e [2]). */
+export const chatExemplo = {
+	pergunta: 'Por que a PETR4 subiu hoje?',
+	resposta: [
+		{
+			texto: 'Dois fatos ajudam a explicar. A empresa confirmou o calendário de dividendos ',
+			citacao: 1
+		},
+		{
+			texto:
+				'e o petróleo subiu mais de 3% depois do anúncio de corte de produção dos grandes exportadores ',
+			citacao: 2
+		},
+		{
+			texto:
+				'. Um dia de alta não diz muito sobre o longo prazo: preço do petróleo, política de dividendos e decisões do governo como acionista continuam sendo os principais riscos.'
+		}
+	],
+	fontes: ['m2', 'm6']
+} as const;

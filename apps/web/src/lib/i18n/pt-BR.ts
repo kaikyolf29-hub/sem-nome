@@ -116,6 +116,30 @@ export const ptBR = {
 	prototipo: {
 		faixa: 'Protótipo com notícias e números de exemplo. Nada aqui é real.'
 	},
+	painel: {
+		titulo: 'Ativo em foco',
+		cotacao: 'Cotação de exemplo, atraso de 30 min, às {hora}',
+		ultimos30: 'Últimos 30 pregões',
+		afetaCarteira: 'Notícias que afetam este ativo',
+		analista: 'Analista',
+		voce: 'Você',
+		fontes: 'Fontes',
+		citacao: 'Ir para a fonte {n}',
+		aviso: 'Informativo. Não é recomendação de investimento.',
+		perguntar: 'Pergunte sobre notícias ou sua carteira',
+		enviar: 'Enviar',
+		enviarEmBreve: 'O chat do analista chega na fase 4.'
+	},
+	paleta: {
+		titulo: 'Buscar no Mirante',
+		campo: 'Buscar espaços, canais ou notícias',
+		vazio: 'Nada encontrado para "{q}".',
+		resultados: 'Resultados',
+		tipoEspaco: 'Espaço',
+		tipoCanal: 'Canal',
+		tipoNoticia: 'Notícia',
+		dica: 'Setas para escolher, Enter para abrir, Esc para fechar'
+	},
 	variacao: {
 		alta: 'alta de {valor}',
 		queda: 'queda de {valor}',

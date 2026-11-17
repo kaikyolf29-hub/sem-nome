@@ -117,6 +117,30 @@ export const en: Mensagens = {
 	prototipo: {
 		faixa: 'Prototype with sample news and numbers. Nothing here is real.'
 	},
+	painel: {
+		titulo: 'Asset in focus',
+		cotacao: 'Sample quote, 30 min delayed, at {hora}',
+		ultimos30: 'Last 30 sessions',
+		afetaCarteira: 'News affecting this asset',
+		analista: 'Analyst',
+		voce: 'You',
+		fontes: 'Sources',
+		citacao: 'Go to source {n}',
+		aviso: 'For information only. Not investment advice.',
+		perguntar: 'Ask about news or your portfolio',
+		enviar: 'Send',
+		enviarEmBreve: 'The analyst chat arrives in phase 4.'
+	},
+	paleta: {
+		titulo: 'Search Mirante',
+		campo: 'Search spaces, channels or news',
+		vazio: 'Nothing found for "{q}".',
+		resultados: 'Results',
+		tipoEspaco: 'Space',
+		tipoCanal: 'Channel',
+		tipoNoticia: 'News',
+		dica: 'Arrows to choose, Enter to open, Esc to close'
+	},
 	variacao: {
 		alta: 'up {valor}',
 		queda: 'down {valor}',

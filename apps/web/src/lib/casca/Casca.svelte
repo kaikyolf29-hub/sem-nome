@@ -12,16 +12,25 @@
 	import { casca } from './casca.svelte.ts';
 	import Gaveta from './Gaveta.svelte';
 	import Trilho from './Trilho.svelte';
+	import PaletaComandos from '#lib/paleta/PaletaComandos.svelte';
 
-	let {
-		children,
-		painel,
-		onbuscar = () => {}
-	}: { children: Snippet; painel?: Snippet; onbuscar?: () => void } = $props();
+	let { children, painel }: { children: Snippet; painel?: Snippet } = $props();
+
+	let paletaAberta = $state(false);
+
+	function aoTeclar(e: KeyboardEvent) {
+		// Ctrl+K / ⌘K abre a paleta de qualquer lugar, inclusive com o foco num campo.
+		if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
+			e.preventDefault();
+			paletaAberta = true;
+		}
+	}
 
 	const local = $derived(localizar(page.params.espaco ?? '', page.params.canal));
 	const titulo = $derived(local ? `#${t(local.canal.rotulo)} | ${NOME_APP}` : NOME_APP);
 </script>
+
+<svelte:window onkeydown={aoTeclar} />
 
 <svelte:head>
 	<title>{titulo}</title>
@@ -58,7 +67,7 @@
 				</h1>
 			{/if}
 			<div class="acoes">
-				<button class="busca" type="button" onclick={onbuscar}>
+				<button class="busca" type="button" onclick={() => (paletaAberta = true)}>
 					<Search size={16} strokeWidth={1.75} />
 					<span class="busca-texto">{t('casca.buscar')}</span>
 					<kbd class="atalho">Ctrl K</kbd>
@@ -115,6 +124,8 @@
 		<div class="painel-gaveta">{@render painel()}</div>
 	</Gaveta>
 {/if}
+
+<PaletaComandos aberta={paletaAberta} onfechar={() => (paletaAberta = false)} />
 
 <style>
 	.casca {
