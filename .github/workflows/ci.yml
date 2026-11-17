@@ -1,0 +1,28 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  web:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: apps/web
+    steps:
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: 1.4.4
+      - name: Instalar dependências
+        run: bun install --frozen-lockfile
+        working-directory: .
+      - name: Instalar Chromium
+        run: bunx playwright install --with-deps chromium
+      - run: bun run lint
+      - run: bun run check
+      - run: bun run test
+      - run: bun run build
+      - run: bun run build:prototipo
+      - run: bun run test:e2e

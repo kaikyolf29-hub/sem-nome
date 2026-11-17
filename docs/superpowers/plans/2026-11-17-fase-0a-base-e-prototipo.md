@@ -51,7 +51,7 @@
 
 ---
 
-### Tarefa 1: base do repositório
+### Task 1: base do repositório
 
 **Arquivos:**
 - Criar:
@@ -99,7 +99,7 @@
 
 ---
 
-### Tarefa 2: tokens de design
+### Task 2: tokens de design
 
 **Arquivos:**
 - Criar:
@@ -156,7 +156,7 @@ Valores iniciais (cores sólidas `#rrggbb`; `borda` em rgba):
 
 ---
 
-### Tarefa 3: tema (preferência, sistema, sem piscar)
+### Task 3: tema (preferência, sistema, sem piscar)
 
 **Arquivos:**
 - Criar:
@@ -196,7 +196,7 @@ Valores iniciais (cores sólidas `#rrggbb`; `borda` em rgba):
 
 ---
 
-### Tarefa 4: idiomas e formatação de números
+### Task 4: idiomas e formatação de números
 
 **Arquivos:**
 - Criar:
@@ -248,7 +248,7 @@ Valores iniciais (cores sólidas `#rrggbb`; `borda` em rgba):
 
 ---
 
-### Tarefa 5: espaços, canais e rotas
+### Task 5: espaços, canais e rotas
 
 **Arquivos:**
 - Criar:
@@ -295,7 +295,7 @@ Canais (ids), na ordem:
 
 ---
 
-### Tarefa 6: casca estilo Discord
+### Task 6: casca estilo Discord
 
 **Arquivos:**
 - Criar em `apps/web/src/lib/casca/`:
@@ -350,7 +350,7 @@ Comportamento por largura:
 
 ---
 
-### Tarefa 7: feed do protótipo
+### Task 7: feed do protótipo
 
 **Arquivos:**
 - Criar:
@@ -408,7 +408,7 @@ Manchete: título em `--tipo-manchete`, com a família controlada pela variável
 
 ---
 
-### Tarefa 8: painel de contexto e paleta Ctrl+K
+### Task 8: painel de contexto e paleta Ctrl+K
 
 **Arquivos:**
 - Criar:
@@ -455,7 +455,7 @@ Painel de exemplo (PETR4):
 
 ---
 
-### Tarefa 9: carteira de exemplo e estados vazios
+### Task 9: carteira de exemplo e estados vazios
 
 **Arquivos:**
 - Criar:
@@ -493,7 +493,7 @@ Carteira de exemplo: Ações BR 38%, FIIs 18%, EUA 22%, Renda fixa 14%, Cripto 6
 
 ---
 
-### Tarefa 10: barras de título (Matsu e Windows) e painel do protótipo
+### Task 10: barras de título (Matsu e Windows) e painel do protótipo
 
 **Arquivos:**
 - Criar:
@@ -557,7 +557,7 @@ Painel do protótipo (flutuante no canto inferior esquerdo, recolhível, todos o
 
 ---
 
-### Tarefa 11: logo (três opções) e página da marca
+### Task 11: logo (três opções) e página da marca
 
 **Arquivos:**
 - Criar:
@@ -599,7 +599,7 @@ Página `/marca`:
 
 ---
 
-### Tarefa 12: protótipo em arquivo único, acessibilidade, orçamento e publicação
+### Task 12: protótipo em arquivo único, acessibilidade, orçamento e publicação
 
 **Arquivos:**
 - Criar:
