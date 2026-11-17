@@ -18,39 +18,46 @@
 	const FOLGA = 1.2;
 </script>
 
-<figure class="rosca">
-	<svg viewBox="0 0 200 200" role="img" aria-label={rotuloAcessivel}>
-		<circle class="trilha" cx="100" cy="100" r="78" />
-		{#each lista as arco, i (arco.rotulo)}
-			<path
-				class="fatia"
-				style:stroke="var(--fatia-{(i % 6) + 1})"
-				style:animation-delay="{i * 70}ms"
-				pathLength="100"
-				d={caminhoArco(100, 100, 78, arco.inicio + FOLGA / 2, arco.fim - FOLGA / 2)}
-			/>
-		{/each}
-		{#if centro}
-			<text class="centro numero" x="100" y="96" text-anchor="middle">{centro}</text>
-		{/if}
-		{#if legendaCentro}
-			<text class="legenda-centro" x="100" y="117" text-anchor="middle">{legendaCentro}</text>
-		{/if}
-	</svg>
-	<figcaption>
-		<ul role="list">
+<div class="caixa-rosca">
+	<figure class="rosca">
+		<svg viewBox="0 0 200 200" role="img" aria-label={rotuloAcessivel}>
+			<circle class="trilha" cx="100" cy="100" r="78" />
 			{#each lista as arco, i (arco.rotulo)}
-				<li>
-					<span class="cor" style:background="var(--fatia-{(i % 6) + 1})" aria-hidden="true"></span>
-					<span class="nome">{arco.rotulo}</span>
-					<span class="pct numero">{fmt(arco.pct)}</span>
-				</li>
+				<path
+					class="fatia"
+					style:stroke="var(--fatia-{(i % 6) + 1})"
+					style:animation-delay="{i * 70}ms"
+					pathLength="100"
+					d={caminhoArco(100, 100, 78, arco.inicio + FOLGA / 2, arco.fim - FOLGA / 2)}
+				/>
 			{/each}
-		</ul>
-	</figcaption>
-</figure>
+			{#if centro}
+				<text class="centro numero" x="100" y="96" text-anchor="middle">{centro}</text>
+			{/if}
+			{#if legendaCentro}
+				<text class="legenda-centro" x="100" y="117" text-anchor="middle">{legendaCentro}</text>
+			{/if}
+		</svg>
+		<figcaption>
+			<ul role="list">
+				{#each lista as arco, i (arco.rotulo)}
+					<li>
+						<span class="cor" style:background="var(--fatia-{(i % 6) + 1})" aria-hidden="true"
+						></span>
+						<span class="nome">{arco.rotulo}</span>
+						<span class="pct numero">{fmt(arco.pct)}</span>
+					</li>
+				{/each}
+			</ul>
+		</figcaption>
+	</figure>
+</div>
 
 <style>
+	.caixa-rosca {
+		container-type: inline-size;
+	}
+
 	.rosca {
 		display: grid;
 		grid-template-columns: minmax(180px, 240px) minmax(0, 1fr);
@@ -124,7 +131,7 @@
 		font-weight: 600;
 	}
 
-	@media (max-width: 767.98px) {
+	@container (max-width: 520px) {
 		.rosca {
 			grid-template-columns: minmax(0, 1fr);
 			justify-items: center;

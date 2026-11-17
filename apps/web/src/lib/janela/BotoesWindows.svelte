@@ -17,7 +17,8 @@
 	} = $props();
 </script>
 
-<div class="botoes" class:sem-foco={!focada}>
+<!-- svelte-ignore a11y_no_static_element_interactions -->
+<div class="botoes" class:sem-foco={!focada} ondblclick={(e) => e.stopPropagation()}>
 	<button type="button" aria-label={t('janela.minimizar')} onclick={onminimizar}>
 		<svg viewBox="0 0 10 10" aria-hidden="true"><path d="M0 5.5h10" /></svg>
 	</button>

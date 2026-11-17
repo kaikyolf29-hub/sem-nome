@@ -38,6 +38,7 @@
 
 <style>
 	.moedas {
+		container-type: inline-size;
 		display: grid;
 		margin: 0;
 		padding: 0;
@@ -68,6 +69,7 @@
 	.nome {
 		display: grid;
 		min-width: 0;
+		overflow-wrap: anywhere;
 		font-weight: 600;
 	}
 
@@ -119,7 +121,7 @@
 		font-weight: 600;
 	}
 
-	@media (max-width: 767.98px) {
+	@container (max-width: 560px) {
 		li {
 			grid-template-columns: 48px minmax(0, 1fr) auto;
 			grid-template-areas: 'codigo nome valores' 'fatia fatia fatia';

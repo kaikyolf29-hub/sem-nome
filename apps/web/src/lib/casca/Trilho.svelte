@@ -6,13 +6,17 @@
 	import { espacosApp, paramsCanal, type IdEspaco } from '#lib/navegacao/espacos.ts';
 	import { iconesEspaco } from './icones.ts';
 
-	let { ativo, onajustes = () => {} }: { ativo: IdEspaco | null; onajustes?: () => void } =
-		$props();
+	let {
+		ativo,
+		ajustesAberto = false,
+		onajustes = () => {}
+	}: { ativo: IdEspaco | null; ajustesAberto?: boolean; onajustes?: () => void } = $props();
 
 	// Tabindex rotativo: só um item entra no Tab; as setas andam entre eles.
 	let focoIndice = $state(0);
 	let itens: HTMLElement[] = $state([]);
-	let dica = $state<{ texto: string; y: number } | null>(null);
+	// Índice do item com a dica visível; a dica fica ao lado do próprio ícone.
+	let dica = $state<number | null>(null);
 
 	const total = espacosApp.length + 1;
 
@@ -27,11 +31,6 @@
 		e.preventDefault();
 		focoIndice = (mapa[e.key] + total) % total;
 		itens[focoIndice]?.focus();
-	}
-
-	function mostrarDica(texto: string, el: HTMLElement) {
-		const r = el.getBoundingClientRect();
-		dica = { texto, y: r.top + r.height / 2 };
 	}
 
 	$effect(() => {
@@ -60,16 +59,17 @@
 					aria-label={nome}
 					aria-current={espaco.id === ativo ? 'page' : undefined}
 					tabindex={i === focoIndice ? 0 : -1}
-					onfocus={(e) => {
+					onfocus={() => {
 						focoIndice = i;
-						mostrarDica(nome, e.currentTarget);
+						dica = i;
 					}}
 					onblur={() => (dica = null)}
-					onpointerenter={(e) => mostrarDica(nome, e.currentTarget)}
+					onpointerenter={() => (dica = i)}
 					onpointerleave={() => (dica = null)}
 				>
 					<Icone size={22} strokeWidth={1.75} />
 				</a>
+				{#if dica === i}<span class="dica" aria-hidden="true">{nome}</span>{/if}
 			</li>
 		{/each}
 	</ul>
@@ -80,24 +80,24 @@
 			class="botao"
 			type="button"
 			aria-label={t('casca.ajustes')}
+			aria-expanded={ajustesAberto}
 			tabindex={focoIndice === espacosApp.length ? 0 : -1}
 			onkeydown={aoTeclar}
 			onclick={onajustes}
-			onfocus={(e) => {
+			onfocus={() => {
 				focoIndice = espacosApp.length;
-				mostrarDica(t('casca.ajustes'), e.currentTarget);
+				dica = espacosApp.length;
 			}}
 			onblur={() => (dica = null)}
-			onpointerenter={(e) => mostrarDica(t('casca.ajustes'), e.currentTarget)}
+			onpointerenter={() => (dica = espacosApp.length)}
 			onpointerleave={() => (dica = null)}
 		>
 			<Settings size={20} strokeWidth={1.75} />
 		</button>
+		{#if dica === espacosApp.length}
+			<span class="dica" aria-hidden="true">{t('casca.ajustes')}</span>
+		{/if}
 	</div>
-
-	{#if dica}
-		<div class="dica" style:top="{dica.y}px" aria-hidden="true">{dica.texto}</div>
-	{/if}
 </nav>
 
 <style>
@@ -198,12 +198,17 @@
 	}
 
 	.pe {
+		position: relative;
+		display: flex;
+		justify-content: center;
+		width: 72px;
 		margin-top: auto;
 	}
 
 	.dica {
-		position: fixed;
-		left: 80px;
+		position: absolute;
+		top: 50%;
+		left: 68px;
 		z-index: 50;
 		padding: 6px 10px;
 		border-radius: var(--raio-medio);

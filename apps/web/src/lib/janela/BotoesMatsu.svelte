@@ -50,7 +50,8 @@
 	}
 </script>
 
-<div class="botoes {tema}" class:sem-foco={!focada}>
+<!-- svelte-ignore a11y_no_static_element_interactions -->
+<div class="botoes {tema}" class:sem-foco={!focada} ondblclick={(e) => e.stopPropagation()}>
 	{#each ordem as id (id)}
 		<button
 			type="button"
@@ -168,7 +169,7 @@
 	.dica {
 		position: absolute;
 		top: calc(100% + 8px);
-		left: 50%;
+		left: 0;
 		z-index: 70;
 		padding: 4px 8px;
 		border-radius: 6px;
@@ -176,7 +177,6 @@
 		color: var(--texto-sobre-destaque);
 		font-size: 12px;
 		white-space: nowrap;
-		transform: translateX(-50%);
 		pointer-events: none;
 	}
 </style>

@@ -12,7 +12,7 @@ describe('exemplos', () => {
 				noticiasExemplo.some((n) => n.espaco === e),
 				e
 			).toBe(true);
-		expect(noticiasExemplo.every((n) => n.url === '#')).toBe(true);
+		expect(noticiasExemplo.every((n) => n.url.startsWith('https://example.com/'))).toBe(true);
 	});
 
 	it('o canal geral ordena por impacto; os outros filtram pelo canal', () => {

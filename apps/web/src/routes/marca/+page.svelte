@@ -149,12 +149,26 @@
 	}
 
 	.tamanhos,
-	.fundos,
 	.contextos {
 		display: flex;
 		flex-wrap: wrap;
 		align-items: end;
 		gap: var(--espaco-5);
+	}
+
+	.contextos {
+		align-items: start;
+	}
+
+	.contextos > div {
+		display: grid;
+		gap: var(--espaco-2);
+	}
+
+	.fundos {
+		display: grid;
+		grid-template-columns: repeat(3, minmax(0, 88px));
+		gap: var(--espaco-3);
 	}
 
 	.tamanho {
@@ -167,7 +181,7 @@
 	.fundo {
 		display: grid;
 		place-items: center;
-		width: 88px;
+		width: 100%;
 		height: 72px;
 		border: 1px solid var(--borda);
 		border-radius: var(--raio-grande);

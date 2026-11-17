@@ -1,25 +1,25 @@
 <script lang="ts">
 	import { resolve } from '$app/paths';
-	import Bell from '@lucide/svelte/icons/bell';
+	import Calendar from '@lucide/svelte/icons/calendar';
 	import Bitcoin from '@lucide/svelte/icons/bitcoin';
 	import ChartPie from '@lucide/svelte/icons/chart-pie';
 	import House from '@lucide/svelte/icons/house';
-	import User from '@lucide/svelte/icons/user';
+	import Menu from '@lucide/svelte/icons/menu';
 	import { t } from '#lib/i18n/index.ts';
 	import { paramsCanal, type IdEspaco } from '#lib/navegacao/espacos.ts';
 
-	let { ativo, onvoce }: { ativo: IdEspaco | null; onvoce: () => void } = $props();
+	let { ativo, onmais }: { ativo: IdEspaco | null; onmais: () => void } = $props();
 
 	const itens = [
 		{ rotulo: 'casca.inicio', params: paramsCanal('mercado'), espaco: 'mercado', Icone: House },
-		{ rotulo: 'casca.alertas', params: paramsCanal('agenda'), espaco: 'agenda', Icone: Bell },
 		{
 			rotulo: 'espacos.carteira',
 			params: paramsCanal('carteira'),
 			espaco: 'carteira',
 			Icone: ChartPie
 		},
-		{ rotulo: 'espacos.cripto', params: paramsCanal('cripto'), espaco: 'cripto', Icone: Bitcoin }
+		{ rotulo: 'espacos.cripto', params: paramsCanal('cripto'), espaco: 'cripto', Icone: Bitcoin },
+		{ rotulo: 'espacos.agenda', params: paramsCanal('agenda'), espaco: 'agenda', Icone: Calendar }
 	] as const;
 </script>
 
@@ -35,9 +35,9 @@
 			<span>{t(item.rotulo)}</span>
 		</a>
 	{/each}
-	<button class="item" type="button" onclick={onvoce}>
-		<User size={22} strokeWidth={1.75} />
-		<span>{t('casca.voce')}</span>
+	<button class="item" type="button" onclick={onmais}>
+		<Menu size={22} strokeWidth={1.75} />
+		<span>{t('casca.mais')}</span>
 	</button>
 </nav>
 

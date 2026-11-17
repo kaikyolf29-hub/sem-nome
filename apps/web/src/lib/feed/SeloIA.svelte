@@ -1,8 +1,10 @@
 <script lang="ts">
-	import { t } from '#lib/i18n/index.ts';
+	import { t, type ChaveMensagem } from '#lib/i18n/index.ts';
+
+	let { rotulo = 'feed.geradoPorIA' }: { rotulo?: ChaveMensagem } = $props();
 </script>
 
-<span class="selo-ia">{t('feed.geradoPorIA')}</span>
+<span class="selo-ia">{t(rotulo)}</span>
 
 <style>
 	.selo-ia {

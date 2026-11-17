@@ -9,6 +9,21 @@
 	import { janela, type ModoJanela } from '#lib/janela/janela.svelte.ts';
 
 	let manchete = $state<'serifada' | 'semSerifa'>('serifada');
+	let botaoFechar: HTMLButtonElement | undefined = $state();
+	let quemAbriu: HTMLElement | null = null;
+
+	// Ao abrir, o foco entra no painel; ao fechar, volta para quem abriu.
+	$effect(() => {
+		if (!casca.ajustesAberto) return;
+		quemAbriu = document.activeElement as HTMLElement | null;
+		queueMicrotask(() => botaoFechar?.focus());
+		return () => {
+			const alvo = quemAbriu;
+			queueMicrotask(() => alvo?.isConnected && alvo.focus());
+		};
+	});
+
+	const fechar = () => (casca.ajustesAberto = false);
 
 	$effect(() => {
 		document.documentElement.style.setProperty(
@@ -35,7 +50,9 @@
 				{ valor: 'escuro', rotulo: 'prototipo.temaEscuro' },
 				{ valor: 'preto', rotulo: 'prototipo.temaPreto' }
 			],
-			atual: () => tema.preferencia,
+			// No Matsu só existem claro e escuro: "Preto" aparece como escuro.
+			atual: () =>
+				janela.modo === 'matsu' && tema.preferencia === 'preto' ? 'escuro' : tema.preferencia,
 			definir: (v) => tema.definir(v as PreferenciaTema)
 		},
 		{
@@ -75,14 +92,25 @@
 </script>
 
 {#if casca.ajustesAberto}
-	<section class="painel" aria-label={t('prototipo.ajustes')}>
+	<!-- svelte-ignore a11y_no_noninteractive_element_interactions (Esc fecha o painel) -->
+	<section
+		class="painel"
+		aria-label={t('prototipo.ajustes')}
+		onkeydown={(e) => {
+			if (e.key === 'Escape') {
+				e.stopPropagation();
+				fechar();
+			}
+		}}
+	>
 		<header>
 			<h2>{t('prototipo.ajustes')}</h2>
 			<button
+				bind:this={botaoFechar}
 				class="fechar"
 				type="button"
 				aria-label={t('prototipo.fechar')}
-				onclick={() => (casca.ajustesAberto = false)}
+				onclick={fechar}
 			>
 				<X size={16} strokeWidth={2} />
 			</button>
@@ -98,6 +126,7 @@
 								name="prototipo-{grupo.id}"
 								value={opcao.valor}
 								checked={grupo.atual() === opcao.valor}
+								disabled={grupo.id === 'tema' && opcao.valor === 'preto' && janela.modo === 'matsu'}
 								onchange={() => grupo.definir(opcao.valor)}
 							/>
 							{grupo.id === 'idioma' ? nomesIdioma[opcao.valor] : t(opcao.rotulo)}
@@ -136,7 +165,6 @@
 		font-size: var(--tipo-corpo);
 	}
 
-	.fechar,
 	.fechar {
 		width: 32px;
 		height: 32px;
@@ -177,6 +205,11 @@
 		font-size: var(--tipo-pequeno);
 		text-align: center;
 		cursor: pointer;
+	}
+
+	label:has(input:disabled) {
+		opacity: 0.4;
+		cursor: not-allowed;
 	}
 
 	label.ativa {

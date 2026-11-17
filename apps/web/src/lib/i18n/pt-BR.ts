@@ -77,6 +77,7 @@ export const ptBR = {
 		inicio: 'Início',
 		alertas: 'Alertas',
 		voce: 'Você',
+		mais: 'Mais',
 		irInicio: 'Mirante, ir para o início',
 		abrirCanais: 'Abrir canais',
 		abrirPainel: 'Abrir painel',
@@ -90,7 +91,7 @@ export const ptBR = {
 		usoIARotulo: 'Uso da IA grátis',
 		visitante: 'Visitante',
 		entrar: 'Entrar com Google',
-		entrarEmBreve: 'O login chega na próxima etapa'
+		entrarEmBreve: 'Login com Google em breve'
 	},
 	tempo: {
 		agora: 'agora',
@@ -143,6 +144,7 @@ export const ptBR = {
 		ultimos30: 'Últimos 30 pregões',
 		afetaCarteira: 'Notícias que afetam este ativo',
 		analista: 'Analista',
+		respostaIA: 'Resposta da IA',
 		voce: 'Você',
 		fontes: 'Fontes',
 		citacao: 'Ir para a fonte {n}',
@@ -213,6 +215,13 @@ export const ptBR = {
 			nome: 'C. Binóculo',
 			descricao: 'O binóculo de quem olha do mirante. Amigável e fácil de ver em tamanho pequeno.'
 		}
+	},
+	mercado: {
+		ibovespa: 'Ibovespa',
+		dolar: 'Dólar',
+		sp500: 'S&P 500',
+		bitcoin: 'Bitcoin',
+		petroleo: 'Petróleo'
 	},
 	variacao: {
 		alta: 'alta de {valor}',

@@ -295,7 +295,7 @@ A pessoa anota por que comprou (a tese). A IA lê as notícias novas e avisa qua
 - **Canais (240 px):** editorias e filtros do espaço escolhido no trilho, como `#manchetes`, `#resumo-do-dia`, `#stablecoins` e `#github-radar`. No pé, a conta e o medidor de uso da IA.
 - **Conteúdo:** feed com hierarquia editorial (manchete grande, destaques, cartões).
 - **Painel de contexto (abre e fecha):** ativo em foco, "afeta sua carteira" e o chat do analista.
-- **Celular:** como o Discord no celular. O conteúdo ocupa a tela, os canais deslizam da esquerda, o painel de contexto da direita, e há uma barra inferior com Início, Carteira, Cripto, Alertas e Você.
+- **Celular:** como o Discord no celular. O conteúdo ocupa a tela, os canais deslizam da esquerda, o painel de contexto da direita, e há uma barra inferior com Início, Carteira, Cripto, Agenda e Mais (abre a gaveta com todos os espaços e canais).
 
 ### 10.3 Temas
 - **Claro, Escuro e Preto** (preto puro para telas OLED, como o "Meia-noite" do Discord), seguindo o sistema por padrão.

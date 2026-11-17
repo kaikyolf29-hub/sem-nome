@@ -11,10 +11,7 @@
 		<span class="avatar" aria-hidden="true"><User size={18} strokeWidth={1.75} /></span>
 		<div class="quem">
 			<p class="nome">{t('casca.visitante')}</p>
-			<button class="entrar" type="button" disabled aria-describedby="entrar-em-breve">
-				{t('casca.entrar')}
-			</button>
-			<p id="entrar-em-breve" class="so-leitor">{t('casca.entrarEmBreve')}</p>
+			<p class="entrar">{t('casca.entrarEmBreve')}</p>
 		</div>
 	</div>
 	<MedidorIA usoPct={40} {renovaEm} />
@@ -57,16 +54,8 @@
 	}
 
 	.entrar {
-		justify-self: start;
-		padding: 0;
-		border: 0;
-		background: none;
 		color: var(--texto-fraco);
 		font-size: var(--tipo-legenda);
 		text-align: start;
-	}
-
-	.entrar:disabled {
-		cursor: default;
 	}
 </style>

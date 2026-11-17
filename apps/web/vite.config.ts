@@ -20,6 +20,8 @@ export default defineConfig({
 				pages: prototipo ? 'build-prototipo' : 'build',
 				assets: prototipo ? 'build-prototipo' : 'build'
 			}),
+			// Sem procurar versão nova em _app/version.json (o protótipo abre de um arquivo, sem servidor).
+			version: { pollInterval: 0 },
 			router: { type: prototipo ? 'hash' : 'pathname' },
 			output: { bundleStrategy: prototipo ? 'inline' : 'split' }
 		})

@@ -139,7 +139,7 @@
 	}
 
 	select {
-		min-height: 36px;
+		min-height: 40px;
 		max-width: 100%;
 		padding: 0 34px 0 var(--espaco-3);
 		border: 1px solid var(--borda);
@@ -248,6 +248,10 @@
 	}
 
 	@media (max-width: 767.98px) {
+		select {
+			min-height: 44px;
+		}
+
 		.carteira {
 			padding: var(--espaco-6) var(--espaco-4) var(--espaco-10);
 		}

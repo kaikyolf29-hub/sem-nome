@@ -72,7 +72,11 @@
 	}
 
 	function aoTeclar(e: KeyboardEvent) {
-		if (e.key === 'Escape') {
+		if (e.key === 'Tab') {
+			// O único campo do diálogo é a busca: o foco não sai daqui.
+			e.preventDefault();
+			campo?.focus();
+		} else if (e.key === 'Escape') {
 			e.preventDefault();
 			e.stopPropagation();
 			onfechar();
@@ -89,7 +93,14 @@
 
 {#if aberta}
 	<div class="veu" onclick={onfechar} aria-hidden="true"></div>
-	<div class="paleta" role="dialog" aria-modal="true" aria-label={t('paleta.titulo')}>
+	<div
+		class="paleta"
+		role="dialog"
+		aria-modal="true"
+		aria-label={t('paleta.titulo')}
+		tabindex="-1"
+		onkeydown={aoTeclar}
+	>
 		<div class="topo">
 			<Search size={18} strokeWidth={1.75} aria-hidden="true" />
 			<input
@@ -103,7 +114,6 @@
 				placeholder={t('paleta.campo')}
 				autocomplete="off"
 				spellcheck="false"
-				onkeydown={aoTeclar}
 			/>
 		</div>
 		{#if resultados.length}
@@ -143,7 +153,8 @@
 		left: 50%;
 		z-index: 61;
 		display: grid;
-		width: min(560px, calc(100vw - 32px));
+		grid-template-columns: minmax(0, 1fr);
+		width: min(560px, calc(100% - 32px));
 		max-height: 70vh;
 		overflow: hidden;
 		border: 1px solid var(--borda);
@@ -169,7 +180,18 @@
 		border: 0;
 		background: none;
 		font-size: var(--tipo-medio);
+		text-overflow: ellipsis;
 		outline: none;
+	}
+
+	.paleta:focus {
+		outline: none;
+	}
+
+	@media (hover: none) {
+		.dica {
+			display: none;
+		}
 	}
 
 	ul {

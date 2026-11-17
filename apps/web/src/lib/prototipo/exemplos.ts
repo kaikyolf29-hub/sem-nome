@@ -1,14 +1,15 @@
 import type { Noticia } from '#lib/feed/tipos.ts';
+import type { ChaveMensagem } from '#lib/i18n/tipos.ts';
 import type { IdEspaco } from '#lib/navegacao/espacos.ts';
 
 // Notícias de EXEMPLO do protótipo: veículos fictícios, fatos inventados, links que não saem do app.
 // A faixa "Protótipo com notícias e números de exemplo" aparece sempre junto.
 
-const GAZETA = { nome: 'Gazeta do Pregão', url: '#', primaria: false };
-const MERCADO = { nome: 'Mercado Hoje', url: '#', primaria: false };
-const RADAR = { nome: 'Radar Tech', url: '#', primaria: false };
-const CRIPTO = { nome: 'Cripto Diário', url: '#', primaria: false };
-const OFICIAL = { nome: 'Fonte oficial (exemplo)', url: '#', primaria: true };
+const GAZETA = { nome: 'Gazeta do Pregão', url: 'https://example.com/', primaria: false };
+const MERCADO = { nome: 'Mercado Hoje', url: 'https://example.com/', primaria: false };
+const RADAR = { nome: 'Radar Tech', url: 'https://example.com/', primaria: false };
+const CRIPTO = { nome: 'Cripto Diário', url: 'https://example.com/', primaria: false };
+const OFICIAL = { nome: 'Fonte oficial (exemplo)', url: 'https://example.com/', primaria: true };
 
 const minutosAtras = (m: number) => new Date(Date.now() - m * 60_000).toISOString();
 
@@ -299,7 +300,7 @@ const lista: Exemplo[] = [
 
 export const noticiasExemplo: readonly Noticia[] = lista.map(({ minutos, ...n }) => ({
 	...n,
-	url: '#',
+	url: `https://example.com/mirante/${n.id}`,
 	publicadoEm: minutosAtras(minutos)
 }));
 
@@ -314,14 +315,19 @@ export function noticiasDoCanal(espaco: IdEspaco, canal: string): Noticia[] {
 		.sort((a, b) => b.publicadoEm.localeCompare(a.publicadoEm));
 }
 
-/** Cotações de exemplo para a faixa do mercado. */
+/** Cotações de exemplo para a faixa do mercado (nomes pelo catálogo, números pelo idioma). */
 export const mercadoExemplo = [
-	{ nome: 'Ibovespa', valor: '128.412', pct: 0.84 },
-	{ nome: 'Dólar', valor: 'R$ 5,41', pct: -0.62 },
-	{ nome: 'S&P 500', valor: '5.982', pct: 0.31 },
-	{ nome: 'Bitcoin', valor: 'US$ 97.240', pct: 2.15 },
-	{ nome: 'Petróleo', valor: 'US$ 78,30', pct: 3.12 }
-] as const;
+	{ nome: 'mercado.ibovespa', valor: 128_412, formato: 'pontos', pct: 0.84 },
+	{ nome: 'mercado.dolar', valor: 5.41, formato: 'BRL', pct: -0.62 },
+	{ nome: 'mercado.sp500', valor: 5_982, formato: 'pontos', pct: 0.31 },
+	{ nome: 'mercado.bitcoin', valor: 97_240, formato: 'USD0', pct: 2.15 },
+	{ nome: 'mercado.petroleo', valor: 78.3, formato: 'USD', pct: 3.12 }
+] as const satisfies readonly {
+	nome: ChaveMensagem;
+	valor: number;
+	formato: 'pontos' | 'BRL' | 'USD' | 'USD0';
+	pct: number;
+}[];
 
 /** Ativo de exemplo do painel de contexto. */
 export const ativoExemplo = {
@@ -340,12 +346,12 @@ export const chatExemplo = {
 	pergunta: 'Por que a PETR4 subiu hoje?',
 	resposta: [
 		{
-			texto: 'Dois fatos ajudam a explicar. A empresa confirmou o calendário de dividendos ',
+			texto: 'Dois fatos ajudam a explicar. A empresa confirmou o calendário de dividendos\u00a0',
 			citacao: 1
 		},
 		{
 			texto:
-				'e o petróleo subiu mais de 3% depois do anúncio de corte de produção dos grandes exportadores ',
+				' e o petróleo subiu mais de 3% depois do anúncio de corte de produção dos grandes exportadores\u00a0',
 			citacao: 2
 		},
 		{

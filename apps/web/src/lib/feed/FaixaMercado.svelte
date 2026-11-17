@@ -1,24 +1,61 @@
 <script lang="ts">
-	import { t } from '#lib/i18n/index.ts';
+	import { formatarMoeda } from '#lib/formato.ts';
+	import { i18n, t, type ChaveMensagem } from '#lib/i18n/index.ts';
 	import Variacao from '#lib/ui/Variacao.svelte';
 
-	let { itens }: { itens: readonly { nome: string; valor: string; pct: number }[] } = $props();
+	type Item = {
+		nome: ChaveMensagem;
+		valor: number;
+		formato: 'pontos' | 'BRL' | 'USD' | 'USD0';
+		pct: number;
+	};
+	let { itens }: { itens: readonly Item[] } = $props();
+
+	function valor(item: Item): string {
+		if (item.formato === 'pontos')
+			return new Intl.NumberFormat(i18n.idioma, { maximumFractionDigits: 0 }).format(item.valor);
+		if (item.formato === 'USD0')
+			return new Intl.NumberFormat(i18n.idioma, {
+				style: 'currency',
+				currency: 'USD',
+				maximumFractionDigits: 0
+			}).format(item.valor);
+		return formatarMoeda(item.valor, item.formato, i18n.idioma);
+	}
+
+	// Só vira parada do Tab quando há o que rolar (celular).
+	let rolo: HTMLElement | undefined = $state();
+	let rolavel = $state(false);
+	$effect(() => {
+		if (!rolo) return;
+		const medir = () => (rolavel = rolo!.scrollWidth > rolo!.clientWidth + 1);
+		const obs = new ResizeObserver(medir);
+		obs.observe(rolo);
+		medir();
+		return () => obs.disconnect();
+	});
 </script>
 
-<section class="faixa-mercado" aria-label={t('feed.mercadoAgora')}>
+<div class="faixa-mercado">
 	<!-- svelte-ignore a11y_no_noninteractive_tabindex (área que rola de lado precisa ser alcançável pelo teclado) -->
-	<div class="rolo" tabindex="0">
+	<div
+		bind:this={rolo}
+		class="rolo"
+		role="region"
+		aria-label={t('feed.mercadoAgora')}
+		tabindex={rolavel ? 0 : undefined}
+	>
 		<ul role="list">
 			{#each itens as item (item.nome)}
 				<li>
-					<span class="nome">{item.nome}</span>
-					<span class="valor numero">{item.valor}</span>
+					<span class="nome">{t(item.nome)}</span>
+					<span class="valor numero">{valor(item)}</span>
 					<Variacao pct={item.pct} />
 				</li>
 			{/each}
 		</ul>
 	</div>
-</section>
+</div>
 
 <style>
 	.faixa-mercado {

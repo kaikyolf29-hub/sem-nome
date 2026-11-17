@@ -20,14 +20,14 @@
 	</div>
 
 	<div class="resposta">
-		<SeloIA />
+		<SeloIA rotulo="painel.respostaIA" />
 		<!-- prettier-ignore -->
 		<p>{#each chatExemplo.resposta as parte, i (i)}{parte.texto}{#if 'citacao' in parte}<button class="citacao" type="button" aria-label={t('painel.citacao', { n: parte.citacao })} onclick={() => irPara(parte.citacao)}>{parte.citacao}</button>{/if}{/each}</p>
 		<ol class="fontes" aria-label={t('painel.fontes')}>
 			{#each fontes as noticia, i (noticia.id)}
 				<li>
 					<!-- eslint-disable-next-line svelte/no-navigation-without-resolve -- link externo para a fonte -->
-					<a id="fonte-chat-{i + 1}" href={noticia.url}
+					<a id="fonte-chat-{i + 1}" href={noticia.url} target="_blank" rel="noopener noreferrer"
 						>{noticia.fontes[0].nome}: {noticia.titulo}</a
 					>
 				</li>
@@ -87,11 +87,11 @@
 	}
 
 	.citacao {
+		position: relative;
 		display: inline-grid;
 		place-items: center;
 		min-width: 18px;
 		height: 18px;
-		margin-inline-start: 3px;
 		padding: 0 4px;
 		border: 0;
 		border-radius: 4px;
@@ -101,6 +101,13 @@
 		font-weight: 700;
 		line-height: 1;
 		vertical-align: 2px;
+	}
+
+	/* Área de toque de 44 px sem mudar o desenho do selo. */
+	.citacao::after {
+		content: '';
+		position: absolute;
+		inset: -13px;
 	}
 
 	.fontes {
@@ -131,7 +138,9 @@
 	}
 
 	input {
-		min-height: 40px;
+		min-width: 0;
+		min-height: 44px;
+		text-overflow: ellipsis;
 		padding: 0 var(--espaco-3);
 		border: 1px solid var(--borda);
 		border-radius: 999px;

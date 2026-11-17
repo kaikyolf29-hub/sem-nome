@@ -51,6 +51,7 @@
 			<div class="col-trilho">
 				<Trilho
 					ativo={local?.espaco.id ?? null}
+					ajustesAberto={casca.ajustesAberto}
 					onajustes={() => (casca.ajustesAberto = !casca.ajustesAberto)}
 				/>
 			</div>
@@ -93,7 +94,7 @@
 							class="icone"
 							type="button"
 							aria-label={t('prototipo.ajustes')}
-							aria-pressed={casca.ajustesAberto}
+							aria-expanded={casca.ajustesAberto}
 							onclick={() => (casca.ajustesAberto = !casca.ajustesAberto)}
 						>
 							<SlidersHorizontal size={20} strokeWidth={1.75} />
@@ -125,36 +126,48 @@
 
 		{#if casca.celular}
 			<div class="col-barra">
-				<BarraInferior ativo={local?.espaco.id ?? null} onvoce={() => casca.abrir('canais')} />
+				<BarraInferior ativo={local?.espaco.id ?? null} onmais={() => casca.abrir('canais')} />
 			</div>
 		{/if}
+
+		<!-- Camadas por cima ficam dentro da casca: no "Ver como" elas não cobrem a barra de título. -->
+		{#if casca.celular && local}
+			<Gaveta
+				lado="esquerda"
+				aberta={casca.gaveta === 'canais'}
+				rotulo={t('casca.canais')}
+				onfechar={() => casca.fechar()}
+			>
+				<div class="gaveta-espacos">
+					<Trilho
+						ativo={local.espaco.id}
+						ajustesAberto={casca.ajustesAberto}
+						onajustes={() => (casca.ajustesAberto = !casca.ajustesAberto)}
+					/>
+					<Canais
+						espaco={local.espaco}
+						canalAtivo={local.canal.id}
+						onescolher={() => casca.fechar()}
+					/>
+				</div>
+			</Gaveta>
+		{/if}
+
+		{#if painel && !casca.painelNaGrade}
+			<Gaveta
+				lado="direita"
+				aberta={casca.gaveta === 'painel'}
+				rotulo={t('casca.painel')}
+				onfechar={() => casca.fechar()}
+			>
+				<div class="painel-gaveta">{@render painel()}</div>
+			</Gaveta>
+		{/if}
+
+		<PaletaComandos aberta={paletaAberta} onfechar={() => (paletaAberta = false)} />
+		<PainelPrototipo />
 	</div>
 </div>
-
-{#if casca.celular && local}
-	<Gaveta
-		lado="esquerda"
-		aberta={casca.gaveta === 'canais'}
-		rotulo={t('casca.canais')}
-		onfechar={() => casca.fechar()}
-	>
-		<Canais espaco={local.espaco} canalAtivo={local.canal.id} onescolher={() => casca.fechar()} />
-	</Gaveta>
-{/if}
-
-{#if painel && !casca.painelNaGrade}
-	<Gaveta
-		lado="direita"
-		aberta={casca.gaveta === 'painel'}
-		rotulo={t('casca.painel')}
-		onfechar={() => casca.fechar()}
-	>
-		<div class="painel-gaveta">{@render painel()}</div>
-	</Gaveta>
-{/if}
-
-<PaletaComandos aberta={paletaAberta} onfechar={() => (paletaAberta = false)} />
-<PainelPrototipo />
 
 <style>
 	.moldura {
@@ -192,6 +205,23 @@
 		margin: 0;
 		border: 0;
 		border-radius: 0;
+	}
+
+	/* No "Ver como", camadas fixas (gavetas, busca, ajustes) se prendem à área da janela. */
+	.moldura.matsu .casca,
+	.moldura.windows .casca {
+		transform: translateZ(0);
+	}
+
+	.gaveta-espacos {
+		display: flex;
+		width: 100%;
+		height: 100%;
+		background: var(--canais);
+	}
+
+	.gaveta-espacos :global(.trilho) {
+		flex: none;
 	}
 
 	.casca {
@@ -303,9 +333,14 @@
 		font-size: 11px;
 	}
 
+	.celular .icone {
+		width: 44px;
+		height: 44px;
+	}
+
 	.celular .busca {
-		width: 40px;
-		height: 40px;
+		width: 44px;
+		height: 44px;
 		padding: 0;
 		justify-content: center;
 		border: 0;

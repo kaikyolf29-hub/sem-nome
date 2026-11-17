@@ -60,20 +60,21 @@
 			{#each noticia.temas as tema (tema)}
 				<span class="tema">{tema}</span>
 			{/each}
-			<span class="espaco"></span>
-			<!-- eslint-disable-next-line svelte/no-navigation-without-resolve -- link externo para a fonte -->
-			<a class="acao" href={noticia.url} target="_blank" rel="noopener noreferrer">
-				<ExternalLink size={15} strokeWidth={1.75} aria-hidden="true" />
-				{t('feed.lerNaFonte')}
-			</a>
-			<button class="acao" type="button" aria-pressed={salva} onclick={() => (salva = !salva)}>
-				{#if salva}
-					<BookmarkCheck size={15} strokeWidth={1.75} aria-hidden="true" />
-				{:else}
-					<Bookmark size={15} strokeWidth={1.75} aria-hidden="true" />
-				{/if}
-				{t('feed.salvar')}
-			</button>
+			<div class="acoes">
+				<!-- eslint-disable-next-line svelte/no-navigation-without-resolve -- link externo para a fonte -->
+				<a class="acao" href={noticia.url} target="_blank" rel="noopener noreferrer">
+					<ExternalLink size={15} strokeWidth={1.75} aria-hidden="true" />
+					{t('feed.lerNaFonte')}
+				</a>
+				<button class="acao" type="button" aria-pressed={salva} onclick={() => (salva = !salva)}>
+					{#if salva}
+						<BookmarkCheck size={15} strokeWidth={1.75} aria-hidden="true" />
+					{:else}
+						<Bookmark size={15} strokeWidth={1.75} aria-hidden="true" />
+					{/if}
+					{t('feed.salvar')}
+				</button>
+			</div>
 		</div>
 	</div>
 </article>
@@ -194,8 +195,11 @@
 		font-size: var(--tipo-legenda);
 	}
 
-	.espaco {
-		flex: 1;
+	.acoes {
+		display: flex;
+		flex-wrap: nowrap;
+		gap: 2px;
+		margin-left: auto;
 	}
 
 	.acao {

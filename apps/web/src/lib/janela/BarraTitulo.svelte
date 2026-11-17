@@ -50,7 +50,7 @@
 		gap: var(--espaco-3);
 		height: 48px;
 		background: var(--trilho);
-		border-bottom: 1px solid var(--borda);
+		box-shadow: inset 0 -1px 0 var(--borda);
 		user-select: none;
 		flex: none;
 	}

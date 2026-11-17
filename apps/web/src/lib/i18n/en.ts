@@ -78,6 +78,7 @@ export const en: Mensagens = {
 		inicio: 'Home',
 		alertas: 'Alerts',
 		voce: 'You',
+		mais: 'More',
 		irInicio: 'Mirante, go home',
 		abrirCanais: 'Open channels',
 		abrirPainel: 'Open panel',
@@ -91,7 +92,7 @@ export const en: Mensagens = {
 		usoIARotulo: 'Free AI usage',
 		visitante: 'Guest',
 		entrar: 'Sign in with Google',
-		entrarEmBreve: 'Sign-in arrives in the next stage'
+		entrarEmBreve: 'Google sign-in coming soon'
 	},
 	tempo: {
 		agora: 'now',
@@ -144,6 +145,7 @@ export const en: Mensagens = {
 		ultimos30: 'Last 30 sessions',
 		afetaCarteira: 'News affecting this asset',
 		analista: 'Analyst',
+		respostaIA: 'AI answer',
 		voce: 'You',
 		fontes: 'Sources',
 		citacao: 'Go to source {n}',
@@ -214,6 +216,13 @@ export const en: Mensagens = {
 			descricao:
 				'The binoculars of someone at the lookout. Friendly and easy to read at small sizes.'
 		}
+	},
+	mercado: {
+		ibovespa: 'Ibovespa',
+		dolar: 'Dollar',
+		sp500: 'S&P 500',
+		bitcoin: 'Bitcoin',
+		petroleo: 'Oil'
 	},
 	variacao: {
 		alta: 'up {valor}',
