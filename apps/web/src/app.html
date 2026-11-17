@@ -4,6 +4,23 @@
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<meta name="text-scale" content="scale" />
+		<script>
+			// Aplica o tema antes da primeira pintura (sem piscar). Mesma regra de
+			// resolverTema em src/lib/design/tema.ts, sem o Matsu; e2e/tema.e2e.ts confere.
+			(function () {
+				var p = 'sistema';
+				try {
+					var v = localStorage.getItem('mirante:tema');
+					if (v === 'claro' || v === 'escuro' || v === 'preto' || v === 'sistema') p = v;
+				} catch (e) {}
+				var escuro =
+					p === 'sistema'
+						? window.matchMedia('(prefers-color-scheme: dark)').matches
+						: p !== 'claro';
+				document.documentElement.dataset.tema =
+					p === 'preto' ? 'preto' : escuro ? 'escuro' : 'claro';
+			})();
+		</script>
 		%sveltekit.head%
 	</head>
 	<body data-sveltekit-preload-data="hover">
