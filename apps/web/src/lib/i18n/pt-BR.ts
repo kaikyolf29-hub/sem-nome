@@ -231,6 +231,15 @@ export const ptBR = {
 		bitcoin: 'Bitcoin',
 		petroleo: 'Petróleo'
 	},
+	conta: {
+		emBreve: 'O login com Google chega na próxima etapa.',
+		erroProvedor: 'O login com Google ainda não foi ligado. Tente de novo mais tarde.',
+		erroCancelado: 'O login foi cancelado na tela do Google.',
+		erroRede: 'Sem conexão com a internet. Confira e tente de novo.',
+		erroGenerico: 'Não deu para entrar agora. Tente de novo em instantes.',
+		sair: 'Sair',
+		entrando: 'Abrindo o Google'
+	},
 	variacao: {
 		alta: 'alta de {valor}',
 		queda: 'queda de {valor}',

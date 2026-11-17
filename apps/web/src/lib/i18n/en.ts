@@ -231,6 +231,15 @@ export const en: Mensagens = {
 		bitcoin: 'Bitcoin',
 		petroleo: 'Oil'
 	},
+	conta: {
+		emBreve: 'Google sign-in arrives in the next stage.',
+		erroProvedor: 'Google sign-in is not turned on yet. Please try again later.',
+		erroCancelado: 'Sign-in was cancelled on the Google screen.',
+		erroRede: 'No internet connection. Check it and try again.',
+		erroGenerico: 'Could not sign in right now. Please try again shortly.',
+		sair: 'Sign out',
+		entrando: 'Opening Google'
+	},
 	variacao: {
 		alta: 'up {valor}',
 		queda: 'down {valor}',

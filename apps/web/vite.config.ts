@@ -8,6 +8,7 @@ const prototipo = Boolean(process.env.PROTOTIPO);
 const chromium = process.env.CHROMIUM_PATH || undefined;
 
 export default defineConfig({
+	define: { __PROTOTIPO__: JSON.stringify(prototipo) },
 	plugins: [
 		sveltekit({
 			compilerOptions: {
