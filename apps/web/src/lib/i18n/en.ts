@@ -119,7 +119,22 @@ export const en: Mensagens = {
 		}
 	},
 	prototipo: {
-		faixa: 'Prototype with sample news and numbers. Nothing here is real.'
+		faixa: 'Prototype with sample news and numbers. Nothing here is real.',
+		ajustes: 'Prototype settings',
+		fechar: 'Close settings',
+		tema: 'Theme',
+		temaSistema: 'System',
+		temaClaro: 'Light',
+		temaEscuro: 'Dark',
+		temaPreto: 'Black',
+		verComo: 'View as',
+		navegador: 'Browser',
+		matsu: 'Matsu OS',
+		windows: 'Windows',
+		manchete: 'Headline',
+		serifada: 'Serif',
+		semSerifa: 'Inter',
+		idioma: 'Language'
 	},
 	painel: {
 		titulo: 'Asset in focus',
@@ -162,6 +177,14 @@ export const en: Mensagens = {
 			cripto: 'Crypto',
 			caixa: 'Cash'
 		}
+	},
+	janela: {
+		fechar: 'Close',
+		minimizar: 'Minimize',
+		telaCheia: 'Full screen',
+		sairTelaCheia: 'Exit full screen',
+		maximizar: 'Maximize',
+		restaurar: 'Restore'
 	},
 	variacao: {
 		alta: 'up {valor}',

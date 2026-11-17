@@ -118,7 +118,22 @@ export const ptBR = {
 		}
 	},
 	prototipo: {
-		faixa: 'Protótipo com notícias e números de exemplo. Nada aqui é real.'
+		faixa: 'Protótipo com notícias e números de exemplo. Nada aqui é real.',
+		ajustes: 'Ajustes do protótipo',
+		fechar: 'Fechar ajustes',
+		tema: 'Tema',
+		temaSistema: 'Sistema',
+		temaClaro: 'Claro',
+		temaEscuro: 'Escuro',
+		temaPreto: 'Preto',
+		verComo: 'Ver como',
+		navegador: 'Navegador',
+		matsu: 'Matsu OS',
+		windows: 'Windows',
+		manchete: 'Manchete',
+		serifada: 'Serifada',
+		semSerifa: 'Inter',
+		idioma: 'Idioma'
 	},
 	painel: {
 		titulo: 'Ativo em foco',
@@ -161,6 +176,14 @@ export const ptBR = {
 			cripto: 'Cripto',
 			caixa: 'Caixa'
 		}
+	},
+	janela: {
+		fechar: 'Fechar',
+		minimizar: 'Minimizar',
+		telaCheia: 'Tela cheia',
+		sairTelaCheia: 'Sair da tela cheia',
+		maximizar: 'Maximizar',
+		restaurar: 'Restaurar'
 	},
 	variacao: {
 		alta: 'alta de {valor}',

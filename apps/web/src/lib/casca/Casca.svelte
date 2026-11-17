@@ -13,6 +13,9 @@
 	import Gaveta from './Gaveta.svelte';
 	import Trilho from './Trilho.svelte';
 	import PaletaComandos from '#lib/paleta/PaletaComandos.svelte';
+	import BarraTitulo from '#lib/janela/BarraTitulo.svelte';
+	import { janela } from '#lib/janela/janela.svelte.ts';
+	import PainelPrototipo from '#lib/prototipo/PainelPrototipo.svelte';
 
 	let { children, painel }: { children: Snippet; painel?: Snippet } = $props();
 
@@ -36,71 +39,78 @@
 	<title>{titulo}</title>
 </svelte:head>
 
-<div class="casca" class:com-painel={casca.painelNaGrade && painel} class:celular={casca.celular}>
-	{#if !casca.celular}
-		<div class="col-trilho">
-			<Trilho
-				ativo={local?.espaco.id ?? null}
-				onajustes={() => (casca.ajustesAberto = !casca.ajustesAberto)}
-			/>
-		</div>
-		<div class="col-canais">
-			{#if local}<Canais espaco={local.espaco} canalAtivo={local.canal.id} />{/if}
-		</div>
-	{/if}
+<div
+	class="moldura {janela.modo}"
+	class:maximizada={janela.maximizada}
+	class:sem-foco={!janela.focada}
+>
+	{#if janela.modo !== 'navegador'}<BarraTitulo />{/if}
+	<div class="casca" class:com-painel={casca.painelNaGrade && painel} class:celular={casca.celular}>
+		{#if !casca.celular}
+			<div class="col-trilho">
+				<Trilho
+					ativo={local?.espaco.id ?? null}
+					onajustes={() => (casca.ajustesAberto = !casca.ajustesAberto)}
+				/>
+			</div>
+			<div class="col-canais">
+				{#if local}<Canais espaco={local.espaco} canalAtivo={local.canal.id} />{/if}
+			</div>
+		{/if}
 
-	<main class="col-conteudo">
-		<header class="topo">
-			{#if casca.celular}
-				<button
-					class="icone"
-					type="button"
-					aria-label={t('casca.abrirCanais')}
-					onclick={() => casca.abrir('canais')}
-				>
-					<Menu size={20} strokeWidth={1.75} />
-				</button>
-			{/if}
-			{#if local}
-				<h1 class="titulo">
-					<span class="hash" aria-hidden="true">#</span>{t(local.canal.rotulo)}
-				</h1>
-			{/if}
-			<div class="acoes">
-				<button class="busca" type="button" onclick={() => (paletaAberta = true)}>
-					<Search size={16} strokeWidth={1.75} />
-					<span class="busca-texto">{t('casca.buscar')}</span>
-					<kbd class="atalho">Ctrl K</kbd>
-				</button>
-				{#if painel}
+		<main class="col-conteudo">
+			<header class="topo">
+				{#if casca.celular}
 					<button
 						class="icone"
 						type="button"
-						aria-label={casca.painelNaGrade ? t('casca.fecharPainel') : t('casca.abrirPainel')}
-						aria-pressed={casca.painelNaGrade || casca.gaveta === 'painel'}
-						onclick={() => casca.alternarPainel()}
+						aria-label={t('casca.abrirCanais')}
+						onclick={() => casca.abrir('canais')}
 					>
-						<PanelRight size={20} strokeWidth={1.75} />
+						<Menu size={20} strokeWidth={1.75} />
 					</button>
 				{/if}
+				{#if local}
+					<h1 class="titulo">
+						<span class="hash" aria-hidden="true">#</span>{t(local.canal.rotulo)}
+					</h1>
+				{/if}
+				<div class="acoes">
+					<button class="busca" type="button" onclick={() => (paletaAberta = true)}>
+						<Search size={16} strokeWidth={1.75} />
+						<span class="busca-texto">{t('casca.buscar')}</span>
+						<kbd class="atalho">Ctrl K</kbd>
+					</button>
+					{#if painel}
+						<button
+							class="icone"
+							type="button"
+							aria-label={casca.painelNaGrade ? t('casca.fecharPainel') : t('casca.abrirPainel')}
+							aria-pressed={casca.painelNaGrade || casca.gaveta === 'painel'}
+							onclick={() => casca.alternarPainel()}
+						>
+							<PanelRight size={20} strokeWidth={1.75} />
+						</button>
+					{/if}
+				</div>
+			</header>
+			<div class="rolagem">
+				{@render children()}
 			</div>
-		</header>
-		<div class="rolagem">
-			{@render children()}
-		</div>
-	</main>
+		</main>
 
-	{#if casca.painelNaGrade && painel}
-		<aside class="col-painel" aria-label={t('casca.painel')}>
-			{@render painel()}
-		</aside>
-	{/if}
+		{#if casca.painelNaGrade && painel}
+			<aside class="col-painel" aria-label={t('casca.painel')}>
+				{@render painel()}
+			</aside>
+		{/if}
 
-	{#if casca.celular}
-		<div class="col-barra">
-			<BarraInferior ativo={local?.espaco.id ?? null} onvoce={() => casca.abrir('canais')} />
-		</div>
-	{/if}
+		{#if casca.celular}
+			<div class="col-barra">
+				<BarraInferior ativo={local?.espaco.id ?? null} onvoce={() => casca.abrir('canais')} />
+			</div>
+		{/if}
+	</div>
 </div>
 
 {#if casca.celular && local}
@@ -126,13 +136,52 @@
 {/if}
 
 <PaletaComandos aberta={paletaAberta} onfechar={() => (paletaAberta = false)} />
+<PainelPrototipo />
 
 <style>
+	.moldura {
+		display: flex;
+		flex-direction: column;
+		height: 100dvh;
+		overflow: hidden;
+	}
+
+	/* "Ver como" no protótipo: janela simulada do Matsu OS (cantos de 10 px, borda de 1 px) ou do Windows. */
+	.moldura.matsu,
+	.moldura.windows {
+		height: calc(100dvh - 48px);
+		margin: 24px;
+		border: 1px solid rgb(255 255 255 / 0.13);
+		border-radius: 10px;
+		box-shadow: 0 24px 80px rgb(0 0 0 / 0.45);
+	}
+
+	:global([data-tema='matsu-claro']) .moldura.matsu,
+	:global([data-tema='claro']) .moldura.windows {
+		border-color: rgb(0 0 0 / 0.14);
+	}
+
+	.moldura.windows {
+		border-radius: 8px;
+	}
+
+	:global(body:has(.moldura.matsu, .moldura.windows)) {
+		background: color-mix(in srgb, var(--trilho) 70%, #000);
+	}
+
+	.moldura.maximizada {
+		height: 100dvh;
+		margin: 0;
+		border: 0;
+		border-radius: 0;
+	}
+
 	.casca {
 		display: grid;
 		grid-template-columns: 72px 240px minmax(0, 1fr);
 		grid-template-rows: minmax(0, 1fr);
-		height: 100dvh;
+		flex: 1;
+		min-height: 0;
 		overflow: hidden;
 	}
 
