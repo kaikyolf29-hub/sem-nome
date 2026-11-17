@@ -26,6 +26,8 @@
 
 <style>
 	.variacao {
+		/* Contém o texto para leitor de tela (absoluto) dentro do componente. */
+		position: relative;
 		display: inline-flex;
 		align-items: baseline;
 		font-weight: 600;

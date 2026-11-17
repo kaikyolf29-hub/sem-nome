@@ -96,6 +96,27 @@ export const en: Mensagens = {
 		horas: '{n} h ago',
 		ontem: 'yesterday'
 	},
+	feed: {
+		lerNaFonte: 'Read at source',
+		salvar: 'Save',
+		geradoPorIA: 'AI-generated',
+		fontePrimaria: 'Primary source',
+		maisFontes: '+{n}',
+		outrasFontes: 'and {n} more sources',
+		afetaCarteira: 'Affects your portfolio',
+		bafafa: 'Big news',
+		manchete: 'Top story',
+		mercadoAgora: 'Markets now',
+		vazio: 'Nothing here yet. News for this channel shows up as soon as it arrives.',
+		impacto: {
+			baixo: 'Low impact',
+			medio: 'Medium impact',
+			alto: 'High impact'
+		}
+	},
+	prototipo: {
+		faixa: 'Prototype with sample news and numbers. Nothing here is real.'
+	},
 	variacao: {
 		alta: 'up {valor}',
 		queda: 'down {valor}',

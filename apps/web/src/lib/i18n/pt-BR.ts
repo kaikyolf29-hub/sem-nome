@@ -95,6 +95,27 @@ export const ptBR = {
 		horas: 'há {n} h',
 		ontem: 'ontem'
 	},
+	feed: {
+		lerNaFonte: 'Ler na fonte',
+		salvar: 'Salvar',
+		geradoPorIA: 'Gerado por IA',
+		fontePrimaria: 'Fonte primária',
+		maisFontes: '+{n}',
+		outrasFontes: 'e mais {n} fontes',
+		afetaCarteira: 'Afeta sua carteira',
+		bafafa: 'Bafafá',
+		manchete: 'Manchete',
+		mercadoAgora: 'Mercado agora',
+		vazio: 'Nada por aqui ainda. As notícias deste canal aparecem assim que chegarem.',
+		impacto: {
+			baixo: 'Impacto baixo',
+			medio: 'Impacto médio',
+			alto: 'Impacto alto'
+		}
+	},
+	prototipo: {
+		faixa: 'Protótipo com notícias e números de exemplo. Nada aqui é real.'
+	},
 	variacao: {
 		alta: 'alta de {valor}',
 		queda: 'queda de {valor}',
