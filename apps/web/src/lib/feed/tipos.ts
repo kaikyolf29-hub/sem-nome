@@ -5,7 +5,9 @@ export interface FonteNoticia {
 	nome: string;
 	url: string;
 	primaria: boolean;
-	/** Marca do veículo no protótipo (no app real, a logo do próprio site). */
+	/** Logo do próprio site (imagem quadrada em static/fontes). */
+	logo?: string;
+	/** Marca desenhada, para quem não tem logo (como os veículos de exemplo do protótipo). */
 	marca?: { cor: string; sigla?: string; icone?: 'radar' | 'cripto' };
 }
 
