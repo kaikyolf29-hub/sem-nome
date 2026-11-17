@@ -21,7 +21,8 @@
 		"build:prototipo": "PROTOTIPO=1 vite build && bun scripts/limpar-prototipo.ts",
 		"tokens": "bun scripts/gerar-tokens.ts",
 		"orcamento": "bun scripts/orcamento.ts",
-		"capturas": "bun scripts/capturas.ts"
+		"capturas": "bun scripts/capturas.ts",
+		"publicar": "bun run build && bunx wrangler@4.163.0 deploy"
 	},
 	"devDependencies": {
 		"@axe-core/playwright": "^4.14.0",

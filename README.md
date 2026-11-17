@@ -21,6 +21,17 @@ bun run dev
 
 Testes: `bun run test` (unidade e componentes) e `bun run test:e2e` (navegador).
 
+## Publicar
+
+O site vai para a Cloudflare (plano grátis, Workers com arquivos estáticos). Com a conta da Cloudflare ligada:
+
+```bash
+cd apps/web
+bun run publicar
+```
+
+Configuração em `apps/web/wrangler.jsonc`.
+
 ## Licença
 
 Fechada. Todos os direitos reservados. Veja [LICENSE](LICENSE).
