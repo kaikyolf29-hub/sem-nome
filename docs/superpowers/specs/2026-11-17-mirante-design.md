@@ -194,7 +194,7 @@ Um conjunto fixo de casos (notícias reais, perguntas, carteiras de teste) roda 
 | Oficiais Brasil | Banco Central (SGS, Focus, Copom, notas), CVM (dados abertos, fatos relevantes), B3, IBGE, Tesouro Nacional, ANBIMA | APIs e arquivos públicos; selo "fonte primária" em destaque |
 | Oficiais exterior | Fed, BLS, BEA, SEC (EDGAR), BCE, FMI, Banco Mundial | APIs e RSS oficiais |
 | Notícias Brasil e exterior | veículos financeiros de referência que publicam RSS | só título, trecho e link; peso por confiabilidade |
-| Busca por tema | Google News RSS em português e inglês | fácil de desligar |
+| Busca por tema | ~~Google News RSS~~ (os termos do Google proíbem uso fora de leitor pessoal); o tema digitado busca nas fontes conferidas, veja `2026-11-17-personalizacao-noticias-design.md` | |
 | Tecnologia e IA | Hacker News, GitHub (repositórios novos em alta pela velocidade de estrelas e lançamentos de repositórios seguidos), arXiv, Hugging Face, RSS de laboratórios e blogs, Reddit por RSS, Bluesky (contas escolhidas) | conforme o documento de tecnologia; sem raspar a página "trending" do GitHub |
 | Cripto | veículos cripto com RSS (em português e inglês) | igual às notícias |
 | Cotações B3 | brapi (grátis, ~30 min de atraso) + fechamento oficial diário da B3 | cache compartilhado no servidor |
