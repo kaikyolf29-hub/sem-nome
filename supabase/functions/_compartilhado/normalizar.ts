@@ -20,6 +20,8 @@ export function urlCanonica(url: string): string {
 const RODAPES = [
 	/\s*The post .*? appeared first on .*$/i,
 	/\s*O post .*? apareceu primeiro em .*$/i,
+	/\s*Veja mais not[ií]cias sobre .*$/i,
+	/\s*Fonte:\s.*$/,
 	/\s*(Continue reading|Leia mais|Read more)\b.*$/i,
 	/\s*\[(…|\.\.\.)\]\s*$/
 ];

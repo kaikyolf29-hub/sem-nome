@@ -57,6 +57,8 @@ Intervalo: 10 min para todas. Ficam para a 1B: CVM (o RSS só lista pastas), SEC
   - logos em 128 px com Pillow (o ImageMagick daqui não lê `.ico`); 3 recortadas do logotipo oficial;
   - `feed()` com variedade de fontes (migração `20261117000004_feed_variado.sql`);
   - impacto só aparece quando a IA calcular (fase 2).
+- Revisão de fim de etapa: o Fable 5.2 pediu créditos pagos (não usados sem aprovação do dono); a revisão foi feita por um revisor independente no modelo padrão. Nada bloqueava. Corrigido, com teste: notícias recentes baixadas só quando há novidade e por espaço; folga de 2 min na agenda; agrupamento só no mesmo espaço; a fonte do título vem primeiro; canais sem fonte dizem a fase; foco depois de "Tentar de novo"; chave conferida antes de ir ao banco; rodapé "Fonte: … Veja mais notícias" da Livecoins.
+- **Fica para a 1B** (dívida conhecida): cache do `feed()` na Cloudflare e contador de saída de dados (spec 6.1 e 6.3); hoje o navegador chama o Supabase direto (~27 KB por chamada), o que cabe no beta.
 
 ## Pontos de atenção (o que mais pode quebrar para quem usa)
 1. **Feed com HTML, entidades, CDATA, trecho vazio ou sem data:** o cartão sai limpo (sem `&amp;`, sem tags) e, sem data, usa a hora da coleta. Teste na Task 2.
@@ -166,7 +168,7 @@ Intervalo: 10 min para todas. Ficam para a 1B: CVM (o RSS só lista pastas), SEC
 
 ### Task 6: publicar, conferir e revisar
 
-- [ ] **1.** Publique o site (`scripts/publicacao.ts` e a conta conectada) e confira em produção: feed real em `mercado/manchetes`, `cripto/visao-geral` e `tecnologia/ia`, sem erro no console.
-- [ ] **2. Prints de perto** em 320, 390, 768, 1024, 1440 e 1600, nos temas claro, escuro e preto: capa, lista, logos, esqueleto e erro. Corrija o que não estiver perfeito.
-- [ ] **3. Revisão do Fable 5.2** (fim de etapa) e correção do que ele achar.
-- [ ] **4.** Atualize README (fontes e coleta), `supabase/README.md`, este plano e a spec (fontes conferidas). Commit e push.
+- [x] **1.** Publique o site (`scripts/publicacao.ts` e a conta conectada) e confira em produção: feed real em `mercado/manchetes`, `cripto/visao-geral` e `tecnologia/ia`, sem erro no console.
+- [x] **2. Prints de perto** em 320, 390, 768, 1024, 1440 e 1600, nos temas claro, escuro e preto: capa, lista, logos, esqueleto e erro. Corrija o que não estiver perfeito.
+- [x] **3. Revisão do Fable 5.2** (fim de etapa) e correção do que ele achar.
+- [x] **4.** Atualize README (fontes e coleta), `supabase/README.md`, este plano e a spec (fontes conferidas). Commit e push.

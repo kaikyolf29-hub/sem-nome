@@ -28,6 +28,10 @@ describe('limparTexto', () => {
 	test('tira o rodapé automático dos blogs', () => {
 		expect(limparTexto('<p>Texto.</p><p>The post Algo appeared first on Site.</p>')).toBe('Texto.');
 		expect(limparTexto('Texto. O post Algo apareceu primeiro em Site.')).toBe('Texto.');
+		// Livecoins: "Fonte: <título da matéria> Veja mais notícias sobre Bitcoin."
+		expect(
+			limparTexto('<p>Resumo da matéria.</p><p>Fonte: <a href="#">Título</a></p> Veja mais notícias sobre Bitcoin.')
+		).toBe('Resumo da matéria.');
 	});
 });
 
