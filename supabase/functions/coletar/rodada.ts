@@ -38,7 +38,10 @@ export interface BancoColeta {
 	fontesVencidas(ate: Date): Promise<FonteComEstado[]>;
 	/** Notícias do espaço publicadas desde a data, para agrupar as novas com as parecidas. */
 	recentes(desde: Date, espaco: Espaco): Promise<Recente[]>;
-	urlsExistentes(urls: string[]): Promise<Set<string>>;
+	/** Para cada URL já gravada, o espaço onde ela está. */
+	urlsExistentes(urls: string[]): Promise<Map<string, Espaco>>;
+	/** Soma canais a uma notícia já gravada (união, sem repetir). */
+	acrescentarCanais(url: string, canais: string[]): Promise<void>;
 	/** Cria o grupo de um fato novo e devolve o id. */
 	criarGrupo(item: ItemPronto): Promise<number>;
 	inserir(itens: NovaNoticia[]): Promise<void>;
@@ -87,9 +90,14 @@ async function coletarFonte(
 	}
 	// Em lotes: as URLs vão no endereço do pedido ao banco, que tem tamanho máximo.
 	const urls = [...prontos.keys()];
-	const existentes = new Set<string>();
+	const existentes = new Map<string, Espaco>();
 	for (let i = 0; i < urls.length; i += LOTE_URLS) {
-		for (const url of await db.urlsExistentes(urls.slice(i, i + LOTE_URLS))) existentes.add(url);
+		for (const [url, espaco] of await db.urlsExistentes(urls.slice(i, i + LOTE_URLS))) existentes.set(url, espaco);
+	}
+	// Mesma matéria vinda de outro feed do mesmo espaço (g1 geral e g1 Política): só ganha os canais novos.
+	// Em outro espaço, nada muda.
+	for (const item of prontos.values()) {
+		if (existentes.get(item.url) === item.espaco) await db.acrescentarCanais(item.url, item.canais);
 	}
 	const novos = [...prontos.values()].filter((i) => !existentes.has(i.url)).slice(0, MAX_NOVOS_POR_FONTE);
 

@@ -23,7 +23,12 @@ const SITES: Record<string, string> = {
 	'olhar-digital': 'https://olhardigital.com.br',
 	'the-verge': 'https://www.theverge.com',
 	'ars-technica': 'https://arstechnica.com',
-	techcrunch: 'https://techcrunch.com'
+	techcrunch: 'https://techcrunch.com',
+	g1: 'https://g1.globo.com',
+	'bbc-brasil': 'https://www.bbc.com/portuguese',
+	'dw-brasil': 'https://www.dw.com/pt-br',
+	ge: 'https://ge.globo.com',
+	'pesquisa-fapesp': 'https://revistapesquisa.fapesp.br'
 };
 
 const NAVEGADOR = {
