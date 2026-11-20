@@ -214,11 +214,11 @@ export function classificar(fonte: Fonte, titulo: string, trecho: string): { esp
 		return { espaco: 'cripto', canais: ordenados(canais) };
 	}
 
-	// O canal vem só do título: o trecho cita muita coisa de passagem.
+	// O canal vem só do título: o trecho cita muita coisa de passagem. Fonte geral fica só com o canal do tema.
 	const canais = new Set(fonte.canais);
 	if (fonte.espaco === 'mercado') {
 		for (const [canal, padroes] of Object.entries(MERCADO)) if (temPalavra(noTitulo, padroes)) canais.add(canal);
-	} else {
+	} else if (fonte.espaco === 'tecnologia') {
 		if (temPalavra(noTitulo, fonte.idioma === 'en' ? IA_EN : IA_PT)) canais.add('ia');
 		if (temPalavra(noTitulo, CHIPS)) canais.add('chips');
 		if (temPalavra(noTitulo, BIG_TECHS)) canais.add('big-techs');

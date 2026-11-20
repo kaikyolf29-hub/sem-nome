@@ -76,6 +76,9 @@ describe('classificar', () => {
 			canais: ['politica']
 		});
 	});
+	test('fonte geral não ganha canais de tecnologia (ia, chips, big-techs)', () => {
+		expect(classificar(g1, 'Nvidia e Google anunciam nova IA', '').canais).toEqual(['brasil']);
+	});
 	test('Bitcoin numa fonte geral vai para o espaço cripto', () => {
 		expect(classificar(g1, 'Bitcoin sobe', '').espaco).toBe('cripto');
 	});
