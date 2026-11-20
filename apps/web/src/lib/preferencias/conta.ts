@@ -57,7 +57,9 @@ export async function salvarNaConta(
 			fontes_ocultas: p.fontesOcultas,
 			palavras_silenciadas: p.palavrasSilenciadas,
 			idioma: p.idioma,
-			escolheu: p.escolheu
+			escolheu: p.escolheu,
+			// O banco só preenche sozinho na primeira gravação; nas seguintes, quem salva diz quando foi.
+			atualizado_em: new Date().toISOString()
 		})
 	});
 	if (!r.ok) throw new Error(`preferencias: salvar falhou (${r.status})`);

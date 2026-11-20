@@ -64,7 +64,8 @@ describe('salvarNaConta', () => {
 			fontes_ocultas: ['g1'],
 			palavras_silenciadas: ['copa'],
 			idioma: 'pt',
-			escolheu: true
+			escolheu: true,
+			atualizado_em: expect.stringMatching(/^\d{4}-\d{2}-\d{2}T/)
 		});
 	});
 
