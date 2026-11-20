@@ -246,6 +246,23 @@ export const en: Mensagens = {
 		sair: 'Sign out',
 		entrando: 'Opening Google'
 	},
+	temas: {
+		mercado: 'Markets',
+		cripto: 'Crypto',
+		tecnologia: 'Technology & AI',
+		brasil: 'Brazil',
+		politica: 'Politics',
+		mundo: 'World',
+		esportes: 'Sports',
+		ciencia: 'Science',
+		saude: 'Health',
+		educacao: 'Education',
+		cultura: 'Culture & entertainment',
+		meioAmbiente: 'Environment',
+		justica: 'Justice',
+		carros: 'Cars',
+		viagem: 'Travel'
+	},
 	variacao: {
 		alta: 'up {valor}',
 		queda: 'down {valor}',
