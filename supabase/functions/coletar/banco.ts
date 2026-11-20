@@ -38,8 +38,12 @@ export function bancoSupabase(db: SupabaseClient): BancoColeta {
 
 		async urlsExistentes(urls) {
 			if (urls.length === 0) return new Map();
-			const linhas = ou(await db.from('noticias').select('url, espaco').in('url', urls)) as { url: string; espaco: Espaco }[];
-			return new Map(linhas.map((l) => [l.url, l.espaco]));
+			const linhas = ou(await db.from('noticias').select('url, espaco, canais').in('url', urls)) as {
+				url: string;
+				espaco: Espaco;
+				canais: string[];
+			}[];
+			return new Map(linhas.map((l) => [l.url, { espaco: l.espaco, canais: l.canais }]));
 		},
 
 		async acrescentarCanais(url, canais) {

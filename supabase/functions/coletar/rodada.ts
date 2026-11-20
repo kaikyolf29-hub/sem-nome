@@ -33,13 +33,18 @@ export interface NovaNoticia extends ItemPronto {
 	fonte_id: string;
 }
 
+export interface Gravada {
+	espaco: Espaco;
+	canais: string[];
+}
+
 export interface BancoColeta {
 	/** Fontes ativas com a próxima coleta até `ate`, da mais atrasada para a menos. */
 	fontesVencidas(ate: Date): Promise<FonteComEstado[]>;
 	/** Notícias do espaço publicadas desde a data, para agrupar as novas com as parecidas. */
 	recentes(desde: Date, espaco: Espaco): Promise<Recente[]>;
-	/** Para cada URL já gravada, o espaço onde ela está. */
-	urlsExistentes(urls: string[]): Promise<Map<string, Espaco>>;
+	/** Para cada URL já gravada, o espaço e os canais que ela tem. */
+	urlsExistentes(urls: string[]): Promise<Map<string, Gravada>>;
 	/** Soma canais a uma notícia já gravada (união, sem repetir). */
 	acrescentarCanais(url: string, canais: string[]): Promise<void>;
 	/** Cria o grupo de um fato novo e devolve o id. */
@@ -90,14 +95,17 @@ async function coletarFonte(
 	}
 	// Em lotes: as URLs vão no endereço do pedido ao banco, que tem tamanho máximo.
 	const urls = [...prontos.keys()];
-	const existentes = new Map<string, Espaco>();
+	const existentes = new Map<string, Gravada>();
 	for (let i = 0; i < urls.length; i += LOTE_URLS) {
-		for (const [url, espaco] of await db.urlsExistentes(urls.slice(i, i + LOTE_URLS))) existentes.set(url, espaco);
+		for (const [url, gravada] of await db.urlsExistentes(urls.slice(i, i + LOTE_URLS))) existentes.set(url, gravada);
 	}
 	// Mesma matéria vinda de outro feed do mesmo espaço (g1 geral e g1 Política): só ganha os canais novos.
-	// Em outro espaço, nada muda.
+	// Em outro espaço, nada muda. Só fala com o banco se falta algum canal (a coleta roda a cada 10 min).
 	for (const item of prontos.values()) {
-		if (existentes.get(item.url) === item.espaco) await db.acrescentarCanais(item.url, item.canais);
+		const gravada = existentes.get(item.url);
+		if (gravada?.espaco === item.espaco && item.canais.some((c) => !gravada.canais.includes(c))) {
+			await db.acrescentarCanais(item.url, item.canais);
+		}
 	}
 	const novos = [...prontos.values()].filter((i) => !existentes.has(i.url)).slice(0, MAX_NOVOS_POR_FONTE);
 

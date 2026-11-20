@@ -34,9 +34,13 @@ const rss = (...itens: [string, string][]) =>
 		.map(([t, u]) => `<item><title>${t}</title><link>${u}</link><pubDate>Tue, 17 Nov 2026 11:30:00 GMT</pubDate></item>`)
 		.join('')}</channel></rss>`;
 
-function bancoFalso(fontes: FonteComEstado[], existentes: string[] | Record<string, Espaco> = []) {
-	const mapa = new Map<string, Espaco>(
-		Array.isArray(existentes) ? existentes.map((u) => [u, 'mercado'] as [string, Espaco]) : Object.entries(existentes)
+type Existente = Espaco | { espaco: Espaco; canais: string[] };
+
+function bancoFalso(fontes: FonteComEstado[], existentes: string[] | Record<string, Existente> = []) {
+	const mapa = new Map<string, { espaco: Espaco; canais: string[] }>(
+		(Array.isArray(existentes) ? existentes.map((u): [string, Existente] => [u, 'mercado']) : Object.entries(existentes)).map(
+			([u, e]) => [u, typeof e === 'string' ? { espaco: e, canais: [] } : e]
+		)
 	);
 	const acrescentadas: [string, string[]][] = [];
 	const estados = new Map<string, Partial<EstadoFonte>>();
@@ -178,6 +182,14 @@ describe('rodada de coleta', () => {
 		]);
 		await rodada(db, (async () => resposta(rss(...muitos))) as typeof fetch, () => agora);
 		expect(inseridas).toHaveLength(30);
+	});
+
+	test('mesma URL que já tem o canal: não toca no banco (a coleta roda a cada 10 min)', async () => {
+		const url = 'https://g1.invalid/materia';
+		const g1pol: FonteComEstado = { ...fonte('g1-politica'), espaco: 'geral', canais: ['politica'] };
+		const { db, acrescentadas } = bancoFalso([g1pol], { [url]: { espaco: 'geral', canais: ['brasil', 'politica'] } });
+		await rodada(db, (async () => resposta(rss(['Câmara aprova projeto de lei', url]))) as typeof fetch, () => agora);
+		expect(acrescentadas).toHaveLength(0);
 	});
 
 	test('mesma URL já gravada no mesmo espaço: acrescenta os canais e não insere', async () => {
