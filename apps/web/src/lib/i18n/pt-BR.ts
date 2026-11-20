@@ -246,6 +246,23 @@ export const ptBR = {
 		sair: 'Sair',
 		entrando: 'Abrindo o Google'
 	},
+	temas: {
+		mercado: 'Mercado',
+		cripto: 'Cripto',
+		tecnologia: 'Tecnologia e IA',
+		brasil: 'Brasil',
+		politica: 'Política',
+		mundo: 'Mundo',
+		esportes: 'Esportes',
+		ciencia: 'Ciência',
+		saude: 'Saúde',
+		educacao: 'Educação',
+		cultura: 'Cultura e entretenimento',
+		meioAmbiente: 'Meio ambiente',
+		justica: 'Justiça',
+		carros: 'Carros',
+		viagem: 'Viagem'
+	},
 	variacao: {
 		alta: 'alta de {valor}',
 		queda: 'queda de {valor}',

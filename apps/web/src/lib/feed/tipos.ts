@@ -2,6 +2,8 @@ import type { IdEspaco } from '#lib/navegacao/espacos.ts';
 
 /** Forma da notícia que o banco da fase 1 vai seguir. */
 export interface FonteNoticia {
+	/** Identificador da fonte no banco (para esconder fontes). */
+	id?: string;
 	nome: string;
 	url: string;
 	primaria: boolean;
@@ -25,6 +27,8 @@ export interface Noticia {
 	/** ISO 8601. */
 	publicadoEm: string;
 	trecho: string;
+	/** Idioma do título mostrado. */
+	idioma?: 'pt-BR' | 'en';
 	resumoIA?: string;
 	temas: string[];
 	/** 0 a 100. */
