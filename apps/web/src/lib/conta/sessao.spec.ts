@@ -20,6 +20,7 @@ function clienteFalso(extra: Partial<ClienteAuth> = {}) {
 		signInWithOAuth: vi.fn(async () => ({ error: null })),
 		signOut: vi.fn(async () => ({ error: null })),
 		googleLigado: vi.fn(async () => true),
+		token: vi.fn(async () => 'token-falso'),
 		...extra
 	};
 	return { cliente, avisar: (e: string, s: SessaoAuth | null) => ouvinte?.(e, s) };
@@ -99,5 +100,13 @@ describe('sessao', () => {
 		await s.sair();
 		expect(cliente.signOut).toHaveBeenCalled();
 		expect(s.usuario).toBeNull();
+	});
+});
+
+describe('sessao.token', () => {
+	it('entrega o token do cliente e null sem cliente', async () => {
+		const { cliente } = clienteFalso();
+		expect(await criarSessao(cliente, endereco()).token()).toBe('token-falso');
+		expect(await criarSessao(null, endereco()).token()).toBeNull();
 	});
 });

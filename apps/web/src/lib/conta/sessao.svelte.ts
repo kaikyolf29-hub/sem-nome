@@ -22,6 +22,8 @@ export interface ClienteAuth {
 		options: { redirectTo: string };
 	}): Promise<{ error: ErroAuth }>;
 	signOut(): Promise<{ error: ErroAuth }>;
+	/** O access token da sessão atual, ou null sem sessão. */
+	token(): Promise<string | null>;
 	/** Se o provedor Google está ligado no Supabase (evita mandar a pessoa a uma página de erro). */
 	googleLigado(): Promise<boolean>;
 }
@@ -115,6 +117,9 @@ export function criarSessao(cliente: ClienteAuth | null, endereco: Endereco) {
 			} catch (e) {
 				erro = mensagemDeErro(e as ErroAuth);
 			}
+		},
+		async token() {
+			return cliente ? cliente.token() : null;
 		},
 		async sair() {
 			if (!cliente) return;

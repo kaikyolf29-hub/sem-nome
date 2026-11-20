@@ -68,6 +68,11 @@ export function criarClienteAuth(): ClienteAuth | null {
 			if (!instancia) return { error: null };
 			return (await carregar()).signOut();
 		},
+		async token() {
+			if (!precisaAgora()) return null;
+			const { data } = await (await carregar()).getSession();
+			return data.session?.access_token ?? null;
+		},
 		async googleLigado() {
 			try {
 				const r = await fetch(`${SUPABASE_URL}/auth/v1/settings`, {
