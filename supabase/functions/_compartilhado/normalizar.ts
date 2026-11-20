@@ -33,8 +33,8 @@ export function limparTexto(html: string): string {
 		.replace(/<br\s*\/?>|<\/(p|div|li|h\d)>/gi, ' ')
 		.replace(/<[^>]*>/g, '');
 	t = decodificarEntidades(t)
-		.replace(/[​-‍⁠﻿]/g, '')
-		.replace(/[\s ]+/g, ' ')
+		.replace(/[\u200b-\u200d\u2060\ufeff]/g, '')
+		.replace(/[\s\u00a0]+/g, ' ')
 		.trim();
 	for (const rodape of RODAPES) t = t.replace(rodape, '');
 	return t.trim();
