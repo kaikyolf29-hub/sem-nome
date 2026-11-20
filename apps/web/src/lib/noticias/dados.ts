@@ -1,8 +1,7 @@
 // Notícias de verdade: o Worker (/api/feed e /api/busca, com cache na borda) e, se ele não responder,
 // as funções feed() e buscar_noticias() do Supabase, lidas por GET com a chave publicável.
 // Sem supabase-js, para a primeira tela continuar leve.
-import type { AtivoLigado, Noticia } from '#lib/feed/tipos.ts';
-import type { IdEspaco } from '#lib/navegacao/espacos.ts';
+import type { AtivoLigado, EspacoBanco, Noticia } from '#lib/feed/tipos.ts';
 import { SUPABASE_CHAVE_PUBLICAVEL, SUPABASE_URL } from '#lib/supabase/config.ts';
 
 export class ErroFeed extends Error {
@@ -68,7 +67,7 @@ async function peloBanco(funcao: string, parametros: URLSearchParams, buscar: ty
 	return linhas as CartaoBanco[];
 }
 
-function paraNoticias(linhas: CartaoBanco[], espaco: IdEspaco): Noticia[] {
+function paraNoticias(linhas: CartaoBanco[], espaco: EspacoBanco): Noticia[] {
 	return linhas.map((l) => ({
 		id: String(l.id),
 		titulo: l.titulo,
@@ -93,17 +92,20 @@ function paraNoticias(linhas: CartaoBanco[], espaco: IdEspaco): Noticia[] {
 	}));
 }
 
+/** Feed de um espaço do banco; sem canal (`null`), o espaço inteiro. */
 export async function buscarFeed(
-	espaco: IdEspaco,
-	canal: string,
+	espaco: EspacoBanco,
+	canal: string | null,
 	buscar: typeof fetch = fetch
 ): Promise<Noticia[]> {
-	const borda = new URLSearchParams({ espaco, canal, limite: String(LIMITE) });
-	const direto = new URLSearchParams({
-		p_espaco: espaco,
-		p_canal: canal,
-		p_limite: String(LIMITE)
-	});
+	const borda = new URLSearchParams({ espaco });
+	const direto = new URLSearchParams({ p_espaco: espaco });
+	if (canal) {
+		borda.set('canal', canal);
+		direto.set('p_canal', canal);
+	}
+	borda.set('limite', String(LIMITE));
+	direto.set('p_limite', String(LIMITE));
 	const linhas =
 		(await pelaBorda(`/api/feed?${borda}`, buscar)) ?? (await peloBanco('feed', direto, buscar));
 	return paraNoticias(linhas, espaco);
@@ -119,7 +121,6 @@ export async function buscarNoticias(
 	const linhas =
 		(await pelaBorda(`/api/busca?${borda}`, buscar)) ??
 		(await peloBanco('buscar_noticias', direto, buscar));
-	// A busca atravessa os espaços e o banco não diz de qual veio o cartão: 'mercado' é só o valor
-	// exigido pelo tipo (o espaço 'geral' ainda não existe em IdEspaco; a tela de busca não o usa).
-	return paraNoticias(linhas, 'mercado');
+	// A busca atravessa os espaços e o banco não diz de qual veio o cartão: fica como 'geral'.
+	return paraNoticias(linhas, 'geral');
 }

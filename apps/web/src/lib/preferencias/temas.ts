@@ -1,10 +1,17 @@
+import type { EspacoBanco } from '#lib/feed/tipos.ts';
 import type { ChaveMensagem } from '#lib/i18n/index.ts';
+
+/** De onde vêm as notícias de um tema: um espaço do banco e, se houver, um canal dele. */
+export interface Origem {
+	espaco: EspacoBanco;
+	canal: string | null;
+}
 
 export interface Tema {
 	id: string;
 	rotulo: ChaveMensagem;
 	icone: string;
-	origens: { espaco: 'mercado' | 'cripto' | 'tecnologia' | 'geral'; canal: string | null }[];
+	origens: Origem[];
 }
 
 const geral = (canal: string) => [{ espaco: 'geral' as const, canal }];

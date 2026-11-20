@@ -3,7 +3,8 @@
 	import { goto } from '$app/navigation';
 	import { resolve } from '$app/paths';
 	import { t } from '#lib/i18n/index.ts';
-	import { espacosApp, paramsCanal } from '#lib/navegacao/espacos.ts';
+	import { espacoParaVoce, espacosApp, paramsCanal } from '#lib/navegacao/espacos.ts';
+	import { preferencias } from '#lib/preferencias/estado.svelte.ts';
 	import { noticiasExemplo } from '#lib/prototipo/exemplos.ts';
 	import { buscarComandos, type ItemComando } from './busca.ts';
 
@@ -24,10 +25,11 @@
 			tipo: 'espaco' as const,
 			destino: rota(e.id)
 		})),
+		// "Para você" com os canais da pessoa (temas escolhidos e digitados).
 		...espacosApp.flatMap((e) =>
-			e.canais.map((c) => ({
+			(e.id === 'para-voce' ? espacoParaVoce(preferencias.atual) : e).canais.map((c) => ({
 				id: `canal:${e.id}/${c.id}`,
-				rotulo: t(c.rotulo),
+				rotulo: c.nome ?? t(c.rotulo),
 				tipo: 'canal' as const,
 				destino: rota(e.id, c.id)
 			}))
@@ -36,7 +38,8 @@
 			id: `noticia:${n.id}`,
 			rotulo: n.titulo,
 			tipo: 'noticia' as const,
-			destino: rota(n.espaco, n.canais[0])
+			// Notícias dos temas gerais moram em "Para você".
+			destino: n.espaco === 'geral' ? rota('para-voce', 'tudo') : rota(n.espaco, n.canais[0])
 		}))
 	]);
 	const resultados = $derived(buscarComandos(consulta, itens));

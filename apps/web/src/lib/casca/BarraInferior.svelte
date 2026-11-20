@@ -11,7 +11,7 @@
 	let { ativo, onmais }: { ativo: IdEspaco | null; onmais: () => void } = $props();
 
 	const itens = [
-		{ rotulo: 'casca.inicio', params: paramsCanal('mercado'), espaco: 'mercado', Icone: House },
+		{ rotulo: 'casca.inicio', params: paramsCanal('para-voce'), espaco: 'para-voce', Icone: House },
 		{
 			rotulo: 'espacos.carteira',
 			params: paramsCanal('carteira'),

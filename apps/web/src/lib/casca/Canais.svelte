@@ -1,5 +1,7 @@
 <script lang="ts">
+	import Plus from '@lucide/svelte/icons/plus';
 	import { resolve } from '$app/paths';
+	import { painelTemas } from '#lib/preferencias/painel.svelte.ts';
 	import { t } from '#lib/i18n/index.ts';
 	import { paramsCanal, type Canal, type Espaco } from '#lib/navegacao/espacos.ts';
 	import CartaoConta from './CartaoConta.svelte';
@@ -48,13 +50,26 @@
 								onclick={onescolher}
 							>
 								<span class="hash" aria-hidden="true">#</span>
-								<span class="nome">{t(canal.rotulo)}</span>
+								<span class="nome">{canal.nome ?? t(canal.rotulo)}</span>
 							</a>
 						</li>
 					{/each}
 				</ul>
 			</div>
 		{/each}
+		{#if espaco.id === 'para-voce'}
+			<button
+				class="canal adicionar"
+				type="button"
+				onclick={(e) => {
+					onescolher();
+					painelTemas.abrir(e.currentTarget);
+				}}
+			>
+				<span class="hash" aria-hidden="true"><Plus size={16} strokeWidth={2} /></span>
+				<span class="nome">{t('paraVoce.adicionarTema')}</span>
+			</button>
+		{/if}
 	</nav>
 
 	<CartaoConta />
@@ -149,6 +164,25 @@
 	.hash {
 		font-size: 1.15em;
 		opacity: 0.7;
+	}
+
+	/* "Adicionar tema": mesma linha dos canais, com o + no lugar do #. */
+	.adicionar {
+		width: 100%;
+		margin-top: var(--espaco-2);
+		border: 0;
+		background: none;
+		font: inherit;
+		font-weight: 500;
+		text-align: start;
+		cursor: pointer;
+	}
+
+	.adicionar .hash {
+		display: inline-grid;
+		place-items: center;
+		width: 1em;
+		height: 1em;
 	}
 
 	.nome {

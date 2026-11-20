@@ -1,4 +1,5 @@
-import type { IdEspaco } from '#lib/navegacao/espacos.ts';
+/** Espaço das notícias no banco: os três de notícias e o `geral`, dos temas gerais (fase 1B). */
+export type EspacoBanco = 'mercado' | 'cripto' | 'tecnologia' | 'geral';
 
 /** Forma da notícia que o banco da fase 1 vai seguir. */
 export interface FonteNoticia {
@@ -35,6 +36,6 @@ export interface Noticia {
 	impacto: number;
 	bafafa: boolean;
 	ativos: AtivoLigado[];
-	espaco: IdEspaco;
+	espaco: EspacoBanco;
 	canais: string[];
 }

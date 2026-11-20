@@ -49,6 +49,22 @@ describe('buscarFeed', () => {
 		expect(pedido[1]?.method ?? 'GET').toBe('GET');
 	});
 
+	it('sem canal (espaço inteiro) não manda p_canal; espaço geral vale', async () => {
+		const urls: string[] = [];
+		const buscar = (async (url: string) => {
+			urls.push(url);
+			return url.startsWith('/api/') ? new Response('x', { status: 404 }) : new Response('[]');
+		}) as unknown as typeof fetch;
+		await buscarFeed('tecnologia', null, buscar);
+		await buscarFeed('geral', 'esportes', buscar);
+		expect(urls).toEqual([
+			'/api/feed?espaco=tecnologia&limite=30',
+			`${SUPABASE_URL}/rest/v1/rpc/feed?p_espaco=tecnologia&p_limite=30`,
+			'/api/feed?espaco=geral&canal=esportes&limite=30',
+			`${SUPABASE_URL}/rest/v1/rpc/feed?p_espaco=geral&p_canal=esportes&p_limite=30`
+		]);
+	});
+
 	it('transforma cada grupo em notícia, com as fontes na ordem do banco (a primária primeiro)', async () => {
 		const [n] = await buscarFeed('mercado', 'manchetes', responde([linha]));
 		expect(n).toMatchObject({

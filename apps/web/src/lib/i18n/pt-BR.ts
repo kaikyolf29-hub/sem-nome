@@ -6,6 +6,7 @@ export const ptBR = {
 		emBreveTitulo: 'Em construção'
 	},
 	espacos: {
+		paraVoce: 'Para você',
 		mercado: 'Mercado',
 		carteira: 'Carteira',
 		cripto: 'Cripto',
@@ -20,9 +21,29 @@ export const ptBR = {
 		ativos: 'Ativos',
 		economia: 'Economia',
 		noticias: 'Notícias',
-		projetos: 'Projetos'
+		projetos: 'Projetos',
+		temas: 'Temas'
 	},
 	canais: {
+		paraVoce: {
+			tudo: 'tudo',
+			mercado: 'mercado',
+			cripto: 'cripto',
+			tecnologia: 'tecnologia-e-ia',
+			brasil: 'brasil',
+			politica: 'política',
+			mundo: 'mundo',
+			esportes: 'esportes',
+			ciencia: 'ciência',
+			saude: 'saúde',
+			educacao: 'educação',
+			cultura: 'cultura',
+			meioAmbiente: 'meio-ambiente',
+			justica: 'justiça',
+			carros: 'carros',
+			viagem: 'viagem',
+			temaDigitado: 'tema'
+		},
 		mercado: {
 			manchetes: 'manchetes',
 			resumoDoDia: 'resumo-do-dia',
@@ -150,7 +171,8 @@ export const ptBR = {
 		serifada: 'Serifada',
 		semSerifa: 'Inter',
 		idioma: 'Idioma',
-		verLogos: 'Ver as três opções de logo'
+		verLogos: 'Ver as três opções de logo',
+		noticiasTemas: 'Notícias e temas'
 	},
 	painel: {
 		titulo: 'Ativo em foco',
@@ -262,6 +284,50 @@ export const ptBR = {
 		justica: 'Justiça',
 		carros: 'Carros',
 		viagem: 'Viagem'
+	},
+	paraVoce: {
+		semResultado: 'Ainda não há notícias sobre “{termo}” nas nossas fontes.',
+		semResultadoDica: 'Quando alguma delas publicar, a notícia aparece aqui.',
+		semTemas: 'Você ainda não escolheu nenhum tema.',
+		adicionarTema: 'Adicionar tema',
+		escolherTemas: 'Escolher temas'
+	},
+	painelTemas: {
+		titulo: 'Notícias e temas',
+		tituloPrimeira: 'O que você quer ver?',
+		explicacaoPrimeira: 'Marque os assuntos do seu início. Dá para mudar quando quiser.',
+		temas: 'Temas',
+		criar: 'Criar meu tema',
+		criarAjuda: 'Um time, uma empresa, uma cidade. Até 5 temas.',
+		campoTema: 'Novo tema',
+		exemploTema: 'Corinthians, energia solar',
+		adicionar: 'Adicionar',
+		tirar: 'Tirar',
+		tirarTema: 'Tirar o tema {termo}',
+		limite: 'Você já tem 5 temas. Tire um para adicionar outro.',
+		invalido: 'Escreva de 2 a 40 letras.',
+		repetido: 'Esse tema já está na sua lista.',
+		adicionado: '“{termo}” entrou no seu início.',
+		filtros: 'Filtros',
+		filtrosAjuda: 'Valem para todas as notícias do app.',
+		idioma: 'Idioma das notícias',
+		soPortugues: 'Só português',
+		portuguesIngles: 'Português e inglês',
+		silenciadas: 'Palavras silenciadas',
+		silenciadasAjuda: 'Notícias com estas palavras no título ou no resumo não aparecem.',
+		campoPalavra: 'Palavra ou expressão',
+		silenciar: 'Silenciar',
+		tirarPalavra: 'Voltar a mostrar {palavra}',
+		palavraRepetida: 'Essa palavra já está silenciada.',
+		palavraLimite: 'Você chegou ao limite de 50 palavras.',
+		fontes: 'Fontes',
+		fontesAjuda: 'Desmarque as fontes que você não quer ver.',
+		fontesCarregando: 'Carregando as fontes',
+		fontesErro: 'As fontes não carregaram agora. Feche e abra de novo para tentar.',
+		maisFontes: '{lista} e mais {n}',
+		pular: 'Pular',
+		pronto: 'Pronto',
+		fechar: 'Fechar'
 	},
 	variacao: {
 		alta: 'alta de {valor}',
