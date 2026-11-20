@@ -28,6 +28,7 @@ function cliente(nome: string, extra: Partial<ClienteAuth> = {}): ClienteAuth {
 		signInWithOAuth: vi.fn(async () => ({ error: null })),
 		signOut: vi.fn(async () => ({ error: null })),
 		googleLigado: vi.fn(async () => true),
+		token: vi.fn(async () => 'token-falso'),
 		...extra
 	};
 }
