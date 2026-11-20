@@ -67,4 +67,16 @@ describe('classificar', () => {
 		).toEqual(['ia']);
 		expect(classificar(tecnoblog, 'E aí, vale a pena trocar de celular?', '').canais).toEqual([]);
 	});
+
+	const g1: Fonte = { ...base, id: 'g1', espaco: 'geral', canais: ['brasil'] };
+	const g1Politica: Fonte = { ...base, id: 'g1-politica', espaco: 'geral', canais: ['politica'] };
+	test('fonte geral mantém só o canal do tema', () => {
+		expect(classificar(g1Politica, 'Câmara aprova projeto sobre o dólar e a Selic', '')).toEqual({
+			espaco: 'geral',
+			canais: ['politica']
+		});
+	});
+	test('Bitcoin numa fonte geral vai para o espaço cripto', () => {
+		expect(classificar(g1, 'Bitcoin sobe', '').espaco).toBe('cripto');
+	});
 });

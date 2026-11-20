@@ -1,7 +1,7 @@
 // Tipos da coleta de notícias. Mesmos nomes das colunas do banco (supabase/migrations/*_noticias.sql).
 
 export type TipoFonte = 'rss' | 'atom' | 'ibge';
-export type Espaco = 'mercado' | 'cripto' | 'tecnologia';
+export type Espaco = 'mercado' | 'cripto' | 'tecnologia' | 'geral';
 export type Idioma = 'pt-BR' | 'en';
 
 export interface Fonte {

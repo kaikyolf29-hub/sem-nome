@@ -1,6 +1,6 @@
 import { describe, expect, test } from 'bun:test';
 import type { Recente } from '../_compartilhado/agrupar.ts';
-import type { ItemPronto } from '../_compartilhado/tipos.ts';
+import type { Espaco, ItemPronto } from '../_compartilhado/tipos.ts';
 import { rodada, type BancoColeta, type EstadoFonte, type FonteComEstado, type NovaNoticia } from './rodada.ts';
 
 const agora = new Date('2026-11-17T12:00:00Z');
@@ -34,7 +34,11 @@ const rss = (...itens: [string, string][]) =>
 		.map(([t, u]) => `<item><title>${t}</title><link>${u}</link><pubDate>Tue, 17 Nov 2026 11:30:00 GMT</pubDate></item>`)
 		.join('')}</channel></rss>`;
 
-function bancoFalso(fontes: FonteComEstado[], existentes: string[] = []) {
+function bancoFalso(fontes: FonteComEstado[], existentes: string[] | Record<string, Espaco> = []) {
+	const mapa = new Map<string, Espaco>(
+		Array.isArray(existentes) ? existentes.map((u) => [u, 'mercado'] as [string, Espaco]) : Object.entries(existentes)
+	);
+	const acrescentadas: [string, string[]][] = [];
 	const estados = new Map<string, Partial<EstadoFonte>>();
 	const inseridas: NovaNoticia[] = [];
 	const grupos: ItemPronto[] = [];
@@ -43,12 +47,13 @@ function bancoFalso(fontes: FonteComEstado[], existentes: string[] = []) {
 	const db: BancoColeta = {
 		fontesVencidas: async (ate) => (limites.push(ate), fontes),
 		recentes: async (_desde, espaco): Promise<Recente[]> => (pedidosRecentes.push(espaco), []),
-		urlsExistentes: async (urls) => new Set(urls.filter((u) => existentes.includes(u))),
+		urlsExistentes: async (urls) => new Map(urls.filter((u) => mapa.has(u)).map((u) => [u, mapa.get(u)!])),
+		acrescentarCanais: async (url, canais) => void acrescentadas.push([url, canais]),
 		criarGrupo: async (item) => grupos.push(item),
 		inserir: async (itens) => void inseridas.push(...itens),
 		salvarEstado: async (id, e) => void estados.set(id, e)
 	};
-	return { db, estados, inseridas, grupos, pedidosRecentes, limites };
+	return { db, estados, inseridas, grupos, pedidosRecentes, limites, acrescentadas };
 }
 
 const resposta = (corpo: string, status = 200, cabecalhos: Record<string, string> = {}) =>
@@ -173,5 +178,23 @@ describe('rodada de coleta', () => {
 		]);
 		await rodada(db, (async () => resposta(rss(...muitos))) as typeof fetch, () => agora);
 		expect(inseridas).toHaveLength(30);
+	});
+
+	test('mesma URL já gravada no mesmo espaço: acrescenta os canais e não insere', async () => {
+		const url = 'https://g1.invalid/materia';
+		const g1pol: FonteComEstado = { ...fonte('g1-politica'), espaco: 'geral', canais: ['politica'] };
+		const { db, inseridas, acrescentadas } = bancoFalso([g1pol], { [url]: 'geral' });
+		await rodada(db, (async () => resposta(rss(['Câmara aprova projeto de lei', url]))) as typeof fetch, () => agora);
+		expect(acrescentadas).toEqual([[url, ['politica']]]);
+		expect(inseridas).toHaveLength(0);
+	});
+
+	test('URL gravada em outro espaço: nada muda', async () => {
+		const url = 'https://g1.invalid/materia';
+		const g1pol: FonteComEstado = { ...fonte('g1-politica'), espaco: 'geral', canais: ['politica'] };
+		const { db, inseridas, acrescentadas } = bancoFalso([g1pol], { [url]: 'mercado' });
+		await rodada(db, (async () => resposta(rss(['Câmara aprova projeto de lei', url]))) as typeof fetch, () => agora);
+		expect(acrescentadas).toHaveLength(0);
+		expect(inseridas).toHaveLength(0);
 	});
 });

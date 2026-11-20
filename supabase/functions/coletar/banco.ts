@@ -1,6 +1,7 @@
 // BancoColeta de verdade, sobre o supabase-js com a chave de servidor (só existe dentro da função).
 import type { SupabaseClient } from '@supabase/supabase-js';
 import type { Recente } from '../_compartilhado/agrupar.ts';
+import type { Espaco } from '../_compartilhado/tipos.ts';
 import type { BancoColeta, EstadoFonte, FonteComEstado } from './rodada.ts';
 
 function ou<T>(resposta: { data: T | null; error: { message: string } | null }): T {
@@ -36,9 +37,18 @@ export function bancoSupabase(db: SupabaseClient): BancoColeta {
 		},
 
 		async urlsExistentes(urls) {
-			if (urls.length === 0) return new Set();
-			const linhas = ou(await db.from('noticias').select('url').in('url', urls)) as { url: string }[];
-			return new Set(linhas.map((l) => l.url));
+			if (urls.length === 0) return new Map();
+			const linhas = ou(await db.from('noticias').select('url, espaco').in('url', urls)) as { url: string; espaco: Espaco }[];
+			return new Map(linhas.map((l) => [l.url, l.espaco]));
+		},
+
+		async acrescentarCanais(url, canais) {
+			const linha = ou(await db.from('noticias').select('canais').eq('url', url).maybeSingle()) as { canais: string[] } | null;
+			if (!linha) return;
+			const uniao = [...new Set([...linha.canais, ...canais])].sort();
+			if (uniao.length === linha.canais.length) return;
+			// O gatilho do banco atualiza o grupo quando `canais` muda.
+			ou(await db.from('noticias').update({ canais: uniao }).eq('url', url));
 		},
 
 		async criarGrupo(item) {
