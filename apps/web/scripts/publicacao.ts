@@ -4,11 +4,32 @@
 //   3. JWT_ENVIO=<token> bun scripts/publicacao.ts enviar <conta> '<grupos em JSON>'
 //   4. (conta conectada) grava o Worker "mirante" com o token final (impresso no passo 3) e
 //      assets.config = { not_found_handling: 'single-page-application', ...regras }
+// O Worker (rotas /api/feed e /api/busca com cache) é gerado por `bun scripts/publicacao.ts worker`
+// em build-worker/mirante.js. Na publicação pela API ele sobe junto, no passo 4, com
+// main_module: 'mirante.js' (o conteúdo do arquivo), binding ASSETS nos metadados
+// e assets.config.run_worker_first: ['/api/*'].
 // Com uma chave de API da Cloudflare, use `bun run publicar` (wrangler), que faz tudo de uma vez.
 import { montarManifesto, tipoDoArquivo } from '../src/lib/publicacao/manifesto.ts';
 import { readFileSync } from 'node:fs';
 
 const [comando, conta, grupos] = process.argv.slice(2);
+
+if (comando === 'worker') {
+	const saida = await Bun.build({
+		entrypoints: ['worker/index.ts'],
+		target: 'browser',
+		format: 'esm',
+		outdir: 'build-worker',
+		naming: 'mirante.js'
+	});
+	if (!saida.success) {
+		for (const log of saida.logs) console.error(log);
+		throw new Error('Falha ao gerar o Worker.');
+	}
+	console.log('build-worker/mirante.js');
+	process.exit(0);
+}
+
 const { manifesto, caminhos, regras } = montarManifesto('build');
 
 if (comando === 'manifesto') {
@@ -35,6 +56,6 @@ if (comando === 'manifesto') {
 	}
 	console.log(final ?? 'Nada para enviar: use o token da sessão como token final.');
 } else {
-	console.log('Uso: bun scripts/publicacao.ts manifesto | enviar <conta> <grupos>');
+	console.log('Uso: bun scripts/publicacao.ts manifesto | enviar <conta> <grupos> | worker');
 	process.exit(1);
 }

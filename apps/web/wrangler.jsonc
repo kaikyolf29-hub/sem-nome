@@ -1,11 +1,14 @@
 {
-	// Publicação do site do Mirante na Cloudflare (plano grátis): só arquivos estáticos, como SPA.
-	// Arquivos estáticos não contam no limite de pedidos dos Workers.
+	// Publicação do site do Mirante na Cloudflare (plano grátis): site como SPA mais as rotas /api/feed e /api/busca com cache.
+	// Arquivos estáticos não contam no limite de pedidos dos Workers; só /api/* passa pelo Worker (cache).
 	"$schema": "node_modules/wrangler/config-schema.json",
 	"name": "mirante",
+	"main": "worker/index.ts",
 	"compatibility_date": "2026-11-01",
 	"assets": {
 		"directory": "./build",
+		"binding": "ASSETS",
+		"run_worker_first": ["/api/*"],
 		"not_found_handling": "single-page-application"
 	}
 }
