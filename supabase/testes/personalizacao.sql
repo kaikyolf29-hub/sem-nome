@@ -88,6 +88,12 @@ begin
 		insert into resultado values ('6 temas digitados são recusados', true);
 	end;
 	begin
+		update public.preferencias set palavras_silenciadas = array[repeat('x', 61)] where id = '00000000-0000-4000-8000-0000000000a1';
+		insert into resultado values ('item com mais de 60 letras é recusado', false);
+	exception when check_violation then
+		insert into resultado values ('item com mais de 60 letras é recusado', true);
+	end;
+	begin
 		delete from public.preferencias where id = '00000000-0000-4000-8000-0000000000a1';
 		insert into resultado values ('A não apaga as preferências pelo app', false);
 	exception when insufficient_privilege then

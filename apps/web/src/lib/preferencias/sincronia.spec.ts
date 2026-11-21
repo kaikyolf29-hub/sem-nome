@@ -62,6 +62,39 @@ describe('criarSincronia', () => {
 		expect(conta.salvos).toHaveLength(0);
 	});
 
+	it('conta que nunca escolheu não mistura os temas padrão no aparelho que escolheu', async () => {
+		const { alvo } = alvoFalso(prefs({ temas: ['saude'], escolheu: true }));
+		const conta = contaFalsa(
+			prefs({ temas: ['mercado', 'brasil'], palavrasSilenciadas: ['copa'], escolheu: false })
+		);
+		await criarSincronia(alvo, conta).entrou('u1', token);
+		expect(alvo.atual.temas).toEqual(['saude']);
+		expect(alvo.atual.palavrasSilenciadas).toEqual(['copa']);
+		expect(alvo.atual.escolheu).toBe(true);
+	});
+
+	it('aparelho sem escolha de temas: os temas vêm da conta e os filtros se somam', async () => {
+		const { alvo } = alvoFalso(prefs({ palavrasSilenciadas: ['bbb'], escolheu: false }));
+		const conta = contaFalsa(
+			prefs({ temas: ['ciencia'], palavrasSilenciadas: ['copa'], escolheu: true })
+		);
+		await criarSincronia(alvo, conta).entrou('u1', token);
+		expect(alvo.atual.temas).toEqual(['ciencia']);
+		expect(alvo.atual.palavrasSilenciadas).toEqual(['bbb', 'copa']);
+	});
+
+	it('ao sair da conta, o aparelho volta ao padrão (a próxima pessoa não herda as escolhas)', async () => {
+		const { alvo, trocas } = alvoFalso(
+			prefs({ temas: ['mundo'], palavrasSilenciadas: ['x'], escolheu: true })
+		);
+		const s = criarSincronia(alvo, contaFalsa(null));
+		await s.entrou(null, token);
+		expect(trocas).toHaveLength(0);
+		await s.entrou('u1', token);
+		await s.entrou(null, token);
+		expect(alvo.atual).toEqual(PADRAO);
+	});
+
 	it('conta vazia recebe o que está no aparelho', async () => {
 		const local = prefs({ temas: ['mundo'], escolheu: true });
 		const { alvo, trocas } = alvoFalso(local);
@@ -113,7 +146,7 @@ describe('criarSincronia', () => {
 		expect(conta.salvos).toHaveLength(0);
 	});
 
-	it('saiu enquanto a conta carregava: não troca o estado nem grava', async () => {
+	it('saiu enquanto a conta carregava: a resposta atrasada não troca o estado nem grava', async () => {
 		const { alvo, trocas } = alvoFalso(prefs({ escolheu: true }));
 		let liberar: (p: Preferencias | null) => void = () => {};
 		const conta = contaFalsa(null);
@@ -124,7 +157,8 @@ describe('criarSincronia', () => {
 		await s.entrou(null, token);
 		liberar(prefs({ temas: ['ciencia'], escolheu: true }));
 		await entrando;
-		expect(trocas).toHaveLength(0);
+		// Só a volta ao padrão de quem sai; a resposta atrasada da conta não entra.
+		expect(trocas).toEqual([PADRAO]);
 		expect(conta.salvos).toHaveLength(0);
 	});
 

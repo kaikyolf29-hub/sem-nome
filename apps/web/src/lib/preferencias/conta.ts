@@ -2,7 +2,11 @@ import { SUPABASE_CHAVE_PUBLICAVEL, SUPABASE_URL } from '#lib/supabase/config.ts
 import type { Preferencias } from './preferencias.ts';
 
 const ENDERECO = `${SUPABASE_URL}/rest/v1/preferencias`;
+// Os mesmos tetos da tabela `preferencias`: passar deles faz o banco recusar a gravação.
+const MAX_TEMAS = 30;
 const MAX_PROPRIOS = 5;
+const MAX_FONTES = 100;
+const MAX_PALAVRAS = 50;
 
 interface Linha {
 	temas?: string[];
@@ -69,10 +73,13 @@ export async function salvarNaConta(
 export function juntar(local: Preferencias, conta: Preferencias | null): Preferencias {
 	if (!conta) return { ...local };
 	return {
-		temas: unir(local.temas, conta.temas),
+		temas: unir(local.temas, conta.temas).slice(0, MAX_TEMAS),
 		temasProprios: unir(conta.temasProprios, local.temasProprios).slice(0, MAX_PROPRIOS),
-		fontesOcultas: unir(local.fontesOcultas, conta.fontesOcultas),
-		palavrasSilenciadas: unir(local.palavrasSilenciadas, conta.palavrasSilenciadas),
+		fontesOcultas: unir(conta.fontesOcultas, local.fontesOcultas).slice(0, MAX_FONTES),
+		palavrasSilenciadas: unir(local.palavrasSilenciadas, conta.palavrasSilenciadas).slice(
+			0,
+			MAX_PALAVRAS
+		),
 		idioma: conta.idioma,
 		escolheu: local.escolheu || conta.escolheu
 	};

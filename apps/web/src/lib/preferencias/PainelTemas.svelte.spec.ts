@@ -48,7 +48,7 @@ describe('PainelTemas', () => {
 		expect(fechou).toBe(true);
 	});
 
-	it('primeira visita: "Pular" mantém o padrão e marca que escolheu', async () => {
+	it('primeira visita: "Pular" mantém o padrão, não conta como escolha e não abre de novo', async () => {
 		const estado = criarPreferencias(memoria());
 		render(PainelTemas, {
 			primeiraVisita: true,
@@ -59,7 +59,29 @@ describe('PainelTemas', () => {
 		await page.getByRole('checkbox', { name: /Esportes/ }).click();
 		await page.getByRole('button', { name: 'Pular' }).click();
 		expect(estado.atual.temas).toEqual(['mercado', 'brasil', 'mundo', 'tecnologia']);
-		expect(estado.atual.escolheu).toBe(true);
+		expect(estado.atual.escolheu).toBe(false);
+		expect(estado.vista).toBe(true);
+	});
+
+	it('primeira visita: se a conta trouxe as escolhas enquanto estava aberta, fecha sem apagar nada', async () => {
+		const estado = criarPreferencias(memoria());
+		let fechou = false;
+		render(PainelTemas, {
+			primeiraVisita: true,
+			onfechar: () => (fechou = true),
+			estado,
+			carregarFontes: fontes
+		});
+		await expect.element(page.getByRole('button', { name: 'Pronto' })).toBeInTheDocument();
+		estado.substituir({
+			...estado.atual,
+			temas: ['ciencia'],
+			temasProprios: ['lula'],
+			escolheu: true
+		});
+		await expect.poll(() => fechou).toBe(true);
+		expect(estado.atual.temas).toEqual(['ciencia']);
+		expect(estado.atual.temasProprios).toEqual(['lula']);
 	});
 
 	it('o 6º tema digitado mostra o aviso de limite', async () => {

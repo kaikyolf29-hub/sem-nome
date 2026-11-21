@@ -86,7 +86,8 @@
 					</button>
 				{/if}
 				{#if local}
-					<h1 class="titulo">
+					<!-- Recebe o foco quando a primeira visita fecha (ninguém a abriu). -->
+					<h1 class="titulo" tabindex="-1" data-foco-inicial>
 						<span class="hash" aria-hidden="true">#</span>{nomeCanal}
 					</h1>
 				{/if}
@@ -176,11 +177,13 @@
 		<PaletaComandos aberta={paletaAberta} onfechar={() => (paletaAberta = false)} />
 		<PainelPrototipo />
 		{#if painelTemas.aberto}
-			{#await carregarPainelTemas() then { default: PainelTemas }}
+			{#await painelTemas.carregar(carregarPainelTemas) then { default: PainelTemas }}
 				<PainelTemas
 					primeiraVisita={painelTemas.primeiraVisita}
 					onfechar={() => painelTemas.fechar()}
 				/>
+			{:catch}
+				<!-- Não baixou: o painel já fechou e o botão volta a responder. -->
 			{/await}
 		{/if}
 	</div>

@@ -219,9 +219,9 @@
 
 ## Como ficou (21/11/2026)
 
-Tudo publicado: migrações 0006 a 0008, função `coletar` (versão 7), Worker com `/api/feed` e `/api/busca` e o site. Em produção, o segundo pedido a `/api/feed` volta com `cf-cache-status: HIT` (1,2 s no primeiro, 0,2 s nos seguintes). As 41 fontes coletam sem erro e o aviso de segurança do Supabase veio vazio.
+Tudo publicado: migrações 0006 a 0009, função `coletar` (versão 7), Worker com `/api/feed` e `/api/busca` e o site. Em produção, o segundo pedido a `/api/feed` volta com `cf-cache-status: HIT` (1,2 s no primeiro, 0,2 s nos seguintes). As 41 fontes coletam sem erro e o aviso de segurança do Supabase veio vazio.
 
-Verificação final: lint e tipos sem erro, 239 testes de unidade e componentes, 64 da coleta, 4 checagens SQL de variedade, build, orçamento de 136,9 KB de 160 KB (primeira tela com 102,5 KB de 120 KB) e 178 testes no navegador.
+Verificação final: lint e tipos sem erro, 252 testes de unidade e componentes, 64 da coleta, 18 checagens SQL (variedade e personalização), build, orçamento de 137,4 KB de 160 KB e 178 testes no navegador.
 
 **Decisões tomadas no caminho**
 - **Coleta:** só mexe no banco quando uma notícia já gravada ganha um canal novo. Antes, consultava o banco para cada uma, a cada rodada.
@@ -236,3 +236,17 @@ Verificação final: lint e tipos sem erro, 239 testes de unidade e componentes,
   - a renovação do token não junta outra vez;
   - `atualizado_em` é gravado a cada mudança.
 - **Primeira visita:** só abre sozinha no "Para você"; Esc e clicar fora contam como "Pular"; as escolhas só valem com "Pronto".
+
+**Revisão final independente (Opus): nada crítico. Corrigido:**
+- "Pronto" na primeira visita não apaga mais o que a conta trouxe com a tela aberta. A tela fecha sozinha quando a conta chega.
+- "Pular" deixou de contar como escolha: só marca que a tela foi vista (guardado no aparelho). Mexer em tema no painel conta como escolha. Na junção com a conta, os temas vêm do lado que escolheu e os filtros sempre se somam.
+- Ao sair da conta, o aparelho volta ao padrão: a próxima pessoa não herda temas, fontes escondidas nem palavras silenciadas.
+- Fonte escondida que é a principal do cartão tira o cartão, para não aparecer a logo de uma fonte com o título e o link de outra.
+- A junção respeita os limites do banco (50 palavras, 100 fontes), e cada item tem até 60 letras (migração 0009).
+- O "Para você" só pede de novo quando o canal ou os temas mudam; antes, qualquer filtro refazia os pedidos.
+- Se o arquivo do painel não baixar, ele fecha e o botão volta a responder. O foco vai para o título quando a primeira visita fecha.
+- Tema com notícias escondidas pelos filtros diz isso e oferece "Mudar filtros", em vez de "Ainda não há notícias".
+
+**Ficou como está, de propósito:**
+- **Contador próprio no Worker:** o plano grátis dá 100 mil pedidos por dia, e só `/api/*` conta. Se acabar, o site cai sozinho no Supabase, e um contador gastaria escritas do KV (só mil por dia).
+- **`canal` no Worker:** qualquer nome no formato certo é aceito. Furar o cache só leva ao Supabase, que a chave publicável já alcança.

@@ -23,6 +23,25 @@ describe('estado das preferências', () => {
 		expect(p.atual.escolheu).toBe(true);
 	});
 
+	it('escolher ou criar tema conta como escolha (ao entrar, a conta não troca o que a pessoa fez)', () => {
+		const p = criarPreferencias(armazenamento());
+		p.definirTemas(['saude']);
+		expect(p.atual.escolheu).toBe(true);
+		const q = criarPreferencias(armazenamento());
+		expect(q.adicionarTemaProprio('Corinthians')).toBe('ok');
+		expect(q.atual.escolheu).toBe(true);
+	});
+
+	it('"já viu a primeira visita" fica guardado à parte e não conta como escolha', () => {
+		const arm = armazenamento();
+		const p = criarPreferencias(arm);
+		expect(p.vista).toBe(false);
+		p.marcarVista();
+		expect(p.vista).toBe(true);
+		expect(p.atual.escolheu).toBe(false);
+		expect(criarPreferencias(arm).vista).toBe(true);
+	});
+
 	it('sem nada guardado, usa o padrão', () => {
 		expect(criarPreferencias(armazenamento()).atual).toEqual(PADRAO);
 	});

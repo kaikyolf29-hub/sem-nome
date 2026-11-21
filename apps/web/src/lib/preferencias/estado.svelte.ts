@@ -14,6 +14,9 @@ type Armazenamento = Pick<Storage, 'getItem' | 'setItem'>;
 /** No máximo de palavras silenciadas (o mesmo teto da tabela `preferencias`). */
 export const MAX_SILENCIADAS = 50;
 
+/** "Já viu a primeira visita": só do aparelho. Pular não é escolher (ao entrar, a conta vale). */
+const CHAVE_VISTA = 'mirante:primeira-visita';
+
 function armazenamentoDoNavegador(): Armazenamento | null {
 	try {
 		return typeof localStorage === 'undefined' ? null : localStorage;
@@ -26,6 +29,15 @@ export function criarPreferencias(
 	armazenamento: Armazenamento | null = armazenamentoDoNavegador()
 ) {
 	let atual = $state.raw<Preferencias>(lerLocal(armazenamento));
+	let vista = $state(lerVista());
+
+	function lerVista() {
+		try {
+			return armazenamento?.getItem(CHAVE_VISTA) === '1';
+		} catch {
+			return false;
+		}
+	}
 
 	function mudar(p: Preferencias) {
 		atual = p;
@@ -36,22 +48,41 @@ export function criarPreferencias(
 		get atual() {
 			return atual;
 		},
+		get vista() {
+			return vista;
+		},
+		marcarVista() {
+			vista = true;
+			try {
+				armazenamento?.setItem(CHAVE_VISTA, '1');
+			} catch {
+				// Sem armazenamento: vale só nesta visita.
+			}
+		},
 		/** Troca tudo de uma vez (por exemplo, ao juntar com o que está na conta). */
 		substituir(p: Preferencias) {
 			mudar(p);
 		},
-		/** Guarda os temas na ordem da lista, sem repetidos e sem ids desconhecidos. */
+		/** Guarda os temas na ordem da lista, sem repetidos e sem ids desconhecidos. Mexer em tema é escolher. */
 		definirTemas(ids: readonly string[]) {
-			mudar({ ...atual, temas: TEMAS.filter((t) => ids.includes(t.id)).map((t) => t.id) });
+			mudar({
+				...atual,
+				temas: TEMAS.filter((t) => ids.includes(t.id)).map((t) => t.id),
+				escolheu: true
+			});
 		},
 		adicionarTemaProprio(texto: string): 'ok' | 'invalido' | 'limite' | 'repetido' {
 			const r = adicionarTemaProprio(atual, texto);
 			if (typeof r === 'string') return r;
-			mudar(r);
+			mudar({ ...r, escolheu: true });
 			return 'ok';
 		},
 		tirarTemaProprio(termo: string) {
-			mudar({ ...atual, temasProprios: atual.temasProprios.filter((x) => x !== termo) });
+			mudar({
+				...atual,
+				temasProprios: atual.temasProprios.filter((x) => x !== termo),
+				escolheu: true
+			});
 		},
 		esconderFonte(...ids: string[]) {
 			const novas = ids.filter(

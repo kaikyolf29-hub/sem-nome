@@ -12,6 +12,6 @@ Projeto `mirante` (ref `dzrdbeulimgzdcinukch`, São Paulo, plano grátis).
 - Depois de cada migração, confira os avisos de segurança (`get_advisors`, tipo `security`): a lista precisa vir vazia.
 - A chave da coleta (`chave_coleta`) nasce no cofre do banco (Vault) e nunca sai dele: o job do `pg_cron` lê a chave e a função `coletar` confere com `conferir_chave_coleta`.
 - Cotas: `contadores_cota` guarda o uso de cada serviço grátis; `somar_cota` recusa quando passa do teto.
-- `preferencias`: uma linha por conta (`id` = id do usuário), com RLS de ler, criar e mudar só a própria; sem apagar e nada para quem não entrou. Limites no banco: 30 temas, 5 temas digitados, 100 fontes escondidas e 50 palavras silenciadas.
+- `preferencias`: uma linha por conta (`id` = id do usuário), com RLS de ler, criar e mudar só a própria; sem apagar e nada para quem não entrou. Limites no banco: 30 temas, 5 temas digitados, 100 fontes escondidas, 50 palavras silenciadas e até 60 letras por item.
 - Funções lidas pelo site (`feed`, `buscar_noticias`, `montar_cartoes`) são `security invoker` com `search_path` vazio.
 - Notícias dos temas gerais (espaço `geral`) ficam 30 dias; as outras, 90.

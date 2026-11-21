@@ -145,6 +145,8 @@ export const en: Mensagens = {
 		erroServidor: "The news didn't load.",
 		tentarDeNovo: 'Try again',
 		vazio: 'Nothing here yet. News for this channel shows up as soon as it arrives.',
+		escondidas: 'There is news here, but your filters hid all of it.',
+		mudarFiltros: 'Change filters',
 		impacto: {
 			baixo: 'Low impact',
 			medio: 'Medium impact',

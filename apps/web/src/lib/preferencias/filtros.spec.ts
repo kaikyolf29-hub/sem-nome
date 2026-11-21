@@ -23,6 +23,20 @@ function n(id: string, extra: Partial<Noticia> & { fonte?: string } = {}): Notic
 }
 
 describe('aplicarFiltros', () => {
+	it('fonte escondida que é a principal do cartão tira o cartão (o título e o link são dela)', () => {
+		const cartao = {
+			...n('1'),
+			fontes: [
+				{ id: 'bbc', nome: 'BBC', url: 'https://bbc/1', primaria: false },
+				{ id: 'dw', nome: 'DW', url: 'https://dw/1', primaria: false }
+			]
+		};
+		expect(aplicarFiltros([cartao], { ...PADRAO, fontesOcultas: ['bbc'] })).toHaveLength(0);
+		expect(
+			aplicarFiltros([cartao], { ...PADRAO, fontesOcultas: ['dw'] })[0].fontes.map((f) => f.id)
+		).toEqual(['bbc']);
+	});
+
 	it('tira a fonte escondida e descarta o cartão que fica sem fonte', () => {
 		const duas = n('a', {
 			fontes: [
@@ -30,10 +44,10 @@ describe('aplicarFiltros', () => {
 				{ id: 'dw', nome: 'dw', url: 'u', primaria: false }
 			]
 		});
-		const so = n('b', { fonte: 'g1' });
-		const r = aplicarFiltros([duas, so], { ...PADRAO, fontesOcultas: ['g1'] });
+		const so = n('b', { fonte: 'dw' });
+		const r = aplicarFiltros([duas, so], { ...PADRAO, fontesOcultas: ['dw'] });
 		expect(r.map((x) => x.id)).toEqual(['a']);
-		expect(r[0].fontes.map((f) => f.id)).toEqual(['dw']);
+		expect(r[0].fontes.map((f) => f.id)).toEqual(['g1']);
 	});
 
 	it('idioma pt tira inglês; pt-en mantém', () => {

@@ -32,17 +32,26 @@ function criarPainelTemas() {
 			primeiraVisita = true;
 			aberto = true;
 		},
+		/** Baixa o código do painel; se falhar (por exemplo, depois de uma publicação nova), fecha. */
+		async carregar<T>(importar: () => Promise<T>): Promise<T> {
+			try {
+				return await importar();
+			} catch (erro) {
+				this.fechar();
+				throw erro;
+			}
+		},
 		fechar() {
+			if (!aberto) return;
 			aberto = false;
 			const alvo = devolverPara;
 			devolverPara = null;
 			queueMicrotask(() => {
 				// Quem abriu sumiu (por exemplo, a gaveta de canais do celular fechou): volta ao botão dela.
+				// Na primeira visita ninguém abriu: o foco vai para o título da página.
 				const destino = alvo?.isConnected
 					? alvo
-					: alvo
-						? document.querySelector<HTMLElement>('[data-volta-foco]')
-						: null;
+					: document.querySelector<HTMLElement>(alvo ? '[data-volta-foco]' : '[data-foco-inicial]');
 				destino?.focus();
 			});
 		}

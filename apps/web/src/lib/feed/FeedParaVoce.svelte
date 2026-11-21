@@ -30,24 +30,27 @@
 
 	const real = __PROTOTIPO__ ? null : criarFeed(buscarParaVoce);
 
+	// Texto, não o objeto: o canal chega como objeto novo a cada mudança de preferência (filtro, idioma),
+	// e isso não pode pedir tudo de novo.
+	const idCanal = $derived(canal.id);
+
 	// O que muda o pedido: o canal e, em `tudo`, os temas e as buscas escolhidos.
 	const chave = $derived(
-		canal.id === 'tudo'
-			? `${preferencias.atual.temas.join(',')}|${preferencias.atual.temasProprios.join(',')}`
-			: canal.id
+		idCanal === 'tudo'
+			? `tudo|${preferencias.atual.temas.join(',')}|${preferencias.atual.temasProprios.join(',')}`
+			: idCanal
 	);
 
 	$effect(() => {
-		const id = canal.id;
 		void chave;
-		untrack(() => void real?.carregar('para-voce', id));
+		untrack(() => void real?.carregar('para-voce', idCanal));
 	});
 
 	$effect(() => vigiarVolta(real));
 
 	// Primeira visita (site e app): abre "O que você quer ver?" uma vez.
 	$effect(() => {
-		if (!__PROTOTIPO__ && !preferencias.atual.escolheu)
+		if (!__PROTOTIPO__ && !preferencias.atual.escolheu && !preferencias.vista)
 			untrack(() => painelTemas.abrirPrimeiraVisita());
 	});
 

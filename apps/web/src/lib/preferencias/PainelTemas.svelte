@@ -19,7 +19,7 @@
 	import Scale from '@lucide/svelte/icons/scale';
 	import Trophy from '@lucide/svelte/icons/trophy';
 	import X from '@lucide/svelte/icons/x';
-	import type { Component } from 'svelte';
+	import { untrack, type Component } from 'svelte';
 	import MarcaFonte from '#lib/feed/MarcaFonte.svelte';
 	import { i18n, t } from '#lib/i18n/index.ts';
 	import type { ChaveMensagem } from '#lib/i18n/tipos.ts';
@@ -152,7 +152,8 @@
 	}
 
 	function pronto() {
-		if (primeiraVisita) {
+		// Se a conta já trouxe as escolhas enquanto a tela estava aberta, o rascunho não passa por cima.
+		if (primeiraVisita && !estado.atual.escolheu) {
 			estado.substituir({
 				...estado.atual,
 				temas: rascunho.temas,
@@ -163,11 +164,16 @@
 		onfechar();
 	}
 
-	/** Esc, Pular e o véu: na primeira visita, contam como pular (não abre de novo). */
+	/** Esc, Pular e o véu: na primeira visita, contam como pular (não abre de novo, mas não é escolha). */
 	function fechar() {
-		if (primeiraVisita) estado.marcarEscolheu();
+		if (primeiraVisita) estado.marcarVista();
 		onfechar();
 	}
+
+	// A conta trouxe as escolhas (a pessoa entrou com a tela aberta): a primeira visita perde o sentido.
+	$effect(() => {
+		if (primeiraVisita && estado.atual.escolheu) untrack(() => onfechar());
+	});
 
 	const focaveis =
 		'a[href], button:not([disabled]), input:not([disabled]), [tabindex]:not([tabindex="-1"])';

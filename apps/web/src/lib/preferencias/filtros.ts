@@ -20,6 +20,9 @@ export function aplicarFiltros(noticias: Noticia[], p: Preferencias): Noticia[] 
 	const saida: Noticia[] = [];
 	for (const n of noticias) {
 		if (p.idioma === 'pt' && n.idioma === 'en') continue;
+		// A principal escondida tira o cartão: o título, o trecho e o link são dela.
+		const principal = n.fontes[0]?.id;
+		if (principal && ocultas.has(principal)) continue;
 		const fontes = ocultas.size ? n.fontes.filter((f) => !f.id || !ocultas.has(f.id)) : n.fontes;
 		if (fontes.length === 0) continue;
 		if (termos.length) {

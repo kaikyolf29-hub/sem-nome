@@ -145,6 +145,8 @@ export const ptBR = {
 		erroServidor: 'As notícias não carregaram.',
 		tentarDeNovo: 'Tentar de novo',
 		vazio: 'Nada por aqui ainda. As notícias deste canal aparecem assim que chegarem.',
+		escondidas: 'Há notícias aqui, mas os seus filtros esconderam todas.',
+		mudarFiltros: 'Mudar filtros',
 		impacto: {
 			baixo: 'Impacto baixo',
 			medio: 'Impacto médio',

@@ -5,6 +5,7 @@
 	import { t } from '#lib/i18n/index.ts';
 	import { preferencias } from '#lib/preferencias/estado.svelte.ts';
 	import { aplicarFiltros } from '#lib/preferencias/filtros.ts';
+	import { painelTemas } from '#lib/preferencias/painel.svelte.ts';
 	import CartaoNoticia from './CartaoNoticia.svelte';
 	import EsqueletoFeed from './EsqueletoFeed.svelte';
 	import Manchete from './Manchete.svelte';
@@ -40,6 +41,8 @@
 	}
 
 	const visiveis = $derived(aplicarFiltros(noticias, preferencias.atual));
+	// Havia notícias, mas os filtros da pessoa esconderam todas: o aviso precisa dizer isso.
+	const escondidas = $derived(noticias.length > 0 && visiveis.length === 0);
 	const destaque = $derived(capa ? visiveis[0] : undefined);
 	// Na capa: a manchete, as 3 seguintes em "Também em destaque" e o resto na lista.
 	const tambem = $derived(destaque ? visiveis.slice(1, 4) : []);
@@ -77,7 +80,14 @@
 				{/each}
 			</div>
 		{:else if !destaque}
-			{#if vazio}{@render vazio()}{:else}<p class="vazio">{t('feed.vazio')}</p>{/if}
+			{#if escondidas}
+				<div class="escondidas">
+					<p class="frase">{t('feed.escondidas')}</p>
+					<button type="button" onclick={(e) => painelTemas.abrir(e.currentTarget)}>
+						{t('feed.mudarFiltros')}
+					</button>
+				</div>
+			{:else if vazio}{@render vazio()}{:else}<p class="vazio">{t('feed.vazio')}</p>{/if}
 		{/if}
 	{/if}
 </div>
@@ -180,5 +190,40 @@
 		max-width: 48ch;
 		padding: var(--espaco-10) var(--espaco-6);
 		color: var(--texto-fraco);
+	}
+
+	/* Mesmo desenho do aviso de tema sem resultado (FeedParaVoce). */
+	.escondidas {
+		display: grid;
+		justify-items: center;
+		gap: var(--espaco-2);
+		max-width: 44ch;
+		margin-inline: auto;
+		padding: var(--espaco-10) var(--espaco-6);
+		text-align: center;
+		text-wrap: balance;
+	}
+
+	.escondidas .frase {
+		color: var(--texto);
+		font-size: var(--tipo-medio);
+		font-weight: 600;
+	}
+
+	.escondidas button {
+		min-height: 44px;
+		margin-top: var(--espaco-3);
+		padding: 0 var(--espaco-5);
+		border: 1px solid var(--borda);
+		border-radius: 999px;
+		background: var(--cartao);
+		color: var(--texto);
+		font: inherit;
+		font-weight: 600;
+		cursor: pointer;
+	}
+
+	.escondidas button:hover {
+		background: color-mix(in srgb, var(--texto) 6%, var(--cartao));
 	}
 </style>

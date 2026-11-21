@@ -30,6 +30,17 @@ describe('juntar', () => {
 		expect(r.idioma).toBe('pt');
 	});
 
+	it('respeita os limites do banco: 50 palavras silenciadas e 100 fontes escondidas', () => {
+		const lista = (prefixo: string, n: number) =>
+			Array.from({ length: n }, (_, i) => `${prefixo}${i}`);
+		const r = juntar(
+			prefs({ palavrasSilenciadas: lista('a', 30), fontesOcultas: lista('f', 60) }),
+			prefs({ palavrasSilenciadas: lista('b', 30), fontesOcultas: lista('g', 60) })
+		);
+		expect(r.palavrasSilenciadas).toHaveLength(50);
+		expect(r.fontesOcultas).toHaveLength(100);
+	});
+
 	it('sem conta, mantém o aparelho; escolheu vale se qualquer um escolheu', () => {
 		const local = prefs({ idioma: 'pt', escolheu: true, temasProprios: ['x'] });
 		expect(juntar(local, null)).toEqual(local);
