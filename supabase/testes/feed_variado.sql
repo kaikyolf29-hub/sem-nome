@@ -1,6 +1,10 @@
 -- Testes da função feed(): variedade de fontes e a fonte do título na frente.
 -- Roda numa transação e desfaz tudo no fim. Cada linha do resultado deve ter ok = true.
 begin;
+-- Ajuda dos testes: cria um grupo com o título e devolve o id (some no rollback).
+create function public.criar_grupo_teste(p_titulo text) returns bigint language sql as $f$
+	insert into public.grupos (titulo, espaco) values (p_titulo, 'geral') returning id
+$f$;
 do $$
 declare g bigint; i int;
 begin
@@ -30,4 +34,17 @@ select 'grupo misto: título em português e a fonte dele na frente' as checagem
 	(select i ->> 'titulo' = 'teste-misto: Fed mantém os juros' and i -> 'fontes' -> 0 ->> 'id' = 'agencia-brasil-internacional'
 	 and i -> 'fontes' -> 0 ->> 'url' = 'https://teste.invalid/ab'
 	 from jsonb_array_elements(public.feed('mercado', 'macro', 60)) i where i ->> 'titulo' like 'teste-misto%') as ok;
+
+-- Variedade por marca: g1 e g1 Política têm a mesma logo e contam como uma marca só.
+insert into public.noticias (grupo_id, fonte_id, url, titulo, publicado_em, idioma, espaco, canais)
+select public.criar_grupo_teste(x.t), x.f, x.u, x.t, now() + interval '3 days' - x.a, 'pt-BR', 'geral', '{politica}'
+from (values
+	('g1', 'https://teste.invalid/m1', 'teste-marca 1', interval '1 minute'),
+	('g1-politica', 'https://teste.invalid/m2', 'teste-marca 2', interval '2 minutes'),
+	('g1', 'https://teste.invalid/m3', 'teste-marca 3', interval '3 minutes'),
+	('agencia-brasil-politica', 'https://teste.invalid/m4', 'teste-marca 4', interval '40 minutes')
+) as x(f, u, t, a);
+select 'canal política: seções do g1 contam como a mesma marca' as checagem,
+	(select i -> 'fontes' -> 0 ->> 'id' from jsonb_array_elements(public.feed('geral', 'politica', 10)) with ordinality as x(i, n) where n = 2)
+	= 'agencia-brasil-politica' as ok;
 rollback;

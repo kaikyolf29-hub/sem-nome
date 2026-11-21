@@ -31,8 +31,10 @@ export function aplicarFiltros(noticias: Noticia[], p: Preferencias): Noticia[] 
 	return saida;
 }
 
-const fonteDe = (n: Noticia) => n.fontes[0]?.id ?? n.fontes[0]?.nome ?? '';
+// A marca é o que a pessoa vê repetido: seções do mesmo veículo (g1, g1 Saúde, g1 Mundo) têm a mesma logo.
+const marcaDe = (n: Noticia) => n.fontes[0]?.logo ?? n.fontes[0]?.id ?? n.fontes[0]?.nome ?? '';
 
+/** Junta as listas sem repetir, da mais nova para a mais antiga, sem a mesma marca duas vezes seguidas. */
 export function juntarFeeds(listas: Noticia[][]): Noticia[] {
 	const vistos = new Set<string>();
 	const todas: Noticia[] = [];
@@ -46,15 +48,9 @@ export function juntarFeeds(listas: Noticia[][]): Noticia[] {
 	const pendentes = todas.sort((a, b) => Date.parse(b.publicadoEm) - Date.parse(a.publicadoEm));
 	const saida: Noticia[] = [];
 	while (pendentes.length) {
-		const f1 = saida.length >= 1 ? fonteDe(saida[saida.length - 1]) : null;
-		const f2 = saida.length >= 2 ? fonteDe(saida[saida.length - 2]) : null;
-		const bloqueada = f1 !== null && f1 === f2 ? f1 : null;
-		let i = 0;
-		if (bloqueada !== null && fonteDe(pendentes[0]) === bloqueada) {
-			const alt = pendentes.findIndex((n) => fonteDe(n) !== bloqueada);
-			if (alt > 0) i = alt;
-		}
-		saida.push(pendentes.splice(i, 1)[0]);
+		const anterior = saida.length ? marcaDe(saida[saida.length - 1]) : null;
+		const alternativa = anterior === null ? 0 : pendentes.findIndex((n) => marcaDe(n) !== anterior);
+		saida.push(pendentes.splice(Math.max(alternativa, 0), 1)[0]);
 	}
 	return saida;
 }

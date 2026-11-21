@@ -69,15 +69,28 @@ describe('juntarFeeds', () => {
 		expect(r.map((x) => x.id)).toEqual(['b', 'c', 'a']);
 	});
 
-	it('a mesma primeira fonte não aparece mais de duas vezes seguidas se houver outra', () => {
+	it('a mesma marca não aparece duas vezes seguidas se houver outra', () => {
 		const lista = [
 			n('1', { publicadoEm: '2026-11-17T12:05:00Z' }),
 			n('2', { publicadoEm: '2026-11-17T12:04:00Z' }),
-			n('3', { publicadoEm: '2026-11-17T12:03:00Z' }),
-			n('4', { publicadoEm: '2026-11-17T12:02:00Z', fonte: 'dw' })
+			n('3', { publicadoEm: '2026-11-17T12:03:00Z', fonte: 'dw' }),
+			n('4', { publicadoEm: '2026-11-17T12:02:00Z', fonte: 'bbc' })
 		];
-		const r = juntarFeeds([lista]);
-		expect(r.map((x) => x.id)).toEqual(['1', '2', '4', '3']);
+		expect(juntarFeeds([lista]).map((x) => x.id)).toEqual(['1', '3', '2', '4']);
+	});
+
+	it('seções do mesmo veículo (mesma logo) contam como a mesma marca', () => {
+		const comLogo = (id: string, fonte: string, logo: string, hora: string) => ({
+			...n(id, { publicadoEm: `2026-11-17T12:${hora}:00Z` }),
+			fontes: [{ id: fonte, nome: fonte, url: 'https://x', primaria: false, logo }]
+		});
+		const lista = [
+			comLogo('1', 'g1', '/fontes/g1.png', '05'),
+			comLogo('2', 'g1-saude', '/fontes/g1.png', '04'),
+			comLogo('3', 'g1-mundo', '/fontes/g1.png', '03'),
+			comLogo('4', 'dw-brasil', '/fontes/dw-brasil.png', '02')
+		];
+		expect(juntarFeeds([lista]).map((x) => x.id)).toEqual(['1', '4', '2', '3']);
 	});
 
 	it('sem alternativa, mantém a ordem', () => {
