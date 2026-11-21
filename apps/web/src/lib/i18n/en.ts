@@ -7,6 +7,7 @@ export const en: Mensagens = {
 		emBreveTitulo: 'Under construction'
 	},
 	espacos: {
+		paraVoce: 'For you',
 		mercado: 'Markets',
 		carteira: 'Portfolio',
 		cripto: 'Crypto',
@@ -21,9 +22,29 @@ export const en: Mensagens = {
 		ativos: 'Assets',
 		economia: 'Economy',
 		noticias: 'News',
-		projetos: 'Projects'
+		projetos: 'Projects',
+		temas: 'Topics'
 	},
 	canais: {
+		paraVoce: {
+			tudo: 'all',
+			mercado: 'markets',
+			cripto: 'crypto',
+			tecnologia: 'tech-and-ai',
+			brasil: 'brazil',
+			politica: 'politics',
+			mundo: 'world',
+			esportes: 'sports',
+			ciencia: 'science',
+			saude: 'health',
+			educacao: 'education',
+			cultura: 'culture',
+			meioAmbiente: 'environment',
+			justica: 'justice',
+			carros: 'cars',
+			viagem: 'travel',
+			temaDigitado: 'topic'
+		},
 		mercado: {
 			manchetes: 'headlines',
 			resumoDoDia: 'daily-brief',
@@ -150,7 +171,8 @@ export const en: Mensagens = {
 		serifada: 'Serif',
 		semSerifa: 'Inter',
 		idioma: 'Language',
-		verLogos: 'See the three logo options'
+		verLogos: 'See the three logo options',
+		noticiasTemas: 'News and topics'
 	},
 	painel: {
 		titulo: 'Asset in focus',
@@ -262,6 +284,50 @@ export const en: Mensagens = {
 		justica: 'Justice',
 		carros: 'Cars',
 		viagem: 'Travel'
+	},
+	paraVoce: {
+		semResultado: 'No news about “{termo}” from our sources yet.',
+		semResultadoDica: 'As soon as one of them publishes, it shows up here.',
+		semTemas: 'You haven’t picked any topics yet.',
+		adicionarTema: 'Add topic',
+		escolherTemas: 'Pick topics'
+	},
+	painelTemas: {
+		titulo: 'News and topics',
+		tituloPrimeira: 'What do you want to see?',
+		explicacaoPrimeira: 'Check the subjects for your home. You can change them anytime.',
+		temas: 'Topics',
+		criar: 'Create my topic',
+		criarAjuda: 'A team, a company, a city. Up to 5 topics.',
+		campoTema: 'New topic',
+		exemploTema: 'Corinthians, solar energy',
+		adicionar: 'Add',
+		tirar: 'Remove',
+		tirarTema: 'Remove the topic {termo}',
+		limite: 'You already have 5 topics. Remove one to add another.',
+		invalido: 'Type 2 to 40 letters.',
+		repetido: 'This topic is already on your list.',
+		adicionado: '“{termo}” was added to your home.',
+		filtros: 'Filters',
+		filtrosAjuda: 'They apply to all news in the app.',
+		idioma: 'News language',
+		soPortugues: 'Portuguese only',
+		portuguesIngles: 'Portuguese and English',
+		silenciadas: 'Muted words',
+		silenciadasAjuda: 'News with these words in the title or summary won’t show up.',
+		campoPalavra: 'Word or phrase',
+		silenciar: 'Mute',
+		tirarPalavra: 'Show {palavra} again',
+		palavraRepetida: 'This word is already muted.',
+		palavraLimite: 'You reached the limit of 50 words.',
+		fontes: 'Sources',
+		fontesAjuda: 'Uncheck the sources you don’t want to see.',
+		fontesCarregando: 'Loading sources',
+		fontesErro: 'Sources didn’t load right now. Close and open again to retry.',
+		maisFontes: '{lista} and {n} more',
+		pular: 'Skip',
+		pronto: 'Done',
+		fechar: 'Close'
 	},
 	variacao: {
 		alta: 'up {valor}',

@@ -17,6 +17,8 @@
 	import ControlesJanela from '#lib/janela/ControlesJanela.svelte';
 	import { janela } from '#lib/janela/janela.svelte.ts';
 	import PainelPrototipo from '#lib/prototipo/PainelPrototipo.svelte';
+	import { preferencias } from '#lib/preferencias/estado.svelte.ts';
+	import { painelTemas } from '#lib/preferencias/painel.svelte.ts';
 
 	let { children, painel }: { children: Snippet; painel?: Snippet } = $props();
 
@@ -30,8 +32,14 @@
 		}
 	}
 
-	const local = $derived(localizar(page.params.espaco ?? '', page.params.canal));
-	const titulo = $derived(local ? `#${t(local.canal.rotulo)} | ${NOME_APP}` : NOME_APP);
+	const local = $derived(
+		localizar(page.params.espaco ?? '', page.params.canal, preferencias.atual)
+	);
+	const nomeCanal = $derived(local ? (local.canal.nome ?? t(local.canal.rotulo)) : '');
+	const titulo = $derived(local ? `#${nomeCanal} | ${NOME_APP}` : NOME_APP);
+
+	// O painel "Notícias e temas" só é baixado quando abre (primeira tela mais leve).
+	const carregarPainelTemas = () => import('#lib/preferencias/PainelTemas.svelte');
 </script>
 
 <svelte:window onkeydown={aoTeclar} />
@@ -70,6 +78,7 @@
 					<button
 						class="icone"
 						type="button"
+						data-volta-foco
 						aria-label={t('casca.abrirCanais')}
 						onclick={() => casca.abrir('canais')}
 					>
@@ -78,7 +87,7 @@
 				{/if}
 				{#if local}
 					<h1 class="titulo">
-						<span class="hash" aria-hidden="true">#</span>{t(local.canal.rotulo)}
+						<span class="hash" aria-hidden="true">#</span>{nomeCanal}
 					</h1>
 				{/if}
 				<div class="acoes">
@@ -166,6 +175,14 @@
 
 		<PaletaComandos aberta={paletaAberta} onfechar={() => (paletaAberta = false)} />
 		<PainelPrototipo />
+		{#if painelTemas.aberto}
+			{#await carregarPainelTemas() then { default: PainelTemas }}
+				<PainelTemas
+					primeiraVisita={painelTemas.primeiraVisita}
+					onfechar={() => painelTemas.fechar()}
+				/>
+			{/await}
+		{/if}
 	</div>
 </div>
 

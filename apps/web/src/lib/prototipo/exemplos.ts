@@ -1,35 +1,64 @@
-import type { Noticia } from '#lib/feed/tipos.ts';
+import type { EspacoBanco, Noticia } from '#lib/feed/tipos.ts';
 import type { ChaveMensagem } from '#lib/i18n/tipos.ts';
-import type { IdEspaco } from '#lib/navegacao/espacos.ts';
 
 // Notícias de EXEMPLO do protótipo: veículos fictícios, fatos inventados, links que não saem do app.
 // A faixa "Protótipo com notícias e números de exemplo" aparece sempre junto.
 
 const GAZETA = {
+	id: 'gazeta',
 	nome: 'Gazeta do Pregão',
 	url: 'https://example.com/',
 	primaria: false,
 	marca: { cor: '#2f6b4f', sigla: 'G' }
 };
 const MERCADO = {
+	id: 'mercado-hoje',
 	nome: 'Mercado Hoje',
 	url: 'https://example.com/',
 	primaria: false,
 	marca: { cor: '#2c4a7a', sigla: 'MH' }
 };
 const RADAR = {
+	id: 'radar-tech',
 	nome: 'Radar Tech',
 	url: 'https://example.com/',
 	primaria: false,
 	marca: { cor: '#1f6f78', icone: 'radar' as const }
 };
 const CRIPTO = {
+	id: 'cripto-diario',
 	nome: 'Cripto Diário',
 	url: 'https://example.com/',
 	primaria: false,
 	marca: { cor: '#8a5a1f', icone: 'cripto' as const }
 };
-const OFICIAL = { nome: 'Fonte oficial (exemplo)', url: 'https://example.com/', primaria: true };
+const OFICIAL = {
+	id: 'oficial',
+	nome: 'Fonte oficial (exemplo)',
+	url: 'https://example.com/',
+	primaria: true
+};
+const PRACA = {
+	id: 'jornal-da-praca',
+	nome: 'Jornal da Praça',
+	url: 'https://example.com/',
+	primaria: false,
+	marca: { cor: '#4a5d23', sigla: 'JP' }
+};
+const PLANETA = {
+	id: 'folha-do-planeta',
+	nome: 'Folha do Planeta',
+	url: 'https://example.com/',
+	primaria: false,
+	marca: { cor: '#2e5e8a', sigla: 'FP' }
+};
+const PLACAR = {
+	id: 'placar-total',
+	nome: 'Placar Total',
+	url: 'https://example.com/',
+	primaria: false,
+	marca: { cor: '#6b4f2a', sigla: 'P' }
+};
 
 const minutosAtras = (m: number) => new Date(Date.now() - m * 60_000).toISOString();
 
@@ -315,6 +344,97 @@ const lista: Exemplo[] = [
 		ativos: [],
 		espaco: 'tecnologia',
 		canais: ['artigos', 'ia']
+	},
+	{
+		id: 'g1',
+		minutos: 9,
+		titulo: 'Prefeituras ampliam horário de postos de saúde para a campanha de vacinação',
+		fontes: [PRACA, OFICIAL],
+		trecho: 'Unidades vão abrir aos sábados até o fim do mês em pelo menos 12 capitais.',
+		temas: ['saúde'],
+		impacto: 40,
+		bafafa: false,
+		ativos: [],
+		espaco: 'geral',
+		canais: ['brasil', 'saude']
+	},
+	{
+		id: 'g2',
+		minutos: 26,
+		titulo: 'Cúpula do clima termina com acordo para financiar energia limpa em países pobres',
+		fontes: [PLANETA, PRACA],
+		trecho: 'Fundo deve começar a liberar recursos no segundo semestre do ano que vem.',
+		temas: ['clima'],
+		impacto: 55,
+		bafafa: false,
+		ativos: [],
+		espaco: 'geral',
+		canais: ['mundo', 'meio-ambiente']
+	},
+	{
+		id: 'g3',
+		minutos: 47,
+		titulo: 'Seleção feminina vence na estreia e lidera o grupo da Copa América',
+		fontes: [PLACAR],
+		trecho: 'Gol no segundo tempo garantiu a vitória diante de um estádio lotado.',
+		temas: ['futebol'],
+		impacto: 35,
+		bafafa: false,
+		ativos: [],
+		espaco: 'geral',
+		canais: ['esportes']
+	},
+	{
+		id: 'g4',
+		minutos: 64,
+		titulo: 'Câmara aprova projeto que muda as regras do transporte por aplicativo',
+		fontes: [PRACA],
+		trecho: 'Texto segue para o Senado e prevê uma contribuição mínima à previdência.',
+		temas: ['política'],
+		impacto: 50,
+		bafafa: false,
+		ativos: [],
+		espaco: 'geral',
+		canais: ['brasil', 'politica']
+	},
+	{
+		id: 'g5',
+		minutos: 88,
+		titulo: 'Eleição antecipada no Japão deve definir o rumo da política econômica',
+		fontes: [PLANETA],
+		trecho: 'Pesquisas mostram disputa apertada entre os dois maiores partidos.',
+		temas: ['eleições'],
+		impacto: 45,
+		bafafa: false,
+		ativos: [],
+		espaco: 'geral',
+		canais: ['mundo']
+	},
+	{
+		id: 'g6',
+		minutos: 130,
+		titulo: 'Pesquisadores brasileiros mapeiam novas espécies de sapos na Mata Atlântica',
+		fontes: [PLANETA],
+		trecho: 'Estudo descreve três espécies encontradas em áreas de serra.',
+		temas: ['ciência'],
+		impacto: 30,
+		bafafa: false,
+		ativos: [],
+		espaco: 'geral',
+		canais: ['ciencia', 'meio-ambiente']
+	},
+	{
+		id: 'g7',
+		minutos: 175,
+		titulo: 'Corinthians anuncia reforço para o meio de campo na próxima temporada',
+		fontes: [PLACAR],
+		trecho: 'Jogador assina contrato de três anos e deve estrear em janeiro.',
+		temas: ['futebol'],
+		impacto: 25,
+		bafafa: false,
+		ativos: [],
+		espaco: 'geral',
+		canais: ['esportes']
 	}
 ];
 
@@ -328,10 +448,14 @@ export const noticiasExemplo: readonly Noticia[] = lista.map(({ minutos, ...n })
 
 const CANAIS_GERAIS = new Set(['manchetes', 'visao-geral']);
 
-/** Notícias de um canal: o canal geral do espaço mostra tudo por impacto; os outros, as do canal por hora. */
-export function noticiasDoCanal(espaco: IdEspaco, canal: string): Noticia[] {
+/**
+ * Notícias de um canal: o canal geral do espaço (ou nenhum canal) mostra tudo por impacto; os outros,
+ * as do canal por hora.
+ */
+export function noticiasDoCanal(espaco: EspacoBanco | string, canal: string | null): Noticia[] {
 	const doEspaco = noticiasExemplo.filter((n) => n.espaco === espaco);
-	if (CANAIS_GERAIS.has(canal)) return [...doEspaco].sort((a, b) => b.impacto - a.impacto);
+	if (canal === null || CANAIS_GERAIS.has(canal))
+		return [...doEspaco].sort((a, b) => b.impacto - a.impacto);
 	return doEspaco
 		.filter((n) => n.canais.includes(canal))
 		.sort((a, b) => b.publicadoEm.localeCompare(a.publicadoEm));

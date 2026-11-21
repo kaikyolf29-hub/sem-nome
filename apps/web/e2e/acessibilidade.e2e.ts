@@ -2,7 +2,7 @@ import AxeBuilder from '@axe-core/playwright';
 import { expect, test } from './apoio.ts';
 
 for (const tema of ['claro', 'escuro'] as const) {
-	for (const rota of ['/mercado/manchetes', '/carteira/visao-geral', '/marca']) {
+	for (const rota of ['/mercado/manchetes', '/para-voce/tudo', '/carteira/visao-geral', '/marca']) {
 		test(`sem problemas graves de acessibilidade em ${rota} (${tema})`, async ({ page }) => {
 			await page.addInitScript((t) => localStorage.setItem('mirante:tema', t), tema);
 			await page.goto(rota);

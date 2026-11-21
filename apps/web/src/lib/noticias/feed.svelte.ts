@@ -1,18 +1,17 @@
 // Estado do feed real: carregando, pronto ou erro. Só a resposta do último pedido vale.
 import type { Noticia } from '#lib/feed/tipos.ts';
-import type { IdEspaco } from '#lib/navegacao/espacos.ts';
-import { buscarFeed, ErroFeed } from './dados.ts';
+import { ErroFeed } from './dados.ts';
 
-type Buscar = (espaco: IdEspaco, canal: string) => Promise<Noticia[]>;
+type Buscar<E extends string> = (espaco: E, canal: string) => Promise<Noticia[]>;
 
-export function criarFeed(buscar: Buscar = buscarFeed, relogio: () => number = Date.now) {
+export function criarFeed<E extends string>(buscar: Buscar<E>, relogio: () => number = Date.now) {
 	let estado = $state<'carregando' | 'pronto' | 'erro'>('carregando');
 	let noticias = $state.raw<Noticia[]>([]);
 	let erro = $state<'rede' | 'servidor' | null>(null);
 	let pedido = 0;
-	let atual: { espaco: IdEspaco; canal: string; em: number } | null = null;
+	let atual: { espaco: E; canal: string; em: number } | null = null;
 
-	async function carregar(espaco: IdEspaco, canal: string) {
+	async function carregar(espaco: E, canal: string) {
 		const meu = ++pedido;
 		const mesmoCanal = atual?.espaco === espaco && atual.canal === canal && estado === 'pronto';
 		if (!mesmoCanal) {
@@ -53,4 +52,16 @@ export function criarFeed(buscar: Buscar = buscarFeed, relogio: () => number = D
 	};
 }
 
-export type Feed = ReturnType<typeof criarFeed>;
+export type Feed<E extends string = string> = ReturnType<typeof criarFeed<E>>;
+
+const CINCO_MINUTOS = 5 * 60_000;
+
+/** Ao voltar para a aba, busca de novo se a última carga passou de 5 min. Use num $effect. */
+export function vigiarVolta(feed: { atualizarSeVelho(maxMs: number): unknown } | null) {
+	if (!feed || typeof document === 'undefined') return;
+	const voltar = () => {
+		if (document.visibilityState === 'visible') void feed.atualizarSeVelho(CINCO_MINUTOS);
+	};
+	document.addEventListener('visibilitychange', voltar);
+	return () => document.removeEventListener('visibilitychange', voltar);
+}
