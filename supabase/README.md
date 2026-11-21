@@ -4,7 +4,7 @@ Projeto `mirante` (ref `dzrdbeulimgzdcinukch`, São Paulo, plano grátis).
 
 - `migrations/`: mudanças do banco, em ordem. Aplicadas pelo MCP do Supabase (`apply_migration`), com o mesmo nome do arquivo sem a data.
 - `functions/`: Edge Functions. `coletar` busca as notícias (agendada pelo `pg_cron` a cada 5 minutos); a lógica pura fica em `functions/_compartilhado/` e é testada com `bun run test:coleta`. Publicação pelo MCP (`deploy_edge_function`, com `entrypoint_path: coletar/index.ts` e `import_map_path: coletar/deno.json`, enviando também os arquivos de `_compartilhado/`).
-- `testes/`: testes das regras de acesso (RLS) e da função `feed()`. Cada um roda numa transação que desfaz tudo no fim (`rollback`) e devolve linhas `checagem | ok`. Todas precisam vir `ok = true`.
+- `testes/`: testes das regras de acesso (RLS), da função `feed()` (variedade por marca) e da personalização (`preferencias`, `buscar_noticias`, espaço geral). Cada um roda numa transação que desfaz tudo no fim (`rollback`) e devolve linhas `checagem | ok`. Todas precisam vir `ok = true`.
 
 ## Regras
 - Toda tabela com dados de pessoas tem RLS: cada pessoa só lê e muda o que é dela.
@@ -12,3 +12,6 @@ Projeto `mirante` (ref `dzrdbeulimgzdcinukch`, São Paulo, plano grátis).
 - Depois de cada migração, confira os avisos de segurança (`get_advisors`, tipo `security`): a lista precisa vir vazia.
 - A chave da coleta (`chave_coleta`) nasce no cofre do banco (Vault) e nunca sai dele: o job do `pg_cron` lê a chave e a função `coletar` confere com `conferir_chave_coleta`.
 - Cotas: `contadores_cota` guarda o uso de cada serviço grátis; `somar_cota` recusa quando passa do teto.
+- `preferencias`: uma linha por conta (`id` = id do usuário), com RLS de ler, criar e mudar só a própria; sem apagar e nada para quem não entrou. Limites no banco: 30 temas, 5 temas digitados, 100 fontes escondidas e 50 palavras silenciadas.
+- Funções lidas pelo site (`feed`, `buscar_noticias`, `montar_cartoes`) são `security invoker` com `search_path` vazio.
+- Notícias dos temas gerais (espaço `geral`) ficam 30 dias; as outras, 90.

@@ -86,3 +86,12 @@ Padrão para quem pula a primeira tela: **Mercado, Brasil, Mundo e Tecnologia e 
 
 ## Dependências
 - **Login com Google:** o dono liga seguindo o passo a passo de 17/11. A sincronização entre aparelhos é testada com respostas simuladas e, quando o login estiver ligado, no site de verdade.
+
+## Como ficou (21/11/2026)
+
+Construído como descrito, com três acréscimos vindos dos prints com dados reais:
+- limpeza do resumo do g1 e do ge (legenda, crédito e avisos da casa);
+- filtro de conteúdo que não é notícia (previsão do tempo por cidade, palpites de aposta, ofertas de loja);
+- variedade por marca (logo), para o g1 não tomar a frente com as suas várias seções.
+
+Detalhes no plano da fase 1B.

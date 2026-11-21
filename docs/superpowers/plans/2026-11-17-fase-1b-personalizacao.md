@@ -77,7 +77,7 @@
 - Limpeza diária: notícias do espaço `geral` com mais de 30 dias saem (`cron.alter_job` no `limpar-noticias`).
 - Gatilho `noticias_atualizam_grupo` passa a rodar também em `update of canais`.
 
-- [ ] **1. Teste que falha** (`supabase/testes/personalizacao.sql`, em transação com `rollback`):
+- [x] **1. Teste que falha** (`supabase/testes/personalizacao.sql`, em transação com `rollback`):
   - pessoa A grava e lê as próprias preferências; não lê nem muda as de B; `anon` não lê;
   - 6 temas digitados são recusados;
   - `buscar_noticias('ENERGIA  solar')` acha "Boom da energia solar…" e não acha "energia eólica e solar" (a frase precisa vir junta);
@@ -85,9 +85,9 @@
   - não acha notícia de 40 dias; termo de 1 caractere devolve `[]`;
   - `feed('geral','esportes')` traz uma notícia do `ge`;
   - `feed('mercado')` devolve o mesmo que antes (compare com um caso gravado no teste).
-- [ ] **2.** Aplique e rode até tudo dar `ok`; `get_advisors` de segurança vazio.
-- [ ] **3.** Baixe as logos novas com `scripts/baixar-logos.ts` (inclua os 5 sites novos em `SITES`) e confira cada uma num print de perto.
-- [ ] **4. Commit.**
+- [x] **2.** Aplique e rode até tudo dar `ok`; `get_advisors` de segurança vazio.
+- [x] **3.** Baixe as logos novas com `scripts/baixar-logos.ts` (inclua os 5 sites novos em `SITES`) e confira cada uma num print de perto.
+- [x] **4. Commit.**
 
 ### Task 2: coleta: espaço `geral` e canais somados
 
@@ -98,13 +98,13 @@
 - `BancoColeta.acrescentarCanais(url: string, canais: string[]): Promise<void>`: URL que já existe **no mesmo espaço** ganha os canais novos (sem repetir). URL de outro espaço fica como está.
 - `BancoColeta.urlsExistentes` passa a devolver `Map<string, Espaco>` (url → espaço).
 
-- [ ] **1. Testes que falham:**
+- [x] **1. Testes que falham:**
   - fonte `geral` do tema `politica` → `{ espaco: 'geral', canais: ['politica'] }`;
   - "Bitcoin sobe" no `g1` → `cripto`;
   - rodada: URL já gravada no espaço `geral` com `['brasil']`, vinda agora do `g1-politica` → `acrescentarCanais(url, ['politica'])` e nenhum `inserir`; URL gravada no `mercado` → nada muda.
-- [ ] **2.** Implemente, rode `bun run test:coleta` e publique a função (`deploy_edge_function`, todos os arquivos).
-- [ ] **3.** Confira em produção: as 22 fontes novas coletando e `feed('geral','politica')` com itens.
-- [ ] **4. Commit.**
+- [x] **2.** Implemente, rode `bun run test:coleta` e publique a função (`deploy_edge_function`, todos os arquivos).
+- [x] **3.** Confira em produção: as 22 fontes novas coletando e `feed('geral','politica')` com itens.
+- [x] **4. Commit.**
 
 ### Task 3: Worker com cache (`/api/feed`, `/api/busca`)
 
@@ -120,9 +120,9 @@
   - Resposta 200 vai para o cache com `Cache-Control: public, max-age=60` (busca: 120). Erro do Supabase devolve 502, sem guardar no cache.
 - No `dados.ts`: `buscarFeed` e o novo `buscarNoticias(termo, buscar = fetch): Promise<Noticia[]>` pedem `/api/...` primeiro. Se a resposta não for JSON com uma lista, ou se a rede falhar, pedem direto ao Supabase (o caminho de hoje). Os cartões passam a trazer `idioma`.
 
-- [ ] **1. Testes que falham** (`borda.spec.ts`, com `fetch` e `cache` falsos): `/api/feed?espaco=geral&canal=esportes` pede ao Supabase uma vez e, no segundo pedido, sai do cache; `espaco=x` → 400; busca "  Energia SOLAR" e "energia solar" usam a mesma chave; Supabase 500 → 502 e nada no cache. No `dados.spec.ts`: `/api` devolvendo `text/html` → cai no Supabase (ponto 5).
-- [ ] **2.** Implemente e rode `bun run test`.
-- [ ] **3. Commit.**
+- [x] **1. Testes que falham** (`borda.spec.ts`, com `fetch` e `cache` falsos): `/api/feed?espaco=geral&canal=esportes` pede ao Supabase uma vez e, no segundo pedido, sai do cache; `espaco=x` → 400; busca "  Energia SOLAR" e "energia solar" usam a mesma chave; Supabase 500 → 502 e nada no cache. No `dados.spec.ts`: `/api` devolvendo `text/html` → cai no Supabase (ponto 5).
+- [x] **2.** Implemente e rode `bun run test`.
+- [x] **3. Commit.**
 
 ### Task 4: preferências no aparelho e catálogo de temas
 
@@ -146,14 +146,14 @@
   - descarta cartões com palavra silenciada no título ou no trecho (palavra inteira, sem acento).
 - `juntarFeeds(listas: Noticia[][]): Noticia[]`: sem cartão repetido (pelo `id`), do mais novo para o mais antigo, e a mesma fonte não aparece mais de duas vezes seguidas.
 
-- [ ] **1. Testes que falham:**
+- [x] **1. Testes que falham:**
   - `normalizarTermo('  Energia  SOLAR ')` → `'energia solar'`; `'a'` → `null` (ponto 4);
   - `lerLocal` com `'{x'` ou com o armazenamento lançando erro → `PADRAO` (ponto 2);
   - o 6º tema digitado → `'limite'`; "energia solar" duas vezes → `'repetido'`;
   - `aplicarFiltros`: fonte escondida, idioma `pt`, "bolsa família" silenciada (não pode esconder "bolsa de valores");
   - `juntarFeeds`: tira o repetido e intercala fontes.
-- [ ] **2.** Implemente e rode os testes.
-- [ ] **3. Commit.**
+- [x] **2.** Implemente e rode os testes.
+- [x] **3. Commit.**
 
 ### Task 5: espaço "Para você"
 
@@ -168,15 +168,15 @@
 - No protótipo (`__PROTOTIPO__`), "Para você" usa as notícias de exemplo, sem rede.
 - O `Feed` de Mercado, Cripto e Tecnologia também passa por `aplicarFiltros`: os filtros valem no app inteiro.
 
-- [ ] **1. Testes que falham (e2e, com as rotas interceptadas):**
+- [x] **1. Testes que falham (e2e, com as rotas interceptadas):**
   - `/` leva a `/para-voce/tudo`, e "Início" no celular leva a `/para-voce/tudo`;
   - com os temas padrão, o trilho mostra "Para você" primeiro e os canais `tudo`, Mercado, Brasil, Mundo, Tecnologia e IA e "+ Adicionar tema";
   - `tudo` pede `geral/brasil`, `geral/mundo`, `mercado/mundo`, `mercado/manchetes` e `tecnologia`, e não repete um cartão que vem de duas origens;
   - um tema digitado sem resultado mostra a frase de `semResultado`;
   - com uma fonte escondida, ela some também de `/mercado/manchetes`;
   - a 320 px, nada passa da largura.
-- [ ] **2.** Implemente e rode as verificações do `CLAUDE.md`.
-- [ ] **3. Commit.**
+- [x] **2.** Implemente e rode as verificações do `CLAUDE.md`.
+- [x] **3. Commit.**
 
 ### Task 6: painel "Escolher temas" e filtros
 
@@ -189,14 +189,14 @@
   3. **Filtros:** idioma (dois botões de opção), palavras silenciadas (campo e lista) e fontes escondidas (lista de `/rest/v1/fontes?select=id,nome,logo,espaco`, carregada quando o painel abre).
 - **Primeira visita** (`escolheu: false`): abre sozinho com o título "O que você quer ver?", com os temas padrão marcados e os botões "Pular" e "Pronto". Os dois gravam `escolheu: true`.
 
-- [ ] **1. Testes que falham:**
+- [x] **1. Testes que falham:**
   - componente: marcar Esportes e clicar em "Pronto" grava `temas` com `esportes`;
   - o 6º tema digitado mostra o aviso de limite;
   - Esc fecha e o foco volta ao botão que abriu;
   - e2e: primeira visita abre o painel, "Pular" fecha e não abre de novo depois de recarregar a página;
   - e2e: depois de adicionar "Corinthians", aparece o canal "Corinthians" no "Para você".
-- [ ] **2.** Implemente; confira o peso (`e2e/peso.e2e.ts` sem o painel na primeira tela).
-- [ ] **3. Commit.**
+- [x] **2.** Implemente; confira o peso (`e2e/peso.e2e.ts` sem o painel na primeira tela).
+- [x] **3. Commit.**
 
 ### Task 7: preferências na conta
 
@@ -207,12 +207,32 @@
 - `juntar(local: Preferencias, conta: Preferencias | null): Preferencias`: une temas, fontes e palavras; os temas digitados se unem até 5 (ficam os da conta primeiro); o idioma é o da conta; `escolheu` vira `true` se algum dos dois for `true`.
 - Ao entrar: carrega da conta, junta, grava nos dois lugares. A cada mudança com a pessoa logada, salva na conta 1 s depois da última mudança.
 
-- [ ] **1. Testes que falham:** `juntar` sem passar de 5 temas digitados (ponto 3); `salvarNaConta` manda `Authorization: Bearer <token>` e `Prefer: resolution=merge-duplicates`; falha de rede ao salvar não perde o que está no aparelho.
-- [ ] **2.** Implemente e rode os testes.
-- [ ] **3. Commit.**
+- [x] **1. Testes que falham:** `juntar` sem passar de 5 temas digitados (ponto 3); `salvarNaConta` manda `Authorization: Bearer <token>` e `Prefer: resolution=merge-duplicates`; falha de rede ao salvar não perde o que está no aparelho.
+- [x] **2.** Implemente e rode os testes.
+- [x] **3. Commit.**
 
 ### Task 8: publicar, conferir e revisar
-- [ ] **1.** Publique a migração, a função, o Worker (`main_module` `mirante.js`, assets com `run_worker_first: ["/api/*"]`) e o site. Confira em produção: `/api/feed` responde com `cf-cache-status: HIT` no segundo pedido.
-- [ ] **2. Prints de perto** em 320, 390, 768, 1024, 1440 e 1600, nos temas claro, escuro e preto: "Para você", o painel de temas, a primeira visita, um tema digitado com e sem resultado, e os filtros funcionando.
-- [ ] **3. Revisão independente** (o Fable 5.2 pede créditos pagos; sem aprovação do dono, use o modelo padrão) e correção do que for achado.
-- [ ] **4.** Atualize o README, o `supabase/README.md`, este plano e a spec; commit e push.
+- [x] **1.** Publique a migração, a função, o Worker (`main_module` `mirante.js`, assets com `run_worker_first: ["/api/*"]`) e o site. Confira em produção: `/api/feed` responde com `cf-cache-status: HIT` no segundo pedido.
+- [x] **2. Prints de perto** em 320, 390, 768, 1024, 1440 e 1600, nos temas claro, escuro e preto: "Para você", o painel de temas, a primeira visita, um tema digitado com e sem resultado, e os filtros funcionando.
+- [x] **3. Revisão independente** (o Fable 5.2 pede créditos pagos; sem aprovação do dono, use o modelo padrão) e correção do que for achado.
+- [x] **4.** Atualize o README, o `supabase/README.md`, este plano e a spec; commit e push.
+
+## Como ficou (21/11/2026)
+
+Tudo publicado: migrações 0006 a 0008, função `coletar` (versão 7), Worker com `/api/feed` e `/api/busca` e o site. Em produção, o segundo pedido a `/api/feed` volta com `cf-cache-status: HIT` (1,2 s no primeiro, 0,2 s nos seguintes). As 41 fontes coletam sem erro e o aviso de segurança do Supabase veio vazio.
+
+Verificação final: lint e tipos sem erro, 239 testes de unidade e componentes, 64 da coleta, 4 checagens SQL de variedade, build, orçamento de 136,9 KB de 160 KB (primeira tela com 102,5 KB de 120 KB) e 178 testes no navegador.
+
+**Decisões tomadas no caminho**
+- **Coleta:** só mexe no banco quando uma notícia já gravada ganha um canal novo. Antes, consultava o banco para cada uma, a cada rodada.
+- **Canais das fontes gerais:** ficam só com o canal do tema. Não ganham `ia`, `chips` nem `big-techs`, que são do espaço Tecnologia.
+- **Ruído:** fora da coleta a previsão do tempo automática do g1 (50 por dia), os palpites de aposta do ge e as ofertas "em promoção na Amazon" do Olhar Digital. Também saem a legenda e o crédito da foto no começo do resumo do g1 e do ge, e os avisos "Tem alguma sugestão de reportagem?" e "Adicione o ge…". Os dados já gravados foram limpos.
+- **Variedade por marca:** a marca é a logo. As seções do g1 e as da Agência Brasil contam como uma só, tanto no `feed()` (migração 0008) quanto no `# tudo`, que não mostra a mesma marca duas vezes seguidas.
+- **Worker:** o `fetch` é chamado solto. Nos Workers, chamar `fetch` como método de outro objeto quebra ("Illegal invocation"), e isso não aparece nos testes locais; agora há um teste que imita esse comportamento. O 502 informa o status da origem.
+- **Sincronia com a conta:**
+  - o código só é baixado depois que a pessoa entra;
+  - aparelho que nunca escolheu não mistura os temas padrão na conta;
+  - se a leitura da conta falhar, nada é gravado por cima: a próxima mudança tenta de novo;
+  - a renovação do token não junta outra vez;
+  - `atualizado_em` é gravado a cada mudança.
+- **Primeira visita:** só abre sozinha no "Para você"; Esc e clicar fora contam como "Pular"; as escolhas só valem com "Pronto".
