@@ -1,4 +1,6 @@
 import { describe, expect, test } from 'bun:test';
+import { readFileSync } from 'node:fs';
+import { lerFeed } from './ler.ts';
 import { limparTexto, prepararItem, trecho, urlCanonica } from './normalizar.ts';
 import type { Fonte } from './tipos.ts';
 
@@ -98,5 +100,55 @@ describe('prepararItem', () => {
 		const tec: Fonte = { ...fonte, id: 'tecnoblog', espaco: 'tecnologia', canais: [] };
 		expect(prepararItem({ ...bruto, titulo: 'Como limpar a geladeira' }, tec, agora)).toBeNull();
 		expect(prepararItem({ ...bruto, titulo: 'Nvidia anuncia novo chip para IA' }, tec, agora)).not.toBeNull();
+	});
+});
+
+describe('fontes da Globo (g1 e ge): legenda, crédito e avisos fora do resumo', () => {
+	const g1: Fonte = { ...fonte, id: 'g1-mundo', espaco: 'geral', canais: ['mundo'] };
+	const ge: Fonte = { ...fonte, id: 'ge', espaco: 'geral', canais: ['esportes'] };
+	const foto = ' <img src="https://s2-g1.glbimg.com/x.jpg" /><br /> ';
+	const item = (fonteDoItem: Fonte, descricao: string, titulo = 'Países concordam em negociar regras') =>
+		prepararItem({ titulo, url: 'https://g1.globo.com/a.ghtml', trecho: descricao, publicadoEm: null }, fonteDoItem, agora);
+
+	test('tira a legenda da foto e o crédito curto', () => {
+		const r = item(g1, `${foto}Fiona nada em seu recinto no zoológico.\nJohn Minchillo/AP\nUma necropsia mostrou que o chapéu ficou preso.`);
+		expect(r?.trecho).toBe('Uma necropsia mostrou que o chapéu ficou preso.');
+	});
+	test('sem crédito, o texto começa na segunda linha', () => {
+		const r = item(g1, `${foto}Adolescente cria startup para produzir alimentos em Marte\nAos 13 anos, ela fundou uma empresa de cultivo.`);
+		expect(r?.trecho).toBe('Aos 13 anos, ela fundou uma empresa de cultivo.');
+	});
+	test('tira o pedido de sugestão do g1 e o aviso do ge no meio do texto', () => {
+		const r = item(g1, `${foto}Soldados com drone.\nReuters\nOs países concordaram.\n🗒️ Tem alguma sugestão de reportagem? Envie para o g1\nO resultado ficou abaixo.`);
+		expect(r?.trecho).toBe('Os países concordaram. O resultado ficou abaixo.');
+		const s = item(ge, `${foto}Os últimos classificados às quartas\n+ 🔍 Adicione o ge nas suas fontes favoritas do Google\nO Mirassol terá dois desfalques.`);
+		expect(s?.trecho).toBe('O Mirassol terá dois desfalques.');
+	});
+	test('outras fontes com foto no começo ficam como estão', () => {
+		const r = item(fonte, `${foto}Primeira linha do texto.\nSegunda linha.`, 'Dólar fecha em queda');
+		expect(r?.trecho).toBe('Primeira linha do texto. Segunda linha.');
+	});
+	test('resumo real do g1 (amostra salva) começa no texto', () => {
+		const xml = readFileSync(new URL('./amostras/g1.rss.xml', import.meta.url), 'utf8');
+		const [primeiro] = lerFeed(xml, 'rss');
+		const r = prepararItem(primeiro, g1, new Date('2026-11-21T12:00:00Z'));
+		expect(r?.trecho.startsWith('Uma necropsia em Fiona')).toBe(true);
+	});
+});
+
+describe('conteúdo automático ou de propaganda não entra', () => {
+	const pronto = (titulo: string, f: Fonte = fonte) =>
+		prepararItem({ titulo, url: 'https://x.invalid/a', trecho: '', publicadoEm: null }, f, agora);
+	test('previsão do tempo automática, palpites de aposta e ofertas de loja', () => {
+		expect(pronto('Previsão do tempo hoje para Brasília (DF): sol com algumas nuvens')).toBeNull();
+		expect(pronto('Previsão do tempo para amanhã em São Paulo')).toBeNull();
+		expect(pronto('Palpites e dicas para Palmeiras x Flamengo pelo Brasileirão')).toBeNull();
+		expect(pronto('Hora de renovar a sala: Smart TVs 4K em promoção na Amazon')).toBeNull();
+		expect(pronto('Xiaomi com tudo: veja smartphones da marca em promoção no Mercado Livre')).toBeNull();
+	});
+	test('notícia de verdade com as mesmas palavras continua', () => {
+		expect(pronto('Inmet muda a previsão do tempo e alerta para chuva forte no Sul')).not.toBeNull();
+		expect(pronto('Amazon anuncia promoção de executivos no Brasil')).not.toBeNull();
+		expect(pronto('Governo aprova promoção de policiais')).not.toBeNull();
 	});
 });

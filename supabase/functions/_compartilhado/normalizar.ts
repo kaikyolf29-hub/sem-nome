@@ -49,6 +49,34 @@ export function trecho(html: string, max = 280): string {
 	return corte.slice(0, espaco > max * 0.6 ? espaco : max).replace(/[\s,.;:–—-]+$/, '') + '…';
 }
 
+// g1 e ge: depois da foto vêm a legenda e, às vezes, o crédito ("John Minchillo/AP", "g1");
+// o texto começa depois. No meio, avisos da casa ("Tem alguma sugestão de reportagem?").
+const GLOBO = /^(g1|ge)(-|$)/;
+const FOTO_NO_COMECO = /^\s*<img\b[^>]*>\s*(?:<br\s*\/?>)?/i;
+const AVISO_GLOBO = /^\+\s|Adicione o (g1|ge)\b|Tem alguma sugest/i;
+const pareceCredito = (linha: string) => linha.length <= 60 && !/[.!?:;\u2026]$/.test(linha);
+
+export function semLegendaGlobo(html: string): string {
+	const foto = FOTO_NO_COMECO.exec(html);
+	if (!foto) return html;
+	const linhas = html
+		.slice(foto[0].length)
+		.split('\n')
+		.map((l) => l.trim())
+		.filter((l) => l && !AVISO_GLOBO.test(l));
+	if (linhas.length > 1) linhas.shift();
+	if (linhas.length > 1 && pareceCredito(linhas[0])) linhas.shift();
+	return linhas.join('\n');
+}
+
+// Conteúdo automático ou de propaganda: previsão do tempo por cidade, palpites de aposta e ofertas de loja.
+const RUIDO = [
+	/^previsao do tempo (hoje|para amanha)\b/,
+	/^palpites? e dicas\b/,
+	/\bem promocao (na|no) (amazon|mercado livre|shopee|aliexpress|magalu|kabum)\b/
+];
+const ehRuido = (titulo: string) => RUIDO.some((r) => r.test(semAcento(titulo)));
+
 const SETE_DIAS_MS = 7 * 24 * 60 * 60 * 1000;
 
 function dataConfiavel(valor: string | null, agora: Date): Date {
@@ -59,10 +87,10 @@ function dataConfiavel(valor: string | null, agora: Date): Date {
 
 const comparavel = (s: string) => semAcento(s).replace(/[^a-z0-9]+/g, ' ').trim();
 
-/** Notícia pronta para gravar, ou null se faltar título ou link, se for velha ou se não couber no espaço. */
+/** Notícia pronta para gravar, ou null se faltar título ou link, se for velha, ruído ou fora do espaço. */
 export function prepararItem(bruto: ItemBruto, fonte: Fonte, agora: Date): ItemPronto | null {
 	const titulo = limparTexto(bruto.titulo);
-	if (!titulo) return null;
+	if (!titulo || ehRuido(titulo)) return null;
 	let url: string;
 	try {
 		url = urlCanonica(bruto.url);
@@ -72,7 +100,7 @@ export function prepararItem(bruto: ItemBruto, fonte: Fonte, agora: Date): ItemP
 	const quando = dataConfiavel(bruto.publicadoEm, agora);
 	if (agora.getTime() - quando.getTime() > SETE_DIAS_MS) return null;
 
-	let resumo = trecho(bruto.trecho);
+	let resumo = trecho(GLOBO.test(fonte.id) ? semLegendaGlobo(bruto.trecho) : bruto.trecho);
 	if (comparavel(resumo) === comparavel(titulo)) resumo = '';
 
 	const { espaco, canais } = classificar(fonte, titulo, resumo);
