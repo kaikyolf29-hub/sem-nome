@@ -80,10 +80,27 @@ describe('responder: /api/feed', () => {
 		expect((await chamar('/api/outra')).status).toBe(404);
 	});
 
+	it('chama o fetch solto, como a Cloudflare exige (fetch como método de outro objeto quebra lá)', async () => {
+		const { cache } = cacheFalso();
+		// Igual ao fetch dos Workers: com `this` de outro objeto, lança "Illegal invocation".
+		const buscar = async function (this: unknown) {
+			if (this !== undefined && this !== globalThis) throw new TypeError('Illegal invocation');
+			return new Response('[]');
+		} as unknown as typeof fetch;
+		const r = await responder(new Request('https://m.exemplo/api/feed?espaco=geral'), {
+			buscar,
+			cache,
+			esperar: () => {}
+		});
+		expect(r.status).toBe(200);
+	});
+
 	it('Supabase com erro devolve 502 e não guarda; falha de rede também', async () => {
 		const { chamar, guardado } = montar(500, { message: 'x' });
 		const r = await chamar('/api/feed?espaco=geral');
 		expect(r.status).toBe(502);
+		// O status da origem vai junto (sem o corpo dela), para achar a causa sem expor nada.
+		expect(await r.json()).toEqual({ erro: 'origem com erro', status: 500 });
 		expect(guardado.size).toBe(0);
 
 		const { cache, guardado: g2 } = cacheFalso();

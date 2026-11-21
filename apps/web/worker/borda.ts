@@ -88,19 +88,18 @@ export async function responder(pedido: Request, dep: Dependencias): Promise<Res
 	const guardada = await dep.cache.match(chaveCache);
 	if (guardada) return guardada;
 
+	// Solto do objeto: nos Workers, fetch chamado como método de outro objeto lança "Illegal invocation".
+	const { buscar } = dep;
 	let origem: Response;
 	try {
-		origem = await dep.buscar(
-			`${SUPABASE_URL}/rest/v1/rpc/${consulta.rpc}?${consulta.parametros}`,
-			{
-				method: 'GET',
-				headers: { apikey: SUPABASE_CHAVE_PUBLICAVEL, Accept: 'application/json' }
-			}
-		);
+		origem = await buscar(`${SUPABASE_URL}/rest/v1/rpc/${consulta.rpc}?${consulta.parametros}`, {
+			method: 'GET',
+			headers: { apikey: SUPABASE_CHAVE_PUBLICAVEL, Accept: 'application/json' }
+		});
 	} catch {
 		return json({ erro: 'origem indisponivel' }, 502);
 	}
-	if (origem.status !== 200) return json({ erro: 'origem com erro' }, 502);
+	if (origem.status !== 200) return json({ erro: 'origem com erro', status: origem.status }, 502);
 
 	const corpo = await origem.text();
 	const resposta = new Response(corpo, {
