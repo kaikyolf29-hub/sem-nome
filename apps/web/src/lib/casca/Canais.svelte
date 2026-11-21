@@ -161,7 +161,12 @@
 		background: var(--texto);
 	}
 
+	/* Caixa de largura fixa: o # dos canais e o + de "Adicionar tema" alinham os nomes. */
 	.hash {
+		display: inline-grid;
+		flex: none;
+		place-items: center;
+		width: 14px;
 		font-size: 1.15em;
 		opacity: 0.7;
 	}
@@ -179,9 +184,6 @@
 	}
 
 	.adicionar .hash {
-		display: inline-grid;
-		place-items: center;
-		width: 1em;
 		height: 1em;
 	}
 

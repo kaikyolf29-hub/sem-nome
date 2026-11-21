@@ -57,3 +57,41 @@ for (const largura of [320, 390, 768]) {
 		expect(Math.abs(cima - baixo), `${cima} x ${baixo}`).toBeLessThanOrEqual(2);
 	});
 }
+
+// "Adicionar tema" no fim dos canais de "Para você": o texto começa na mesma linha dos nomes dos canais.
+test('"Adicionar tema" alinhado com os nomes dos canais', async ({ page, isMobile }) => {
+	test.skip(isMobile, 'canais da tela larga');
+	await page.addInitScript(() =>
+		localStorage.setItem('mirante:preferencias', JSON.stringify({ escolheu: true }))
+	);
+	await page.goto('/para-voce/tudo');
+	const canais = page.getByRole('navigation', { name: 'Canais' });
+	const nome = (await canais.locator('a.canal .nome').first().boundingBox())!;
+	const adicionar = (await canais.locator('.adicionar .nome').boundingBox())!;
+	expect(Math.round(adicionar.x)).toBe(Math.round(nome.x));
+});
+
+// Painel de temas: nomes, caixas de seleção e o botão "Pronto" em colunas retas, em todas as larguras.
+for (const largura of [320, 390, 768, 1024, 1440]) {
+	test(`painel de temas alinhado em ${largura}px`, async ({ page, isMobile }) => {
+		test.skip(isMobile, 'as larguras já cobrem o celular');
+		await page.setViewportSize({ width: largura, height: 900 });
+		await page.goto('/para-voce/tudo');
+		const painel = page.getByRole('dialog', { name: 'O que você quer ver?' });
+		await expect(painel.locator('.detalhe').first()).toBeVisible();
+		const xs = async (seletor: string, lado: 'esquerda' | 'direita') =>
+			painel.locator(seletor).evaluateAll((els, l) => {
+				return els.map((el) => {
+					const r = el.getBoundingClientRect();
+					return Math.round(l === 'esquerda' ? r.left : r.right);
+				});
+			}, lado);
+		const titulo = (await xs('h2', 'esquerda'))[0];
+		expect(new Set(await xs('h3', 'esquerda'))).toEqual(new Set([titulo]));
+		expect(new Set(await xs('.linhas .icone', 'esquerda'))).toEqual(new Set([titulo]));
+		expect(new Set(await xs('.linhas .nome', 'esquerda')).size).toBe(1);
+		const caixas = new Set(await xs('.linhas .caixa', 'direita'));
+		expect(caixas.size).toBe(1);
+		expect([...caixas][0]).toBe((await xs('.rodape .principal', 'direita'))[0]);
+	});
+}

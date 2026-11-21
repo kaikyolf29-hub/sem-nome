@@ -1,4 +1,6 @@
 <script lang="ts">
+	import ChevronRight from '@lucide/svelte/icons/chevron-right';
+	import Newspaper from '@lucide/svelte/icons/newspaper';
 	import X from '@lucide/svelte/icons/x';
 	import { resolve } from '$app/paths';
 	import { casca } from '#lib/casca/casca.svelte.ts';
@@ -7,6 +9,7 @@
 	import { i18n, t } from '#lib/i18n/index.ts';
 	import type { ChaveMensagem, Idioma } from '#lib/i18n/tipos.ts';
 	import { janela, type ModoJanela } from '#lib/janela/janela.svelte.ts';
+	import { painelTemas } from '#lib/preferencias/painel.svelte.ts';
 
 	let manchete = $state<'serifada' | 'semSerifa'>('serifada');
 	let botaoFechar: HTMLButtonElement | undefined = $state();
@@ -24,6 +27,14 @@
 	});
 
 	const fechar = () => (casca.ajustesAberto = false);
+
+	// "Notícias e temas": fecha os ajustes e abre o painel de temas; ao fechar, o foco volta à engrenagem.
+	function abrirTemas() {
+		const origem = quemAbriu;
+		quemAbriu = null;
+		fechar();
+		painelTemas.abrir(origem);
+	}
 
 	$effect(() => {
 		document.documentElement.style.setProperty(
@@ -135,6 +146,11 @@
 				</div>
 			</fieldset>
 		{/each}
+		<button class="entrada" type="button" onclick={abrirTemas}>
+			<Newspaper size={18} strokeWidth={1.75} aria-hidden="true" />
+			<span>{t('prototipo.noticiasTemas')}</span>
+			<ChevronRight size={16} strokeWidth={2} aria-hidden="true" />
+		</button>
 		<a class="logos" href={resolve('/marca')}>{t('prototipo.verLogos')}</a>
 	</section>
 {/if}
@@ -227,6 +243,32 @@
 		position: absolute;
 		opacity: 0;
 		pointer-events: none;
+	}
+
+	.entrada {
+		display: grid;
+		grid-template-columns: auto minmax(0, 1fr) auto;
+		align-items: center;
+		gap: var(--espaco-2);
+		min-height: 44px;
+		padding: 0 var(--espaco-3);
+		border: 1px solid var(--borda);
+		border-radius: var(--raio-medio);
+		background: var(--trilho);
+		color: var(--texto);
+		font: inherit;
+		font-size: var(--tipo-pequeno);
+		font-weight: 600;
+		text-align: start;
+		cursor: pointer;
+	}
+
+	.entrada:hover {
+		background: var(--cartao);
+	}
+
+	.entrada :global(svg:last-child) {
+		color: var(--texto-fraco);
 	}
 
 	.logos {
